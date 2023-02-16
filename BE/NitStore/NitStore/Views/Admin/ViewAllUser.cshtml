@@ -1,0 +1,81 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
+      crossorigin="anonymous"
+    />
+    <title>Document</title>
+  </head>
+  <body>
+    <div>
+      <nav class="navbar navbar-light bg-light">
+        <div class="container-fluid">
+          <span class="navbar-brand mb-0 h1">NIT Admin</span>
+          <nav class="nav">
+            <a class="nav-link" href="#">Manage User</a>
+            <a class="nav-link" href="#">Manage Product</a>
+          </nav>
+        </div>
+      </nav>
+    </div>
+    <div class="d-flex container-fluid justify-content-center">
+      <div class="w-75 mt-5">
+        <button type="button" class="btn btn-success">Add New User</button>
+        <table class="table">
+          <thead>
+            <tr>
+              <th scope="col">#</th>
+              <th scope="col">User Name</th>
+              <th scope="col">Password</th>
+              <th scope="col">Role</th>
+              <th scope="col">Email</th>
+              <th class="justify-content-center text-center" scope="col">
+                Action
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <th scope="row">1</th>
+              <td>Mark</td>
+              <td>Otto</td>
+              <td>Otto</td>
+              <td>mdo</td>
+              <td class="justify-content-center text-center">
+                <button type="button" class="btn btn-danger">Remove</button>
+                <button type="button" class="btn btn-warning">Edit</button>
+              </td>
+            </tr>
+            <tr>
+              <th scope="row">2</th>
+              <td>Jacob</td>
+              <td>Thornton</td>
+              <td>Otto</td>
+              <td>fat</td>
+              <td class="justify-content-center text-center">
+                <button type="button" class="btn btn-danger">Remove</button>
+                <button type="button" class="btn btn-warning">Edit</button>
+              </td>
+            </tr>
+            <tr>
+              <th scope="row">3</th>
+              <td colspan="2">Larry the Bird</td>
+              <td>twitter</td>
+              <td></td>
+              <td class="justify-content-center text-center">
+                <button type="button" class="btn btn-danger">Remove</button>
+                <button type="button" class="btn btn-warning">Edit</button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </body>
+</html>
