@@ -15,6 +15,10 @@ build_property.GenerateRazorMetadataSourceChecksumAttributes =
 build_property.MSBuildProjectDirectory = C:\Users\Acer\Desktop\SWP391\SWP391_OnlineShop_Team2\BE\NitStore\NitStore
 build_property._RazorSourceGeneratorDebug = 
 
+[C:/Users/Acer/Desktop/SWP391/SWP391_OnlineShop_Team2/BE/NitStore/NitStore/shared/LayoutAdmin.cshtml]
+build_metadata.AdditionalFiles.TargetPath = c2hhcmVkXExheW91dEFkbWluLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
 [C:/Users/Acer/Desktop/SWP391/SWP391_OnlineShop_Team2/BE/NitStore/NitStore/shared/_Layout.cshtml]
 build_metadata.AdditionalFiles.TargetPath = c2hhcmVkXF9MYXlvdXQuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
