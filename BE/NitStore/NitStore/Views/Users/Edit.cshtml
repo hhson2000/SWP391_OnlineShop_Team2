@@ -1,4 +1,7 @@
-﻿<!DOCTYPE html>
+﻿@model NitStore.Models.Domain.User
+
+
+<!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
@@ -26,6 +29,10 @@
         </nav>
       </div>
       <div class="d-flex container-fluid justify-content-center">
+          <form method="post" action="@Url.Action("Edit", "Users")">
+                @Html.HiddenFor(model => model.Id)
+                @Html.HiddenFor(model => model.Password)
+                @Html.HiddenFor(model => model.NeedToChange)
         <div class="w-75 mt-5">
           <h1>Update user</h1>
           <div class="input-group mb-3">
@@ -37,7 +44,7 @@
               class="form-control"
               aria-label="Sizing example input"
               aria-describedby="inputGroup-sizing-default"
-            />
+                               asp-for="Email" />
           </div>
           <div class="input-group mb-3">
             <span class="input-group-text" id="inputGroup-sizing-default"
@@ -48,21 +55,17 @@
               class="form-control"
               aria-label="Sizing example input"
               aria-describedby="inputGroup-sizing-default"
-            />
+                               asp-for="UserName" />
           </div>
           <div class="form-check">
-            <input
-              class="form-check-input"
-              type="checkbox"
-              value=""
-              id="flexCheckDefault"
-            />
+             @Html.EditorFor(model => model.IsActive)
             <label class="form-check-label" for="flexCheckDefault">
               Is Active
             </label>
           </div>
-          <button type="button" class="mt-2 btn btn-success">Submit</button>
+          <button type="submit" class="mt-2 btn btn-success">Submit</button>
         </div>
+            </form>
       </div>
       <footer
         style="position: fixed; bottom: 0; width: 100%"
