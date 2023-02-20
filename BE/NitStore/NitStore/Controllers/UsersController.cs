@@ -51,8 +51,8 @@ namespace NitStore.Controllers
 
             };
 
-            dbContext.users.AddAsync(User);
-            dbContext.SaveChangesAsync();
+            dbContext.users.Add(User);
+            dbContext.SaveChanges();
             return RedirectToAction("Index");
         }
 
