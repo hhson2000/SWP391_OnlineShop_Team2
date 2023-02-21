@@ -5,81 +5,104 @@ build_property.UsingMicrosoftNETSdkWeb = true
 build_property.ProjectTypeGuids = 
 build_property.InvariantGlobalization = 
 build_property.PlatformNeutralAssembly = 
-build_property.EnforceExtendedAnalyzerRules = 
 build_property._SupportedPlatformList = Linux,macOS,Windows
 build_property.RootNamespace = NitStore
 build_property.RootNamespace = NitStore
-build_property.ProjectDir = D:\NIT_Store\SWP391_OnlineShop_Team2\BE\NitStore\NitStore\
+build_property.ProjectDir = H:\WORK\Nam4-Ki4\SWP391\ProjectNIT\SWP391_OnlineShop_Team2\BE\NitStore\NitStore\
 build_property.RazorLangVersion = 6.0
 build_property.SupportLocalizedComponentNames = 
 build_property.GenerateRazorMetadataSourceChecksumAttributes = 
-build_property.MSBuildProjectDirectory = D:\NIT_Store\SWP391_OnlineShop_Team2\BE\NitStore\NitStore
+build_property.MSBuildProjectDirectory = H:\WORK\Nam4-Ki4\SWP391\ProjectNIT\SWP391_OnlineShop_Team2\BE\NitStore\NitStore
 build_property._RazorSourceGeneratorDebug = 
 
-[D:/NIT_Store/SWP391_OnlineShop_Team2/BE/NitStore/NitStore/shared/LayoutAdmin.cshtml]
+[H:/WORK/Nam4-Ki4/SWP391/ProjectNIT/SWP391_OnlineShop_Team2/BE/NitStore/NitStore/shared/LayoutAdmin.cshtml]
 build_metadata.AdditionalFiles.TargetPath = c2hhcmVkXExheW91dEFkbWluLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/NIT_Store/SWP391_OnlineShop_Team2/BE/NitStore/NitStore/shared/_Layout.cshtml]
+[H:/WORK/Nam4-Ki4/SWP391/ProjectNIT/SWP391_OnlineShop_Team2/BE/NitStore/NitStore/shared/_Layout.cshtml]
 build_metadata.AdditionalFiles.TargetPath = c2hhcmVkXF9MYXlvdXQuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/NIT_Store/SWP391_OnlineShop_Team2/BE/NitStore/NitStore/Views/Admin/Add.cshtml]
+[H:/WORK/Nam4-Ki4/SWP391/ProjectNIT/SWP391_OnlineShop_Team2/BE/NitStore/NitStore/Views/Admin/Add.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cQWRkLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/NIT_Store/SWP391_OnlineShop_Team2/BE/NitStore/NitStore/Views/Admin/Edit.cshtml]
+[H:/WORK/Nam4-Ki4/SWP391/ProjectNIT/SWP391_OnlineShop_Team2/BE/NitStore/NitStore/Views/Admin/Edit.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cRWRpdC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/NIT_Store/SWP391_OnlineShop_Team2/BE/NitStore/NitStore/Views/Admin/HomeAdmin.cshtml]
+[H:/WORK/Nam4-Ki4/SWP391/ProjectNIT/SWP391_OnlineShop_Team2/BE/NitStore/NitStore/Views/Admin/HomeAdmin.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cSG9tZUFkbWluLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/NIT_Store/SWP391_OnlineShop_Team2/BE/NitStore/NitStore/Views/Admin/ViewAllUser.cshtml]
+[H:/WORK/Nam4-Ki4/SWP391/ProjectNIT/SWP391_OnlineShop_Team2/BE/NitStore/NitStore/Views/Admin/ViewAllUser.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cVmlld0FsbFVzZXIuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/NIT_Store/SWP391_OnlineShop_Team2/BE/NitStore/NitStore/Views/Home/LandingPage.cshtml]
+[H:/WORK/Nam4-Ki4/SWP391/ProjectNIT/SWP391_OnlineShop_Team2/BE/NitStore/NitStore/Views/Categories/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ2F0ZWdvcmllc1xDcmVhdGUuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[H:/WORK/Nam4-Ki4/SWP391/ProjectNIT/SWP391_OnlineShop_Team2/BE/NitStore/NitStore/Views/Categories/Delete.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ2F0ZWdvcmllc1xEZWxldGUuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[H:/WORK/Nam4-Ki4/SWP391/ProjectNIT/SWP391_OnlineShop_Team2/BE/NitStore/NitStore/Views/Categories/Details.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ2F0ZWdvcmllc1xEZXRhaWxzLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[H:/WORK/Nam4-Ki4/SWP391/ProjectNIT/SWP391_OnlineShop_Team2/BE/NitStore/NitStore/Views/Categories/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ2F0ZWdvcmllc1xFZGl0LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[H:/WORK/Nam4-Ki4/SWP391/ProjectNIT/SWP391_OnlineShop_Team2/BE/NitStore/NitStore/Views/Categories/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ2F0ZWdvcmllc1xJbmRleC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[H:/WORK/Nam4-Ki4/SWP391/ProjectNIT/SWP391_OnlineShop_Team2/BE/NitStore/NitStore/Views/Home/LandingPage.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxMYW5kaW5nUGFnZS5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/NIT_Store/SWP391_OnlineShop_Team2/BE/NitStore/NitStore/Views/Home/Privacy.cshtml]
+[H:/WORK/Nam4-Ki4/SWP391/ProjectNIT/SWP391_OnlineShop_Team2/BE/NitStore/NitStore/Views/Home/Privacy.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxQcml2YWN5LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/NIT_Store/SWP391_OnlineShop_Team2/BE/NitStore/NitStore/Views/Login/Login.cshtml]
+[H:/WORK/Nam4-Ki4/SWP391/ProjectNIT/SWP391_OnlineShop_Team2/BE/NitStore/NitStore/Views/Login/Login.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTG9naW5cTG9naW4uY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/NIT_Store/SWP391_OnlineShop_Team2/BE/NitStore/NitStore/Views/Login/Register.cshtml]
+[H:/WORK/Nam4-Ki4/SWP391/ProjectNIT/SWP391_OnlineShop_Team2/BE/NitStore/NitStore/Views/Login/Register.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTG9naW5cUmVnaXN0ZXIuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/NIT_Store/SWP391_OnlineShop_Team2/BE/NitStore/NitStore/Views/Maketer/AddProduct.cshtml]
+[H:/WORK/Nam4-Ki4/SWP391/ProjectNIT/SWP391_OnlineShop_Team2/BE/NitStore/NitStore/Views/Maketer/AddProduct.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTWFrZXRlclxBZGRQcm9kdWN0LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/NIT_Store/SWP391_OnlineShop_Team2/BE/NitStore/NitStore/Views/Maketer/EditProduct.cshtml]
+[H:/WORK/Nam4-Ki4/SWP391/ProjectNIT/SWP391_OnlineShop_Team2/BE/NitStore/NitStore/Views/Maketer/EditProduct.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTWFrZXRlclxFZGl0UHJvZHVjdC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/NIT_Store/SWP391_OnlineShop_Team2/BE/NitStore/NitStore/Views/Maketer/HomeMaketer.cshtml]
+[H:/WORK/Nam4-Ki4/SWP391/ProjectNIT/SWP391_OnlineShop_Team2/BE/NitStore/NitStore/Views/Maketer/HomeMaketer.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTWFrZXRlclxIb21lTWFrZXRlci5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/NIT_Store/SWP391_OnlineShop_Team2/BE/NitStore/NitStore/Views/Maketer/ViewAllProduct.cshtml]
+[H:/WORK/Nam4-Ki4/SWP391/ProjectNIT/SWP391_OnlineShop_Team2/BE/NitStore/NitStore/Views/Maketer/ViewAllProduct.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTWFrZXRlclxWaWV3QWxsUHJvZHVjdC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/NIT_Store/SWP391_OnlineShop_Team2/BE/NitStore/NitStore/Views/Shared/LayoutMaketer.cshtml]
+[H:/WORK/Nam4-Ki4/SWP391/ProjectNIT/SWP391_OnlineShop_Team2/BE/NitStore/NitStore/Views/Shared/LayoutMaketer.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXExheW91dE1ha2V0ZXIuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/NIT_Store/SWP391_OnlineShop_Team2/BE/NitStore/NitStore/Views/Shared/_LayoutAdmin.cshtml]
+[H:/WORK/Nam4-Ki4/SWP391/ProjectNIT/SWP391_OnlineShop_Team2/BE/NitStore/NitStore/Views/Shared/_LayoutAdmin.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9MYXlvdXRBZG1pbi5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/NIT_Store/SWP391_OnlineShop_Team2/BE/NitStore/NitStore/Views/Shared/_Layout.cshtml]
+[H:/WORK/Nam4-Ki4/SWP391/ProjectNIT/SWP391_OnlineShop_Team2/BE/NitStore/NitStore/Views/Shared/_ValidationScriptsPartial.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9WYWxpZGF0aW9uU2NyaXB0c1BhcnRpYWwuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[H:/WORK/Nam4-Ki4/SWP391/ProjectNIT/SWP391_OnlineShop_Team2/BE/NitStore/NitStore/Views/Shared/_Layout.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9MYXlvdXQuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = b-2v6iqtdmul

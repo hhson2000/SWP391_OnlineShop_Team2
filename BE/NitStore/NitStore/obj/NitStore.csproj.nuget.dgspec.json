@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "D:\\NIT_Store\\SWP391_OnlineShop_Team2\\BE\\NitStore\\NitStore\\NitStore.csproj": {}
+    "H:\\WORK\\Nam4-Ki4\\SWP391\\ProjectNIT\\SWP391_OnlineShop_Team2\\BE\\NitStore\\NitStore\\NitStore.csproj": {}
   },
   "projects": {
-    "D:\\NIT_Store\\SWP391_OnlineShop_Team2\\BE\\NitStore\\NitStore\\NitStore.csproj": {
+    "H:\\WORK\\Nam4-Ki4\\SWP391\\ProjectNIT\\SWP391_OnlineShop_Team2\\BE\\NitStore\\NitStore\\NitStore.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\NIT_Store\\SWP391_OnlineShop_Team2\\BE\\NitStore\\NitStore\\NitStore.csproj",
+        "projectUniqueName": "H:\\WORK\\Nam4-Ki4\\SWP391\\ProjectNIT\\SWP391_OnlineShop_Team2\\BE\\NitStore\\NitStore\\NitStore.csproj",
         "projectName": "NitStore",
-        "projectPath": "D:\\NIT_Store\\SWP391_OnlineShop_Team2\\BE\\NitStore\\NitStore\\NitStore.csproj",
-        "packagesPath": "C:\\Users\\ADMIN\\.nuget\\packages\\",
-        "outputPath": "D:\\NIT_Store\\SWP391_OnlineShop_Team2\\BE\\NitStore\\NitStore\\obj\\",
+        "projectPath": "H:\\WORK\\Nam4-Ki4\\SWP391\\ProjectNIT\\SWP391_OnlineShop_Team2\\BE\\NitStore\\NitStore\\NitStore.csproj",
+        "packagesPath": "C:\\Users\\Administrator\\.nuget\\packages\\",
+        "outputPath": "H:\\WORK\\Nam4-Ki4\\SWP391\\ProjectNIT\\SWP391_OnlineShop_Team2\\BE\\NitStore\\NitStore\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\ADMIN\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\Administrator\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -52,7 +52,7 @@
             },
             "Microsoft.VisualStudio.Web.CodeGeneration.Design": {
               "target": "Package",
-              "version": "[6.0.11, )"
+              "version": "[6.0.12, )"
             },
             "PagedList": {
               "target": "Package",
@@ -82,7 +82,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.100\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.401\\RuntimeIdentifierGraph.json"
         }
       }
     }
