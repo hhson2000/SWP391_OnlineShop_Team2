@@ -24,18 +24,18 @@ namespace NitStore.Controllers
             return View(userList);
         }
 
-        [HttpGet]
-        public async Task<IActionResult> Index()
-        {
-            var userList = await dbContext.users.ToListAsync();
+        //[HttpGet]
+        //public async Task<IActionResult> Index()
+        //{
+        //    var userList = await dbContext.users.ToListAsync();
 
-            if (userList.Count > 0)
-            {
-                var list = userList.ToPagedList(Common.Constants.PAGE_NUMBER, Common.Constants.PAGE_SIZE);
-                return View(list);
-            }
-            return View();
-        }
+        //    if (userList.Count > 0)
+        //    {
+        //        var list = userList.ToPagedList(Common.Constants.PAGE_NUMBER, Common.Constants.PAGE_SIZE);
+        //        return View(list);
+        //    }
+        //    return View();
+        //}
 
 
 
@@ -61,7 +61,7 @@ namespace NitStore.Controllers
 
             dbContext.users.Add(User);
             dbContext.SaveChanges();
-            return RedirectToAction("Index");
+            return RedirectToAction("ViewAllUser");
         }
 
         [HttpGet]
@@ -73,7 +73,7 @@ namespace NitStore.Controllers
                 dbContext.users.Remove(user);
                 dbContext.SaveChangesAsync();
             }
-            return RedirectToAction("Index");
+            return RedirectToAction("ViewAllUser");
         }
 
         [HttpGet]
@@ -99,7 +99,7 @@ namespace NitStore.Controllers
             //currentUser.Email = dto.UserName;
             //currentUser.Password = "123456";
             dbContext.SaveChangesAsync();
-            return RedirectToAction("Index");
+            return RedirectToAction("ViewAllUser");
         }
 
     }
