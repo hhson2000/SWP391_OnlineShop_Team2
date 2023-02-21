@@ -7,7 +7,7 @@
 
 <div class="d-flex container-fluid justify-content-center">
      <div class="w-75 mt-5">
-    <form method="post" action="@Url.Action("Edit", "Admin")">
+    <form method="post" action="@Url.Action("Edit", "Users")">
         @Html.HiddenFor(model => model.Id)
         @Html.HiddenFor(model => model.Password)
         @Html.HiddenFor(model => model.NeedToChange)
@@ -15,19 +15,11 @@
             <h1>Update user</h1>
             <div class="input-group mb-3">
                 <span class="input-group-text" id="inputGroup-sizing-default">Email</span>
-                <input type="text"
-                       class="form-control"
-                       aria-label="Sizing example input"
-                       aria-describedby="inputGroup-sizing-default"
-                       asp-for="Email" />
+                @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control" } })
             </div>
             <div class="input-group mb-3">
                 <span class="input-group-text" id="inputGroup-sizing-default">Username</span>
-                <input type="text"
-                       class="form-control"
-                       aria-label="Sizing example input"
-                       aria-describedby="inputGroup-sizing-default"
-                       asp-for="UserName" />
+                @Html.EditorFor(model => model.UserName, new { htmlAttributes = new { @class = "form-control" } })
             </div>
             <div>
                 @Html.EditorFor(model => model.IsActive) Is Active

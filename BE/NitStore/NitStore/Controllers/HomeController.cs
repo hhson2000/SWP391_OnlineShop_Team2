@@ -26,5 +26,23 @@ namespace NitStore.Controllers
         {
             return View();
         }
+
+        [HttpGet]
+        public async Task<IActionResult> HomeMaketer()
+        {
+            return View();
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> Login()
+        {
+            return View();
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> Register()
+        {
+            return View();
+        }
     }
 }
