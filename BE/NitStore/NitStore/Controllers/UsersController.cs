@@ -16,30 +16,24 @@ namespace NitStore.Controllers
             this.dbContext = dbContext;
         }
 
-        [HttpGet]
-        public async Task<IActionResult>Index()
+        public async Task<IActionResult> ViewAllUser()
         {
             var userList = await dbContext.users.ToListAsync();
-            
-            if (userList.Count > 0)
-            {
-                var list = userList.ToPagedList(Common.Constants.PAGE_NUMBER, Common.Constants.PAGE_SIZE);
-                return View(list);
-            }
-            return View();
+            return View(userList);
         }
-
-
 
         [HttpGet]
         public IActionResult Add()
         {
+            
             return View();
         }
 
         [HttpPost]
         public async Task<IActionResult> Add(UserAddDTO dto)
         {
+            List<Role> roleList = new List<Role>();
+            //roleList = = await dbContext.
             var User = new User()
             {
                 UserName = dto.UserName,
@@ -53,19 +47,19 @@ namespace NitStore.Controllers
 
             dbContext.users.Add(User);
             dbContext.SaveChanges();
-            return RedirectToAction("Index");
+            return RedirectToAction("ViewAllUser", "Users", new { area = "" });
         }
 
         [HttpGet]
         public IActionResult Delete(int id)
         {
             var user = dbContext.users.Where(x => x.Id == id).First();
-            if(user != null)
+            if (user != null)
             {
                 dbContext.users.Remove(user);
                 dbContext.SaveChangesAsync();
             }
-            return RedirectToAction("Index");
+            return RedirectToAction("ViewAllUser", "Users", new { area = "" });
         }
 
         [HttpGet]
@@ -91,7 +85,7 @@ namespace NitStore.Controllers
             //currentUser.Email = dto.UserName;
             //currentUser.Password = "123456";
             dbContext.SaveChangesAsync();
-            return RedirectToAction("Index");
+            return RedirectToAction("ViewAllUser", "Users", new { area = "" });
         }
     }
 }

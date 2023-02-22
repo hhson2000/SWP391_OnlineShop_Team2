@@ -1,24 +1,22 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using NitStore.Data;
-using NitStore.Models.Domain;
-using NitStore.Models.DTO;
-using PagedList;
 
 namespace NitStore.Controllers
 {
-    public class AdminController : Controller
+    public class ProductController : Controller
     {
+
         private readonly NitDbContext dbContext;
-        public AdminController(NitDbContext dbContext)
+
+        public ProductController(NitDbContext dbContext)
         {
             this.dbContext = dbContext;
         }
-        public async Task<IActionResult> HomeAdmin()
+        public async Task<IActionResult> ViewAllProduct()
         {
+            
             return View();
         }
-        
-
     }
 }

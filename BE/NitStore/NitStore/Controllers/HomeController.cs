@@ -1,32 +1,48 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 using NitStore.Models;
+using NitStore.Data;
 
 namespace NitStore.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly ILogger<HomeController> _logger;
+        //private readonly ILogger<HomeController> _logger;
+        private readonly NitDbContext dbContext;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(NitDbContext dbContext)
         {
-            _logger = logger;
+            this.dbContext = dbContext;
         }
 
         public IActionResult Index()
         {
-            return View();
+            //return RedirectToAction("HomeAdmin", "Admin", new { area = "" });
+            return RedirectToAction("LandingPage");
         }
 
-        public IActionResult Privacy()
+        [HttpGet]
+        public async Task<IActionResult> LandingPage()
         {
             return View();
         }
 
-        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-        public IActionResult Error()
+        [HttpGet]
+        public async Task<IActionResult> HomeMaketer()
         {
-            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+            return View();
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> Login()
+        {
+            return View();
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> Register()
+        {
+            return View();
         }
     }
 }

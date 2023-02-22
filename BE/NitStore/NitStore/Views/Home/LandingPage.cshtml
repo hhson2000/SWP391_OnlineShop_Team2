@@ -1,4 +1,7 @@
-﻿<!DOCTYPE html>
+﻿@{
+    Layout = null;
+}
+<!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
@@ -79,6 +82,7 @@
           href="#"
           >Contact</a
         >
+            @Html.ActionLink("/ Admin Dashboard", "ViewAllUser", "Users", new { @class = "nav-link" }, null)
       </div>
 
       <!-- Background image -->

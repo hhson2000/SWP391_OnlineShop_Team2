@@ -19,88 +19,88 @@ build_property._RazorSourceGeneratorDebug =
 build_metadata.AdditionalFiles.TargetPath = c2hhcmVkXExheW91dEFkbWluLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Acer/Desktop/SWP391/SWP391_OnlineShop_Team2/BE/NitStore/NitStore/shared/_Layout.cshtml]
-build_metadata.AdditionalFiles.TargetPath = c2hhcmVkXF9MYXlvdXQuY3NodG1s
-build_metadata.AdditionalFiles.CssScope = 
-
-[C:/Users/Acer/Desktop/SWP391/SWP391_OnlineShop_Team2/BE/NitStore/NitStore/Views/Admin/Add.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cQWRkLmNzaHRtbA==
-build_metadata.AdditionalFiles.CssScope = 
-
-[C:/Users/Acer/Desktop/SWP391/SWP391_OnlineShop_Team2/BE/NitStore/NitStore/Views/Admin/Edit.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cRWRpdC5jc2h0bWw=
+[C:/Users/Acer/Desktop/SWP391/SWP391_OnlineShop_Team2/BE/NitStore/NitStore/shared/LayoutProduct.cshtml]
+build_metadata.AdditionalFiles.TargetPath = c2hhcmVkXExheW91dFByb2R1Y3QuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Users/Acer/Desktop/SWP391/SWP391_OnlineShop_Team2/BE/NitStore/NitStore/Views/Admin/HomeAdmin.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cSG9tZUFkbWluLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Acer/Desktop/SWP391/SWP391_OnlineShop_Team2/BE/NitStore/NitStore/Views/Admin/Index.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cSW5kZXguY3NodG1s
+[C:/Users/Acer/Desktop/SWP391/SWP391_OnlineShop_Team2/BE/NitStore/NitStore/Views/Categories/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ2F0ZWdvcmllc1xDcmVhdGUuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Acer/Desktop/SWP391/SWP391_OnlineShop_Team2/BE/NitStore/NitStore/Views/Admin/ViewAllUser.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cVmlld0FsbFVzZXIuY3NodG1s
+[C:/Users/Acer/Desktop/SWP391/SWP391_OnlineShop_Team2/BE/NitStore/NitStore/Views/Categories/Delete.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ2F0ZWdvcmllc1xEZWxldGUuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Acer/Desktop/SWP391/SWP391_OnlineShop_Team2/BE/NitStore/NitStore/Views/Home/Index.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxJbmRleC5jc2h0bWw=
+[C:/Users/Acer/Desktop/SWP391/SWP391_OnlineShop_Team2/BE/NitStore/NitStore/Views/Categories/Details.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ2F0ZWdvcmllc1xEZXRhaWxzLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Acer/Desktop/SWP391/SWP391_OnlineShop_Team2/BE/NitStore/NitStore/Views/Categories/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ2F0ZWdvcmllc1xFZGl0LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Acer/Desktop/SWP391/SWP391_OnlineShop_Team2/BE/NitStore/NitStore/Views/Categories/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ2F0ZWdvcmllc1xJbmRleC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Acer/Desktop/SWP391/SWP391_OnlineShop_Team2/BE/NitStore/NitStore/Views/Home/HomeMaketer.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxIb21lTWFrZXRlci5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Users/Acer/Desktop/SWP391/SWP391_OnlineShop_Team2/BE/NitStore/NitStore/Views/Home/LandingPage.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxMYW5kaW5nUGFnZS5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
+[C:/Users/Acer/Desktop/SWP391/SWP391_OnlineShop_Team2/BE/NitStore/NitStore/Views/Home/Login.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxMb2dpbi5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
 [C:/Users/Acer/Desktop/SWP391/SWP391_OnlineShop_Team2/BE/NitStore/NitStore/Views/Home/Privacy.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxQcml2YWN5LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Acer/Desktop/SWP391/SWP391_OnlineShop_Team2/BE/NitStore/NitStore/Views/Login/Login.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTG9naW5cTG9naW4uY3NodG1s
+[C:/Users/Acer/Desktop/SWP391/SWP391_OnlineShop_Team2/BE/NitStore/NitStore/Views/Home/Register.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxSZWdpc3Rlci5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Acer/Desktop/SWP391/SWP391_OnlineShop_Team2/BE/NitStore/NitStore/Views/Login/Register.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTG9naW5cUmVnaXN0ZXIuY3NodG1s
+[C:/Users/Acer/Desktop/SWP391/SWP391_OnlineShop_Team2/BE/NitStore/NitStore/Views/Product/AddProduct.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUHJvZHVjdFxBZGRQcm9kdWN0LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Acer/Desktop/SWP391/SWP391_OnlineShop_Team2/BE/NitStore/NitStore/Views/Maketer/AddProduct.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTWFrZXRlclxBZGRQcm9kdWN0LmNzaHRtbA==
+[C:/Users/Acer/Desktop/SWP391/SWP391_OnlineShop_Team2/BE/NitStore/NitStore/Views/Product/EditProduct.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUHJvZHVjdFxFZGl0UHJvZHVjdC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Acer/Desktop/SWP391/SWP391_OnlineShop_Team2/BE/NitStore/NitStore/Views/Maketer/EditProduct.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTWFrZXRlclxFZGl0UHJvZHVjdC5jc2h0bWw=
-build_metadata.AdditionalFiles.CssScope = 
-
-[C:/Users/Acer/Desktop/SWP391/SWP391_OnlineShop_Team2/BE/NitStore/NitStore/Views/Maketer/HomeMaketer.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTWFrZXRlclxIb21lTWFrZXRlci5jc2h0bWw=
-build_metadata.AdditionalFiles.CssScope = 
-
-[C:/Users/Acer/Desktop/SWP391/SWP391_OnlineShop_Team2/BE/NitStore/NitStore/Views/Maketer/ViewAllProduct.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTWFrZXRlclxWaWV3QWxsUHJvZHVjdC5jc2h0bWw=
-build_metadata.AdditionalFiles.CssScope = 
-
-[C:/Users/Acer/Desktop/SWP391/SWP391_OnlineShop_Team2/BE/NitStore/NitStore/Views/Shared/Error.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXEVycm9yLmNzaHRtbA==
-build_metadata.AdditionalFiles.CssScope = 
-
-[C:/Users/Acer/Desktop/SWP391/SWP391_OnlineShop_Team2/BE/NitStore/NitStore/Views/Shared/LayoutMaketer.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXExheW91dE1ha2V0ZXIuY3NodG1s
+[C:/Users/Acer/Desktop/SWP391/SWP391_OnlineShop_Team2/BE/NitStore/NitStore/Views/Product/ViewAllProduct.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUHJvZHVjdFxWaWV3QWxsUHJvZHVjdC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Users/Acer/Desktop/SWP391/SWP391_OnlineShop_Team2/BE/NitStore/NitStore/Views/Shared/_LayoutAdmin.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9MYXlvdXRBZG1pbi5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
+[C:/Users/Acer/Desktop/SWP391/SWP391_OnlineShop_Team2/BE/NitStore/NitStore/Views/Shared/_LayoutProduct.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9MYXlvdXRQcm9kdWN0LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
 [C:/Users/Acer/Desktop/SWP391/SWP391_OnlineShop_Team2/BE/NitStore/NitStore/Views/Shared/_ValidationScriptsPartial.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9WYWxpZGF0aW9uU2NyaXB0c1BhcnRpYWwuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Acer/Desktop/SWP391/SWP391_OnlineShop_Team2/BE/NitStore/NitStore/Views/_ViewImports.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcX1ZpZXdJbXBvcnRzLmNzaHRtbA==
+[C:/Users/Acer/Desktop/SWP391/SWP391_OnlineShop_Team2/BE/NitStore/NitStore/Views/Users/Add.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVXNlcnNcQWRkLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Acer/Desktop/SWP391/SWP391_OnlineShop_Team2/BE/NitStore/NitStore/Views/_ViewStart.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcX1ZpZXdTdGFydC5jc2h0bWw=
+[C:/Users/Acer/Desktop/SWP391/SWP391_OnlineShop_Team2/BE/NitStore/NitStore/Views/Users/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVXNlcnNcRWRpdC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Acer/Desktop/SWP391/SWP391_OnlineShop_Team2/BE/NitStore/NitStore/Views/Users/ViewAllUser.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVXNlcnNcVmlld0FsbFVzZXIuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Users/Acer/Desktop/SWP391/SWP391_OnlineShop_Team2/BE/NitStore/NitStore/Views/Shared/_Layout.cshtml]
