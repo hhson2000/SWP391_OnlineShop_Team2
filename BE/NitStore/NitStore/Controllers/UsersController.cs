@@ -42,7 +42,6 @@ namespace NitStore.Controllers
                 IsActive = dto.IsActive,
                 NeedToChange = true,
                 Password = "123456"
-
             };
 
             dbContext.users.Add(User);
