@@ -13,5 +13,8 @@ namespace NitStore.Data
         public DbSet<Category> categories { get; set; }
 
         public DbSet<NitStore.Models.Domain.Category> Category { get; set; }
+
+        public DbSet<NitStore.Models.Domain.Image> Image { get; set; }
+
     }
 }
