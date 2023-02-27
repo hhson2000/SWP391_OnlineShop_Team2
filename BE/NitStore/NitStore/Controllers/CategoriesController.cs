@@ -58,11 +58,29 @@ namespace NitStore.Controllers
         {
             if (ModelState.IsValid)
             {
-                _context.Add(category);
-                await _context.SaveChangesAsync();
+                AddCategory(category);
                 return RedirectToAction(nameof(Index));
             }
             return View(category);
+        }
+
+        public async Task<bool> AddCategory(Category category)
+        {
+            if (category == null)
+            {
+                return false;
+            } else if (category.Name == null || category.Description == null)
+            {
+                return false;
+            } else if (category.Name.Trim() == "" || category.Description.Trim() == "") 
+            {
+                return false;
+            } else
+            {
+                _context.Add(category);
+                await _context.SaveChangesAsync();
+                return true;
+            }
         }
 
         // GET: Categories/Edit/5

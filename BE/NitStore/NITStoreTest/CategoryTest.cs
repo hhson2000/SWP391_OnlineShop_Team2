@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using NitStore.Controllers;
 using NitStore.Data;
 using NitStore.Models.Domain;
 using NUnit.Framework;
@@ -44,6 +45,26 @@ namespace NITStoreTest
             Assert.NotNull(savedCategory);
             Assert.AreEqual(category.Name, savedCategory.Name);
             Assert.AreEqual(category.Description, savedCategory.Description);
+        }
+
+        [Test]
+        public void CreateCategoryError_AddsNewCategoryToDatabaseFailed()
+        {
+            // Arrange
+            using var context = new NitDbContext(_options);
+            var category = new Category
+            {
+                Name = "",
+                Description = ""
+            };
+
+            // Act
+            CategoriesController repo = new CategoriesController(context);
+            var resultTask = repo.AddCategory(category);
+            resultTask.Wait();
+            bool result = resultTask.Result;
+            // Assert
+            Assert.AreEqual(result, false);
         }
 
         [Test]
