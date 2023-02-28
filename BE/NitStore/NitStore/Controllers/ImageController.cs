@@ -10,103 +10,85 @@ using NitStore.Models.Domain;
 
 namespace NitStore.Controllers
 {
-    public class CategoriesController : Controller
+    public class ImageController : Controller
     {
         private readonly NitDbContext _context;
 
-        public CategoriesController(NitDbContext context)
+        public ImageController(NitDbContext context)
         {
             _context = context;
         }
 
-        // GET: Categories
+        // GET: Image
         public async Task<IActionResult> Index()
         {
-              return View(await _context.categories.ToListAsync());
+              return View(await _context.Image.ToListAsync());
         }
 
-        // GET: Categories/Details/5
+        // GET: Image/Details/5
         public async Task<IActionResult> Details(int? id)
         {
-            if (id == null || _context.categories == null)
+            if (id == null || _context.Image == null)
             {
                 return NotFound();
             }
 
-            var category = await _context.categories
+            var image = await _context.Image
                 .FirstOrDefaultAsync(m => m.Id == id);
-            if (category == null)
+            if (image == null)
             {
                 return NotFound();
             }
 
-            return View(category);
+            return View(image);
         }
 
-        // GET: Categories/Create
+        // GET: Image/Create
         public IActionResult Create()
         {
             return View();
         }
 
-        // POST: Categories/Create
+        // POST: Image/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Name,Description")] Category category)
+        public async Task<IActionResult> Create([Bind("Id,Description,ImageURL")] Image image)
         {
             if (ModelState.IsValid)
             {
-                AddCategory(category);
+                _context.Add(image);
+                await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(category);
+            return View(image);
         }
 
-        public async Task<bool> AddCategory(Category category)
-        {
-            if (category == null)
-            {
-                return false;
-            } else if (category.Name == null || category.Description == null)
-            {
-                return false;
-            } else if (category.Name.Trim() == "" || category.Description.Trim() == "") 
-            {
-                return false;
-            } else
-            {
-                _context.Add(category);
-                await _context.SaveChangesAsync();
-                return true;
-            }
-        }
-
-        // GET: Categories/Edit/5
+        // GET: Image/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
-            if (id == null || _context.categories == null)
+            if (id == null || _context.Image == null)
             {
                 return NotFound();
             }
 
-            var category = await _context.Category.FindAsync(id);
-            if (category == null)
+            var image = await _context.Image.FindAsync(id);
+            if (image == null)
             {
                 return NotFound();
             }
-            return View(category);
+            return View(image);
         }
 
-        // POST: Categories/Edit/5
+        // POST: Image/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Description")] Category category)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Description,ImageURL")] Image image)
         {
-            if (id != category.Id)
+            if (id != image.Id)
             {
                 return NotFound();
             }
@@ -115,12 +97,12 @@ namespace NitStore.Controllers
             {
                 try
                 {
-                    _context.Update(category);
+                    _context.Update(image);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!CategoryExists(category.Id))
+                    if (!ImageExists(image.Id))
                     {
                         return NotFound();
                     }
@@ -131,49 +113,49 @@ namespace NitStore.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(category);
+            return View(image);
         }
 
-        // GET: Categories/Delete/5
+        // GET: Image/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
-            if (id == null || _context.Category == null)
+            if (id == null || _context.Image == null)
             {
                 return NotFound();
             }
 
-            var category = await _context.Category
+            var image = await _context.Image
                 .FirstOrDefaultAsync(m => m.Id == id);
-            if (category == null)
+            if (image == null)
             {
                 return NotFound();
             }
 
-            return View(category);
+            return View(image);
         }
 
-        // POST: Categories/Delete/5
+        // POST: Image/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            if (_context.Category == null)
+            if (_context.Image == null)
             {
-                return Problem("Entity set 'NitDbContext.Category'  is null.");
+                return Problem("Entity set 'NitDbContext.Image'  is null.");
             }
-            var category = await _context.Category.FindAsync(id);
-            if (category != null)
+            var image = await _context.Image.FindAsync(id);
+            if (image != null)
             {
-                _context.Category.Remove(category);
+                _context.Image.Remove(image);
             }
             
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
-        private bool CategoryExists(int id)
+        private bool ImageExists(int id)
         {
-          return _context.Category.Any(e => e.Id == id);
+          return _context.Image.Any(e => e.Id == id);
         }
     }
 }
