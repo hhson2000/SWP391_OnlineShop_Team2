@@ -10,103 +10,85 @@ using NitStore.Models.Domain;
 
 namespace NitStore.Controllers
 {
-    public class CategoriesController : Controller
+    public class FeedbacksController : Controller
     {
         private readonly NitDbContext dbContext;
 
-        public CategoriesController(NitDbContext dbContext)
+        public FeedbacksController(NitDbContext dbContext)
         {
             this.dbContext = dbContext;
         }
 
-        // GET: Categories
+        // GET: Feedbacks
         public async Task<IActionResult> Index()
         {
-              return View(await dbContext.categories.ToListAsync());
+              return View(await dbContext.feedbacks.ToListAsync());
         }
 
-        // GET: Categories/Details/5
+        // GET: Feedbacks/Details/5
         public async Task<IActionResult> Details(int? id)
         {
-            if (id == null || dbContext.categories == null)
+            if (id == null || dbContext.feedbacks == null)
             {
                 return NotFound();
             }
 
-            var category = await dbContext.categories
+            var feedback = await dbContext.feedbacks
                 .FirstOrDefaultAsync(m => m.Id == id);
-            if (category == null)
+            if (feedback == null)
             {
                 return NotFound();
             }
 
-            return View(category);
+            return View(feedback);
         }
 
-        // GET: Categories/Create
+        // GET: Feedbacks/Create
         public IActionResult Create()
         {
             return View();
         }
 
-        // POST: Categories/Create
+        // POST: Feedbacks/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Name,Description")] Category category)
+        public async Task<IActionResult> Create([Bind("Id,CustomerId,ProductId,Description,UpdatedDate")] Feedback feedback)
         {
             if (ModelState.IsValid)
             {
-                AddCategory(category);
+                dbContext.Add(feedback);
+                await dbContext.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(category);
+            return View(feedback);
         }
 
-        public async Task<bool> AddCategory(Category category)
-        {
-            if (category == null)
-            {
-                return false;
-            } else if (category.Name == null || category.Description == null)
-            {
-                return false;
-            } else if (category.Name.Trim() == "" || category.Description.Trim() == "") 
-            {
-                return false;
-            } else
-            {
-                dbContext.Add(category);
-                await dbContext.SaveChangesAsync();
-                return true;
-            }
-        }
-
-        // GET: Categories/Edit/5
+        // GET: Feedbacks/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
-            if (id == null || dbContext.categories == null)
+            if (id == null || dbContext.feedbacks == null)
             {
                 return NotFound();
             }
 
-            var category = await dbContext.categories.FindAsync(id);
-            if (category == null)
+            var feedback = await dbContext.feedbacks.FindAsync(id);
+            if (feedback == null)
             {
                 return NotFound();
             }
-            return View(category);
+            return View(feedback);
         }
 
-        // POST: Categories/Edit/5
+        // POST: Feedbacks/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Description")] Category category)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,CustomerId,ProductId,Description,UpdatedDate")] Feedback feedback)
         {
-            if (id != category.Id)
+            if (id != feedback.Id)
             {
                 return NotFound();
             }
@@ -115,12 +97,12 @@ namespace NitStore.Controllers
             {
                 try
                 {
-                    dbContext.Update(category);
+                    dbContext.Update(feedback);
                     await dbContext.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!CategoryExists(category.Id))
+                    if (!FeedbackExists(feedback.Id))
                     {
                         return NotFound();
                     }
@@ -131,49 +113,49 @@ namespace NitStore.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(category);
+            return View(feedback);
         }
 
-        // GET: Categories/Delete/5
+        // GET: Feedbacks/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
-            if (id == null || dbContext.categories == null)
+            if (id == null || dbContext.feedbacks == null)
             {
                 return NotFound();
             }
 
-            var category = await dbContext.categories
+            var feedback = await dbContext.feedbacks
                 .FirstOrDefaultAsync(m => m.Id == id);
-            if (category == null)
+            if (feedback == null)
             {
                 return NotFound();
             }
 
-            return View(category);
+            return View(feedback);
         }
 
-        // POST: Categories/Delete/5
+        // POST: Feedbacks/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            if (dbContext.categories == null)
+            if (dbContext.feedbacks == null)
             {
-                return Problem("Entity set 'NitdbContext.categories'  is null.");
+                return Problem("Entity set 'NitDbContext.feedbacks'  is null.");
             }
-            var category = await dbContext.categories.FindAsync(id);
-            if (category != null)
+            var feedback = await dbContext.feedbacks.FindAsync(id);
+            if (feedback != null)
             {
-                dbContext.categories.Remove(category);
+                dbContext.feedbacks.Remove(feedback);
             }
             
             await dbContext.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
-        private bool CategoryExists(int id)
+        private bool FeedbackExists(int id)
         {
-          return dbContext.categories.Any(e => e.Id == id);
+          return dbContext.feedbacks.Any(e => e.Id == id);
         }
     }
 }
