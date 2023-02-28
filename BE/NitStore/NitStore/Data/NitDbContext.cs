@@ -15,12 +15,7 @@ namespace NitStore.Data
 
         public DbSet<Image> images { get; set; }
 
-<<<<<<< HEAD
-        public DbSet<NitStore.Models.Domain.Image> Image { get; set; }
-        public DbSet<NitStore.Models.Domain.Product> Product { get; set; }
-=======
         public DbSet<Campaign> campaigns { get; set; }
->>>>>>> 609d9e599bed303c59c07f7bb8e9623d431446d8
 
         public DbSet<CampaignItem> campaignItems { get; set; }
 
