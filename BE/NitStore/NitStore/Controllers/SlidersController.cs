@@ -10,106 +10,85 @@ using NitStore.Models.Domain;
 
 namespace NitStore.Controllers
 {
-    public class CategoriesController : Controller
+    public class SlidersController : Controller
     {
         private readonly NitDbContext dbContext;
 
-        public CategoriesController(NitDbContext dbContext)
+        public SlidersController(NitDbContext dbContext)
         {
             this.dbContext = dbContext;
         }
 
-        // GET: Categories
+        // GET: Sliders
         public async Task<IActionResult> Index()
         {
-              return View(await dbContext.categories.ToListAsync());
+              return View(await dbContext.slider.ToListAsync());
         }
 
-        // GET: Categories/Details/5
+        // GET: Sliders/Details/5
         public async Task<IActionResult> Details(int? id)
         {
-            if (id == null || dbContext.categories == null)
+            if (id == null || dbContext.slider == null)
             {
                 return NotFound();
             }
 
-            var category = await dbContext.categories
+            var slider = await dbContext.slider
                 .FirstOrDefaultAsync(m => m.Id == id);
-            if (category == null)
+            if (slider == null)
             {
                 return NotFound();
             }
 
-            return View(category);
+            return View(slider);
         }
 
-        // GET: Categories/Create
+        // GET: Sliders/Create
         public IActionResult Create()
         {
             return View();
         }
 
-        // POST: Categories/Create
+        // POST: Sliders/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Name,Description")] Category category)
+        public async Task<IActionResult> Create([Bind("Id,CampaignId,Image,Status,CreateDate,UpdatedDate")] Slider slider)
         {
             if (ModelState.IsValid)
             {
-                bool result = await AddCategory(category);
-                if(result == true)
-                {
-                    return RedirectToAction(nameof(Index));
-                }
-            }
-            return View(category);
-        }
-
-        public async Task<bool> AddCategory(Category category)
-        {
-            if (category == null)
-            {
-                return false;
-            } else if (category.Name == null || category.Description == null)
-            {
-                return false;
-            } else if (category.Name.Trim() == "" || category.Description.Trim() == "") 
-            {
-                return false;
-            } else
-            {
-                dbContext.Add(category);
+                dbContext.Add(slider);
                 await dbContext.SaveChangesAsync();
-                return true;
+                return RedirectToAction(nameof(Index));
             }
+            return View(slider);
         }
 
-        // GET: Categories/Edit/5
+        // GET: Sliders/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
-            if (id == null || dbContext.categories == null)
+            if (id == null || dbContext.slider == null)
             {
                 return NotFound();
             }
 
-            var category = await dbContext.categories.FindAsync(id);
-            if (category == null)
+            var slider = await dbContext.slider.FindAsync(id);
+            if (slider == null)
             {
                 return NotFound();
             }
-            return View(category);
+            return View(slider);
         }
 
-        // POST: Categories/Edit/5
+        // POST: Sliders/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Description")] Category category)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,CampaignId,Image,Status,CreateDate,UpdatedDate")] Slider slider)
         {
-            if (id != category.Id)
+            if (id != slider.Id)
             {
                 return NotFound();
             }
@@ -118,12 +97,12 @@ namespace NitStore.Controllers
             {
                 try
                 {
-                    dbContext.Update(category);
+                    dbContext.Update(slider);
                     await dbContext.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!CategoryExists(category.Id))
+                    if (!SliderExists(slider.Id))
                     {
                         return NotFound();
                     }
@@ -134,49 +113,49 @@ namespace NitStore.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(category);
+            return View(slider);
         }
 
-        // GET: Categories/Delete/5
+        // GET: Sliders/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
-            if (id == null || dbContext.categories == null)
+            if (id == null || dbContext.slider == null)
             {
                 return NotFound();
             }
 
-            var category = await dbContext.categories
+            var slider = await dbContext.slider
                 .FirstOrDefaultAsync(m => m.Id == id);
-            if (category == null)
+            if (slider == null)
             {
                 return NotFound();
             }
 
-            return View(category);
+            return View(slider);
         }
 
-        // POST: Categories/Delete/5
+        // POST: Sliders/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            if (dbContext.categories == null)
+            if (dbContext.slider == null)
             {
-                return Problem("Entity set 'NitdbContext.categories'  is null.");
+                return Problem("Entity set 'NitDbContext.slider'  is null.");
             }
-            var category = await dbContext.categories.FindAsync(id);
-            if (category != null)
+            var slider = await dbContext.slider.FindAsync(id);
+            if (slider != null)
             {
-                dbContext.categories.Remove(category);
+                dbContext.slider.Remove(slider);
             }
             
             await dbContext.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
-        private bool CategoryExists(int id)
+        private bool SliderExists(int id)
         {
-          return dbContext.categories.Any(e => e.Id == id);
+          return dbContext.slider.Any(e => e.Id == id);
         }
     }
 }

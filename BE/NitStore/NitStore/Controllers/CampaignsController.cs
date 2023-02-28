@@ -10,106 +10,85 @@ using NitStore.Models.Domain;
 
 namespace NitStore.Controllers
 {
-    public class CategoriesController : Controller
+    public class CampaignsController : Controller
     {
         private readonly NitDbContext dbContext;
 
-        public CategoriesController(NitDbContext dbContext)
+        public CampaignsController(NitDbContext dbContext)
         {
             this.dbContext = dbContext;
         }
 
-        // GET: Categories
+        // GET: Campaigns
         public async Task<IActionResult> Index()
         {
-              return View(await dbContext.categories.ToListAsync());
+              return View(await dbContext.campaigns.ToListAsync());
         }
 
-        // GET: Categories/Details/5
+        // GET: Campaigns/Details/5
         public async Task<IActionResult> Details(int? id)
         {
-            if (id == null || dbContext.categories == null)
+            if (id == null || dbContext.campaigns == null)
             {
                 return NotFound();
             }
 
-            var category = await dbContext.categories
+            var campaign = await dbContext.campaigns
                 .FirstOrDefaultAsync(m => m.Id == id);
-            if (category == null)
+            if (campaign == null)
             {
                 return NotFound();
             }
 
-            return View(category);
+            return View(campaign);
         }
 
-        // GET: Categories/Create
+        // GET: Campaigns/Create
         public IActionResult Create()
         {
             return View();
         }
 
-        // POST: Categories/Create
+        // POST: Campaigns/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Name,Description")] Category category)
+        public async Task<IActionResult> Create([Bind("Id,Name,Description,StartDate,EndDate")] Campaign campaign)
         {
             if (ModelState.IsValid)
             {
-                bool result = await AddCategory(category);
-                if(result == true)
-                {
-                    return RedirectToAction(nameof(Index));
-                }
-            }
-            return View(category);
-        }
-
-        public async Task<bool> AddCategory(Category category)
-        {
-            if (category == null)
-            {
-                return false;
-            } else if (category.Name == null || category.Description == null)
-            {
-                return false;
-            } else if (category.Name.Trim() == "" || category.Description.Trim() == "") 
-            {
-                return false;
-            } else
-            {
-                dbContext.Add(category);
+                dbContext.Add(campaign);
                 await dbContext.SaveChangesAsync();
-                return true;
+                return RedirectToAction(nameof(Index));
             }
+            return View(campaign);
         }
 
-        // GET: Categories/Edit/5
+        // GET: Campaigns/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
-            if (id == null || dbContext.categories == null)
+            if (id == null || dbContext.campaigns == null)
             {
                 return NotFound();
             }
 
-            var category = await dbContext.categories.FindAsync(id);
-            if (category == null)
+            var campaign = await dbContext.campaigns.FindAsync(id);
+            if (campaign == null)
             {
                 return NotFound();
             }
-            return View(category);
+            return View(campaign);
         }
 
-        // POST: Categories/Edit/5
+        // POST: Campaigns/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Description")] Category category)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Description,StartDate,EndDate")] Campaign campaign)
         {
-            if (id != category.Id)
+            if (id != campaign.Id)
             {
                 return NotFound();
             }
@@ -118,12 +97,12 @@ namespace NitStore.Controllers
             {
                 try
                 {
-                    dbContext.Update(category);
+                    dbContext.Update(campaign);
                     await dbContext.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!CategoryExists(category.Id))
+                    if (!CampaignExists(campaign.Id))
                     {
                         return NotFound();
                     }
@@ -134,49 +113,49 @@ namespace NitStore.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(category);
+            return View(campaign);
         }
 
-        // GET: Categories/Delete/5
+        // GET: Campaigns/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
-            if (id == null || dbContext.categories == null)
+            if (id == null || dbContext.campaigns == null)
             {
                 return NotFound();
             }
 
-            var category = await dbContext.categories
+            var campaign = await dbContext.campaigns
                 .FirstOrDefaultAsync(m => m.Id == id);
-            if (category == null)
+            if (campaign == null)
             {
                 return NotFound();
             }
 
-            return View(category);
+            return View(campaign);
         }
 
-        // POST: Categories/Delete/5
+        // POST: Campaigns/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            if (dbContext.categories == null)
+            if (dbContext.campaigns == null)
             {
-                return Problem("Entity set 'NitdbContext.categories'  is null.");
+                return Problem("Entity set 'NitDbContext.campaigns'  is null.");
             }
-            var category = await dbContext.categories.FindAsync(id);
-            if (category != null)
+            var campaign = await dbContext.campaigns.FindAsync(id);
+            if (campaign != null)
             {
-                dbContext.categories.Remove(category);
+                dbContext.campaigns.Remove(campaign);
             }
             
             await dbContext.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
-        private bool CategoryExists(int id)
+        private bool CampaignExists(int id)
         {
-          return dbContext.categories.Any(e => e.Id == id);
+          return dbContext.campaigns.Any(e => e.Id == id);
         }
     }
 }

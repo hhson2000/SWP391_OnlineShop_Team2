@@ -67,8 +67,8 @@ namespace NITStoreTest
             };
 
             // Act
-            ProductController repo = new ProductController(context);
-            var resultTask = repo.AddProduct(product);
+            ProductsController repo = new ProductsController(context);
+            var resultTask = repo.Create(product);
             resultTask.Wait();
             bool result = resultTask.Result;
             // Assert
