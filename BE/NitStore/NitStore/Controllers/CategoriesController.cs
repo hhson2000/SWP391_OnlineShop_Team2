@@ -12,28 +12,28 @@ namespace NitStore.Controllers
 {
     public class CategoriesController : Controller
     {
-        private readonly NitDbContext _context;
+        private readonly NitDbContext dbContext;
 
         public CategoriesController(NitDbContext context)
         {
-            _context = context;
+            this.dbContext = dbContext;
         }
 
         // GET: Categories
         public async Task<IActionResult> Index()
         {
-              return View(await _context.categories.ToListAsync());
+              return View(await dbContext.categories.ToListAsync());
         }
 
         // GET: Categories/Details/5
         public async Task<IActionResult> Details(int? id)
         {
-            if (id == null || _context.categories == null)
+            if (id == null || dbContext.categories == null)
             {
                 return NotFound();
             }
 
-            var category = await _context.categories
+            var category = await dbContext.categories
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (category == null)
             {
@@ -80,8 +80,8 @@ namespace NitStore.Controllers
                 return false;
             } else
             {
-                _context.Add(category);
-                await _context.SaveChangesAsync();
+                dbContext.Add(category);
+                await dbContext.SaveChangesAsync();
                 return true;
             }
         }
@@ -89,12 +89,12 @@ namespace NitStore.Controllers
         // GET: Categories/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
-            if (id == null || _context.categories == null)
+            if (id == null || dbContext.categories == null)
             {
                 return NotFound();
             }
 
-            var category = await _context.Category.FindAsync(id);
+            var category = await dbContext.categories.FindAsync(id);
             if (category == null)
             {
                 return NotFound();
@@ -118,8 +118,8 @@ namespace NitStore.Controllers
             {
                 try
                 {
-                    _context.Update(category);
-                    await _context.SaveChangesAsync();
+                    dbContext.Update(category);
+                    await dbContext.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
@@ -140,12 +140,12 @@ namespace NitStore.Controllers
         // GET: Categories/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
-            if (id == null || _context.Category == null)
+            if (id == null || dbContext.categories == null)
             {
                 return NotFound();
             }
 
-            var category = await _context.Category
+            var category = await dbContext.categories
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (category == null)
             {
@@ -160,23 +160,23 @@ namespace NitStore.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            if (_context.Category == null)
+            if (dbContext.categories == null)
             {
-                return Problem("Entity set 'NitDbContext.Category'  is null.");
+                return Problem("Entity set 'NitdbContext.categories'  is null.");
             }
-            var category = await _context.Category.FindAsync(id);
+            var category = await dbContext.categories.FindAsync(id);
             if (category != null)
             {
-                _context.Category.Remove(category);
+                dbContext.categories.Remove(category);
             }
             
-            await _context.SaveChangesAsync();
+            await dbContext.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
         private bool CategoryExists(int id)
         {
-          return _context.Category.Any(e => e.Id == id);
+          return dbContext.categories.Any(e => e.Id == id);
         }
     }
 }
