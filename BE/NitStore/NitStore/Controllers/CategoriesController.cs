@@ -58,8 +58,11 @@ namespace NitStore.Controllers
         {
             if (ModelState.IsValid)
             {
-                AddCategory(category);
-                return RedirectToAction(nameof(Index));
+                bool result = await AddCategory(category);
+                if(result == true)
+                {
+                    return RedirectToAction(nameof(Index));
+                }
             }
             return View(category);
         }
