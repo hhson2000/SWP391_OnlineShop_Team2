@@ -27,9 +27,9 @@
                 </div>
                 <div class="form-check">
 
-                @Html.CheckBoxFor(model => model.IsActive, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.EditorFor(model => model.Status, new { htmlAttributes = new { @class = "form-control" } })
                     <label class="form-check-label" for="flexCheckDefault">
-                        Is Active
+                    Status
                     </label>
                 </div>
                 <button type="submit" value="Add" class="mt-2 btn btn-success">

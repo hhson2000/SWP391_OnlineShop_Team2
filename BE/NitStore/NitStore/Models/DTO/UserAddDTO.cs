@@ -15,7 +15,7 @@ namespace NitStore.Models.DTO
         //public SelectList roleList { get; set; }
 
         [Required]
-        public bool IsActive { get; set; }
+        public int Status { get; set; }
         [Required]
         public bool NeedToChange { get; set; }
 

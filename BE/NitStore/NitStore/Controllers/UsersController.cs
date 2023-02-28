@@ -39,7 +39,7 @@ namespace NitStore.Controllers
                 UserName = dto.UserName,
                 Email = dto.Email,
                 Role = 1,
-                IsActive = dto.IsActive,
+                Status = dto.Status,
                 NeedToChange = true,
                 Password = "123456"
             };
@@ -79,7 +79,7 @@ namespace NitStore.Controllers
         {
             User currentUser = dbContext.users.Where(x => x.Id == dto.Id).First();
             currentUser.UserName = dto.UserName;
-            currentUser.IsActive = dto.IsActive;
+            currentUser.Status = dto.Status;
             //currentUser.NeedToChange = true;
             //currentUser.Email = dto.UserName;
             //currentUser.Password = "123456";

@@ -34,7 +34,7 @@ namespace NITStoreTest
                 UserName = "Test username",
                 Password = "123456",
                 Role = 5,
-                IsActive = true,
+                Status = 1,
                 Email = "test@gmail.com",
                 NeedToChange = true
             };
@@ -49,7 +49,7 @@ namespace NITStoreTest
             Assert.AreEqual(user.UserName, savedUser.UserName);
             Assert.AreEqual(user.Password, savedUser.Password);
             Assert.AreEqual(user.Role, savedUser.Role);
-            Assert.AreEqual(user.IsActive, savedUser.IsActive);
+            Assert.AreEqual(user.Status, savedUser.Status );
             Assert.AreEqual(user.Email, savedUser.Email);
         }
 
@@ -63,7 +63,7 @@ namespace NITStoreTest
                 UserName = "Test username",
                 Password = "123456",
                 Role = 5,
-                IsActive = true,
+                Status = 1,
                 Email = "test@gmail.com",
                 NeedToChange = true
             };
@@ -78,7 +78,7 @@ namespace NITStoreTest
             Assert.AreEqual(user.UserName, savedUser.UserName);
             Assert.AreEqual(user.Password, savedUser.Password);
             Assert.AreEqual(user.Role, savedUser.Role);
-            Assert.AreEqual(user.IsActive, savedUser.IsActive);
+            Assert.AreEqual(user.Status, savedUser.Status);
             Assert.AreEqual(user.Email, savedUser.Email);
         }
 
@@ -92,7 +92,7 @@ namespace NITStoreTest
                 UserName = "Test username",
                 Password = "123456",
                 Role = 5,
-                IsActive = true,
+                Status = 1,
                 Email = "test@gmail.com",
                 NeedToChange = true
             };
@@ -104,7 +104,7 @@ namespace NITStoreTest
             savedUser.UserName = "Test update username";
             savedUser.Password = "123456";
             savedUser.Role = 6;
-            savedUser.IsActive = true;
+            savedUser.Status = 1;
             savedUser.Email = "testupdate@gmail.com";
             context.SaveChanges();
 
@@ -114,7 +114,7 @@ namespace NITStoreTest
             Assert.AreEqual(savedUser.UserName, updatedCategory.UserName);
             Assert.AreEqual(savedUser.Password, updatedCategory.Password);
             Assert.AreEqual(savedUser.Role, updatedCategory.Role);
-            Assert.AreEqual(savedUser.IsActive, updatedCategory.IsActive);
+            Assert.AreEqual(savedUser.Status, updatedCategory.Status);
             Assert.AreEqual(savedUser.Email, updatedCategory.Email);
         }
 
@@ -128,7 +128,7 @@ namespace NITStoreTest
                 UserName = "Test username",
                 Password = "123456",
                 Role = 5,
-                IsActive = true,
+                Status = 1,
                 Email = "test@gmail.com",
                 NeedToChange = true
             };

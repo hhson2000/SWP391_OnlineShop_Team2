@@ -1,34 +1,34 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Data.SqlTypes;
 
 namespace NitStore.Models.Domain
 {
-    [Table("User")]
-    public partial class User
+    [Table("Product")]
+    public partial class Product
     {
         [Key]
-        [Column (Order = 0)]
+        [Column(Order = 0)]
         public int Id { get; set; }
 
         [Required]
         [StringLength(255)]
-        public string UserName { get; set; }
+        public string Name { get; set; }
 
         [Required]
         [StringLength(255)]
-        public string Password { get; set; }
-
-        [Required]
-        public int Role { get; set; }
+        public string Description { get; set; }
 
         [Required]
         public int Status { get; set; }
 
         [Required]
-        public bool? NeedToChange { get; set; }
+        public int Quantity { get; set; }
 
         [Required]
-        [StringLength(255)]
-        public string Email { get; set; }
+        public int Category { get; set; }
+
+        [Required]
+        public SqlMoney Money { get; set; }
     }
 }

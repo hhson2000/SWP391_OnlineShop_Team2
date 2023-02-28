@@ -20,7 +20,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\..\..\..\New folder\SWP391_OnlineShop_Team2\BE\NitStore\NitStore\NitStore.csproj" />
+	  <!--projectref cua ai ng day tu dien nha ca nha-->
+    <ProjectReference Include="..\NitStore\NitStore.csproj" />
   </ItemGroup>
 
 </Project>
