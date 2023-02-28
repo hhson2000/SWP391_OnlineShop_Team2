@@ -37,11 +37,11 @@ namespace NITStoreTest
             };
 
             // Act
-            context.Category.Add(category);
+            context.categories.Add(category);
             context.SaveChanges();
 
             // Assert
-            var savedCategory = context.Category.FirstOrDefault(c => c.Id == category.Id);
+            var savedCategory = context.categories.FirstOrDefault(c => c.Id == category.Id);
             Assert.NotNull(savedCategory);
             Assert.AreEqual(category.Name, savedCategory.Name);
             Assert.AreEqual(category.Description, savedCategory.Description);
@@ -77,11 +77,11 @@ namespace NITStoreTest
                 Name = "Test Category",
                 Description = "This is a test category"
             };
-            context.Category.Add(category);
+            context.categories.Add(category);
             context.SaveChanges();
 
             // Act
-            var savedCategory = context.Category.FirstOrDefault(c => c.Id == category.Id);
+            var savedCategory = context.categories.FirstOrDefault(c => c.Id == category.Id);
 
             // Assert
             Assert.NotNull(savedCategory);
@@ -99,17 +99,17 @@ namespace NITStoreTest
                 Name = "Test Category",
                 Description = "This is a test category"
             };
-            context.Category.Add(category);
+            context.categories.Add(category);
             context.SaveChanges();
 
             // Act
-            var savedCategory = context.Category.FirstOrDefault(c => c.Id == category.Id);
+            var savedCategory = context.categories.FirstOrDefault(c => c.Id == category.Id);
             savedCategory.Name = "Updated Test Category";
             savedCategory.Description = "This is an updated test category";
             context.SaveChanges();
 
             // Assert
-            var updatedCategory = context.Category.FirstOrDefault(c => c.Id == category.Id);
+            var updatedCategory = context.categories.FirstOrDefault(c => c.Id == category.Id);
             Assert.NotNull(updatedCategory);
             Assert.AreEqual(savedCategory.Name, updatedCategory.Name);
             Assert.AreEqual(savedCategory.Description, updatedCategory.Description);
@@ -125,15 +125,15 @@ namespace NITStoreTest
                 Name = "Test Category",
                 Description = "This is a test category"
             };
-            context.Category.Add(category);
+            context.categories.Add(category);
             context.SaveChanges();
 
             // Act
-            context.Category.Remove(category);
+            context.categories.Remove(category);
             context.SaveChanges();
 
             // Assert
-            var deletedCategory = context.Category.FirstOrDefault(c => c.Id == category.Id);
+            var deletedCategory = context.categories.FirstOrDefault(c => c.Id == category.Id);
             Assert.Null(deletedCategory);
         }
     }

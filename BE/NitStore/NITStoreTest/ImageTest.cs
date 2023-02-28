@@ -36,11 +36,11 @@ namespace NITStoreTest
             };
 
             // Act
-            context.Image.Add(image);
+            context.images.Add(image);
             context.SaveChanges();
 
             // Assert
-            var savedImage = context.Image.FirstOrDefault(c => c.Id == image.Id);
+            var savedImage = context.images.FirstOrDefault(c => c.Id == image.Id);
             Assert.NotNull(savedImage);
             Assert.AreEqual(image.ImageURL, savedImage.ImageURL);
             Assert.AreEqual(image.Description, savedImage.Description);
@@ -56,11 +56,11 @@ namespace NITStoreTest
                 ImageURL = "Test  url",
                 Description = "This is a test image"
             };
-            context.Image.Add(image);
+            context.images.Add(image);
             context.SaveChanges();
 
             // Act
-            var savedImage = context.Image.FirstOrDefault(c => c.Id == image.Id);
+            var savedImage = context.images.FirstOrDefault(c => c.Id == image.Id);
 
             // Assert
             Assert.NotNull(savedImage);
@@ -78,17 +78,17 @@ namespace NITStoreTest
                 ImageURL = "Test  url",
                 Description = "This is a test image"
             };
-            context.Image.Add(image);
+            context.images.Add(image);
             context.SaveChanges();
 
             // Act
-            var savedImage = context.Image.FirstOrDefault(c => c.Id == image.Id);
+            var savedImage = context.images.FirstOrDefault(c => c.Id == image.Id);
             savedImage.ImageURL = "Test URL";
             savedImage.Description = "This is an updated test category";
             context.SaveChanges();
 
             // Assert
-            var updatedImage = context.Image.FirstOrDefault(c => c.Id == image.Id);
+            var updatedImage = context.images.FirstOrDefault(c => c.Id == image.Id);
             Assert.NotNull(updatedImage);
             Assert.AreEqual(savedImage.ImageURL, updatedImage.ImageURL);
             Assert.AreEqual(savedImage.Description, updatedImage.Description);
@@ -104,15 +104,15 @@ namespace NITStoreTest
                 ImageURL = "Test  url",
                 Description = "This is a test image"
             };
-            context.Image.Add(image);
+            context.images.Add(image);
             context.SaveChanges();
 
             // Act
-            context.Image.Remove(image);
+            context.images.Remove(image);
             context.SaveChanges();
 
             // Assert
-            var deletedImage = context.Image.FirstOrDefault(c => c.Id == image.Id);
+            var deletedImage = context.images.FirstOrDefault(c => c.Id == image.Id);
             Assert.Null(deletedImage);
         }
     }
