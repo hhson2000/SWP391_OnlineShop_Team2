@@ -22,7 +22,7 @@ namespace NitStore.Controllers
         // GET: Campaigns
         public async Task<IActionResult> Index()
         {
-              return View(await dbContext.campaigns.ToListAsync());
+            return View(await dbContext.campaigns.ToListAsync());
         }
 
         // GET: Campaigns/Details/5
@@ -66,6 +66,10 @@ namespace NitStore.Controllers
 
         public async Task<bool> AddCampaign(Campaign campaign)
         {
+            if (campaign.Name.Trim() == "")
+            {
+                return false;
+            }
             dbContext.Add(campaign);
             await dbContext.SaveChangesAsync();
             return true;
