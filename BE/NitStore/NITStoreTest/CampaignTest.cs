@@ -91,6 +91,8 @@ namespace NITStoreTest
             Assert.NotNull(savedCampaign);
             Assert.AreEqual(campaign.Name, savedCampaign.Name);
             Assert.AreEqual(campaign.Description, savedCampaign.Description);
+            Assert.AreEqual(campaign.StartDate, savedCampaign.StartDate);
+            Assert.AreEqual(campaign.EndDate, savedCampaign.EndDate);
         }
 
         [Test]
@@ -119,6 +121,8 @@ namespace NITStoreTest
             Assert.NotNull(updatedCampaign);
             Assert.AreEqual(savedCampaign.Name, updatedCampaign.Name);
             Assert.AreEqual(savedCampaign.Description, updatedCampaign.Description);
+            Assert.AreEqual(savedCampaign.StartDate, updatedCampaign.StartDate);
+            Assert.AreEqual(savedCampaign.EndDate, updatedCampaign.EndDate);
         }
 
         [Test]
@@ -141,8 +145,8 @@ namespace NITStoreTest
             context.SaveChanges();
 
             // Assert
-            var deletedCategory = context.campaigns.FirstOrDefault(c => c.Id == campaign.Id);
-            Assert.Null(deletedCategory);
+            var deletedCampaignD = context.campaigns.FirstOrDefault(c => c.Id == campaign.Id);
+            Assert.Null(deletedCampaignD);
         }
     }
 }
