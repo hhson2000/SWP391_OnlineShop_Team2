@@ -22,7 +22,7 @@ namespace NitStore.Models.Domain
         public DateTime CreateDate { get; set; }
 
         [Required]
-        public DateTime UpdatedDate { get; set; }
+        public DateTime UpdateDate { get; set; }
 
         [Required]
         public float Total { get; set; }
