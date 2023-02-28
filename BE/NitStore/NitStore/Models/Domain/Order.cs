@@ -25,6 +25,6 @@ namespace NitStore.Models.Domain
         public DateTime UpdatedDate { get; set; }
 
         [Required]
-        public decimal Money { get; set; }
+        public float Total { get; set; }
     }
 }

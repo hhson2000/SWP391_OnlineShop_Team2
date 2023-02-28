@@ -58,11 +58,17 @@ namespace NitStore.Controllers
         {
             if (ModelState.IsValid)
             {
-                dbContext.Add(campaign);
-                await dbContext.SaveChangesAsync();
+                AddCampaign(campaign);
                 return RedirectToAction(nameof(Index));
             }
             return View(campaign);
+        }
+
+        public async Task<bool> AddCampaign(Campaign campaign)
+        {
+            dbContext.Add(campaign);
+            await dbContext.SaveChangesAsync();
+            return true;
         }
 
         // GET: Campaigns/Edit/5

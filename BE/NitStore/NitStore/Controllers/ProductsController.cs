@@ -54,7 +54,7 @@ namespace NitStore.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Name,Description,Status,Quantity,Category,Money")] Product product)
+        public async Task<IActionResult> Create([Bind("Id,Name,Description,Status,Quantity,Category,Total")] Product product)
         {
             if (ModelState.IsValid)
             {
@@ -86,7 +86,7 @@ namespace NitStore.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Description,Status,Quantity,Category,Money")] Product product)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Description,Status,Quantity,Category,Total")] Product product)
         {
             if (id != product.Id)
             {
