@@ -58,12 +58,19 @@ namespace NitStore.Controllers
         {
             if (ModelState.IsValid)
             {
-                dbContext.Add(feedback);
-                await dbContext.SaveChangesAsync();
+                AddFeedback(feedback);
                 return RedirectToAction(nameof(Index));
             }
             return View(feedback);
         }
+
+        public async Task<bool> AddFeedback(Feedback feedback)
+        {
+            dbContext.Add(feedback);
+            await dbContext.SaveChangesAsync();
+            return true;
+        }
+
 
         // GET: Feedbacks/Edit/5
         public async Task<IActionResult> Edit(int? id)

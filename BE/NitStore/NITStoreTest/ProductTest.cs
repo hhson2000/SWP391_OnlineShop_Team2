@@ -35,7 +35,7 @@ namespace NITStoreTest
                 Name = "Test Category",
                 Category = 1,
                 Status = 1,
-                Money = 1,
+                Price = 1,
                 Quantity = 1,
                 Description = "This is a test category"
             };
@@ -85,7 +85,7 @@ namespace NITStoreTest
                 Name = "Test Category",
                 Category = 1,
                 Status = 1,
-                Money = 1,
+                Price = 1,
                 Quantity = 1,
                 Description = "This is a test category"
             };
@@ -111,7 +111,7 @@ namespace NITStoreTest
                 Name = "Test Category",
                 Category = 1,
                 Status = 1,
-                Money = 1,
+                Price = 1,
                 Quantity = 1,
                 Description = "This is a test category"
             }; ;
@@ -141,7 +141,7 @@ namespace NITStoreTest
                 Name = "Test Category",
                 Category = 1,
                 Status = 1,
-                Money = 1,
+                Price = 1,
                 Quantity = 1,
                 Description = "This is a test category"
             };
