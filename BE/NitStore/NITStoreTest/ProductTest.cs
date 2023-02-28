@@ -32,7 +32,6 @@ namespace NITStoreTest
             using var context = new NitDbContext(_options);
             var product = new Product
             {
-                Id = 1,
                 Name = "Test Category",
                 Category = 1,
                 Status = 1,
@@ -83,7 +82,6 @@ namespace NITStoreTest
             using var context = new NitDbContext(_options);
             var product = new Product
             {
-                Id = 1,
                 Name = "Test Category",
                 Category = 1,
                 Status = 1,
@@ -110,7 +108,6 @@ namespace NITStoreTest
             using var context = new NitDbContext(_options);
             var product = new Product
             {
-                Id = 1,
                 Name = "Test Category",
                 Category = 1,
                 Status = 1,
@@ -141,7 +138,6 @@ namespace NITStoreTest
             using var context = new NitDbContext(_options);
             var product = new Product
             {
-                Id = 1,
                 Name = "Test Category",
                 Category = 1,
                 Status = 1,
