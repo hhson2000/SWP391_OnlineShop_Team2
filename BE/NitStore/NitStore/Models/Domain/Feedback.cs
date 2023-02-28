@@ -23,6 +23,6 @@ namespace NitStore.Models.Domain
         public string Description { get; set; }
 
         [Required]
-        public DateOnly UpdatedDate { get; set; }
+        public DateTime UpdatedDate { get; set; }
     }
 }

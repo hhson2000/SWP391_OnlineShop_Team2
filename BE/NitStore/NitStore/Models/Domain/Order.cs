@@ -25,6 +25,6 @@ namespace NitStore.Models.Domain
         public DateTime UpdatedDate { get; set; }
 
         [Required]
-        public SqlMoney Money { get; set; }
+        public decimal Money { get; set; }
     }
 }

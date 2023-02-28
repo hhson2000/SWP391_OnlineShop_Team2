@@ -29,6 +29,6 @@ namespace NitStore.Models.Domain
         public int Category { get; set; }
 
         [Required]
-        public SqlMoney Money { get; set; }
+        public decimal Money { get; set; }
     }
 }
