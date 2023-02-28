@@ -12,28 +12,28 @@ namespace NitStore.Controllers
 {
     public class ImageController : Controller
     {
-        private readonly NitDbContext _context;
+        private readonly NitDbContext dbContext;
 
         public ImageController(NitDbContext context)
         {
-            _context = context;
+            this.dbContext = context;
         }
 
         // GET: Image
         public async Task<IActionResult> Index()
         {
-              return View(await _context.Image.ToListAsync());
+              return View(await dbContext.images.ToListAsync());
         }
 
         // GET: Image/Details/5
         public async Task<IActionResult> Details(int? id)
         {
-            if (id == null || _context.Image == null)
+            if (id == null || dbContext.images == null)
             {
                 return NotFound();
             }
 
-            var image = await _context.Image
+            var image = await dbContext.images
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (image == null)
             {
@@ -58,8 +58,8 @@ namespace NitStore.Controllers
         {
             if (ModelState.IsValid)
             {
-                _context.Add(image);
-                await _context.SaveChangesAsync();
+                dbContext.Add(image);
+                await dbContext.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
             return View(image);
@@ -68,12 +68,12 @@ namespace NitStore.Controllers
         // GET: Image/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
-            if (id == null || _context.Image == null)
+            if (id == null || dbContext.images == null)
             {
                 return NotFound();
             }
 
-            var image = await _context.Image.FindAsync(id);
+            var image = await dbContext.images.FindAsync(id);
             if (image == null)
             {
                 return NotFound();
@@ -97,8 +97,8 @@ namespace NitStore.Controllers
             {
                 try
                 {
-                    _context.Update(image);
-                    await _context.SaveChangesAsync();
+                    dbContext.Update(image);
+                    await dbContext.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
@@ -119,12 +119,12 @@ namespace NitStore.Controllers
         // GET: Image/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
-            if (id == null || _context.Image == null)
+            if (id == null || dbContext.images == null)
             {
                 return NotFound();
             }
 
-            var image = await _context.Image
+            var image = await dbContext.images
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (image == null)
             {
@@ -139,23 +139,23 @@ namespace NitStore.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            if (_context.Image == null)
+            if (dbContext.images == null)
             {
                 return Problem("Entity set 'NitDbContext.Image'  is null.");
             }
-            var image = await _context.Image.FindAsync(id);
+            var image = await dbContext.images.FindAsync(id);
             if (image != null)
             {
-                _context.Image.Remove(image);
+                dbContext.images.Remove(image);
             }
             
-            await _context.SaveChangesAsync();
+            await dbContext.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
         private bool ImageExists(int id)
         {
-          return _context.Image.Any(e => e.Id == id);
+          return dbContext.images.Any(e => e.Id == id);
         }
     }
 }
