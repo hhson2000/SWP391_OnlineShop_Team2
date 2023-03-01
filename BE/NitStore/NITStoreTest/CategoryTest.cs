@@ -21,7 +21,7 @@ namespace NITStoreTest
         public void Setup()
         {
             _options = new DbContextOptionsBuilder<NitDbContext>()
-                .UseInMemoryDatabase(databaseName: "testDatabase")
+                .UseInMemoryDatabase(databaseName: "NIT")
                 .Options;
         }
 
@@ -105,7 +105,8 @@ namespace NITStoreTest
             var savedCategory = context.categories.FirstOrDefault(c => c.Id == category.Id);
             savedCategory.Name = "Updated Test Category";
             savedCategory.Description = "This is an updated test category";
-            context.SaveChanges();
+            CategoriesController repo = new CategoriesController(context);
+            repo.EditCategory(savedCategory);
 
             // Assert
             var updatedCategory = context.categories.FirstOrDefault(c => c.Id == category.Id);

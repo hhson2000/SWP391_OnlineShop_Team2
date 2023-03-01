@@ -116,25 +116,38 @@ namespace NitStore.Controllers
 
             if (ModelState.IsValid)
             {
-                try
+                Category result = await EditCategory(category);
+                if(result != null)
                 {
-                    dbContext.Update(category);
-                    await dbContext.SaveChangesAsync();
-                }
-                catch (DbUpdateConcurrencyException)
+                    return RedirectToAction(nameof(Index));
+                } else
                 {
-                    if (!CategoryExists(category.Id))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
+                    return NotFound();
                 }
-                return RedirectToAction(nameof(Index));
+                
             }
             return View(category);
+        }
+
+        public async Task<Category> EditCategory(Category category)
+        {
+            try
+            {
+                dbContext.Update(category);
+                await dbContext.SaveChangesAsync();
+                return category;
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                if (!CategoryExists(category.Id))
+                {
+                    return null;
+                }
+                else
+                {
+                    return null;
+                }
+            }
         }
 
         // GET: Categories/Delete/5
