@@ -25,9 +25,6 @@ namespace NitStore.Models.Domain
         public int Status { get; set; }
 
         [Required]
-        public bool? NeedToChange { get; set; }
-
-        [Required]
         [StringLength(255)]
         public string Email { get; set; }
     }

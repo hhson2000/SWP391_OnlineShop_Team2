@@ -35,8 +35,7 @@ namespace NITStoreTest
                 Password = "123456",
                 Role = 5,
                 Status = 1,
-                Email = "test@gmail.com",
-                NeedToChange = true
+                Email = "test@gmail.com"
             };
 
             // Act
@@ -64,8 +63,7 @@ namespace NITStoreTest
                 Password = "123456",
                 Role = 5,
                 Status = 1,
-                Email = "test@gmail.com",
-                NeedToChange = true
+                Email = "test@gmail.com"
             };
             context.users.Add(user);
             context.SaveChanges();
@@ -93,8 +91,7 @@ namespace NITStoreTest
                 Password = "123456",
                 Role = 5,
                 Status = 1,
-                Email = "test@gmail.com",
-                NeedToChange = true
+                Email = "test@gmail.com"
             };
             context.users.Add(user);
             context.SaveChanges();
@@ -129,8 +126,7 @@ namespace NITStoreTest
                 Password = "123456",
                 Role = 5,
                 Status = 1,
-                Email = "test@gmail.com",
-                NeedToChange = true
+                Email = "test@gmail.com"
             };
             context.users.Add(user);
             context.SaveChanges();

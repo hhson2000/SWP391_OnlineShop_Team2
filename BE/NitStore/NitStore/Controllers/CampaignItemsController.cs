@@ -10,85 +10,98 @@ using NitStore.Models.Domain;
 
 namespace NitStore.Controllers
 {
-    public class SlidersController : Controller
+    public class CampaignItemsController : Controller
     {
         private readonly NitDbContext dbContext;
 
-        public SlidersController(NitDbContext dbContext)
+        public CampaignItemsController(NitDbContext dbContext)
         {
             this.dbContext = dbContext;
         }
 
-        // GET: Sliders
+        // GET: CampaignItems
         public async Task<IActionResult> Index()
         {
-              return View(await dbContext.slider.ToListAsync());
+              return View(await dbContext.campaignItems.ToListAsync());
         }
 
-        // GET: Sliders/Details/5
+        // GET: CampaignItems/Details/5
         public async Task<IActionResult> Details(int? id)
         {
-            if (id == null || dbContext.slider == null)
+            if (id == null || dbContext.campaignItems == null)
             {
                 return NotFound();
             }
 
-            var slider = await dbContext.slider
+            var campaignItem = await dbContext.campaignItems
                 .FirstOrDefaultAsync(m => m.Id == id);
-            if (slider == null)
+            if (campaignItem == null)
             {
                 return NotFound();
             }
 
-            return View(slider);
+            return View(campaignItem);
         }
 
-        // GET: Sliders/Create
+        // GET: CampaignItems/Create
         public IActionResult Create()
         {
             return View();
         }
 
-        // POST: Sliders/Create
+        // POST: CampaignItems/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,CampaignId,Image,Status,CreatedDate,UpdatedDate")] Slider slider)
+        public async Task<IActionResult> Create([Bind("Id,ProductId,CampaignId,Discount")] CampaignItem campaignItem)
         {
             if (ModelState.IsValid)
             {
-                dbContext.Add(slider);
-                await dbContext.SaveChangesAsync();
+                AddCampaignItem(campaignItem);
                 return RedirectToAction(nameof(Index));
             }
-            return View(slider);
+            return View(campaignItem);
         }
 
-        // GET: Sliders/Edit/5
+        public async Task<bool> AddCampaignItem(CampaignItem campaignItem)
+        {
+            if (campaignItem.Discount < 0)
+            {
+                return false;
+            }
+            else
+            {
+                dbContext.Add(campaignItem);
+                await dbContext.SaveChangesAsync();
+                return true;
+            }
+        }
+
+        // GET: CampaignItems/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
-            if (id == null || dbContext.slider == null)
+            if (id == null || dbContext.campaignItems == null)
             {
                 return NotFound();
             }
 
-            var slider = await dbContext.slider.FindAsync(id);
-            if (slider == null)
+            var campaignItem = await dbContext.campaignItems.FindAsync(id);
+            if (campaignItem == null)
             {
                 return NotFound();
             }
-            return View(slider);
+            return View(campaignItem);
         }
 
-        // POST: Sliders/Edit/5
+        // POST: CampaignItems/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,CampaignId,Image,Status,CreatedDate,UpdatedDate")] Slider slider)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,ProductId,CampaignId,Discount")] CampaignItem campaignItem)
         {
-            if (id != slider.Id)
+            if (id != campaignItem.Id)
             {
                 return NotFound();
             }
@@ -97,12 +110,12 @@ namespace NitStore.Controllers
             {
                 try
                 {
-                    dbContext.Update(slider);
+                    dbContext.Update(campaignItem);
                     await dbContext.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!SliderExists(slider.Id))
+                    if (!CampaignItemExists(campaignItem.Id))
                     {
                         return NotFound();
                     }
@@ -113,49 +126,49 @@ namespace NitStore.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(slider);
+            return View(campaignItem);
         }
 
-        // GET: Sliders/Delete/5
+        // GET: CampaignItems/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
-            if (id == null || dbContext.slider == null)
+            if (id == null || dbContext.campaignItems == null)
             {
                 return NotFound();
             }
 
-            var slider = await dbContext.slider
+            var campaignItem = await dbContext.campaignItems
                 .FirstOrDefaultAsync(m => m.Id == id);
-            if (slider == null)
+            if (campaignItem == null)
             {
                 return NotFound();
             }
 
-            return View(slider);
+            return View(campaignItem);
         }
 
-        // POST: Sliders/Delete/5
+        // POST: CampaignItems/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            if (dbContext.slider == null)
+            if (dbContext.campaignItems == null)
             {
-                return Problem("Entity set 'NitDbContext.slider'  is null.");
+                return Problem("Entity set 'NitDbContext.campaignItems'  is null.");
             }
-            var slider = await dbContext.slider.FindAsync(id);
-            if (slider != null)
+            var campaignItem = await dbContext.campaignItems.FindAsync(id);
+            if (campaignItem != null)
             {
-                dbContext.slider.Remove(slider);
+                dbContext.campaignItems.Remove(campaignItem);
             }
             
             await dbContext.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
-        private bool SliderExists(int id)
+        private bool CampaignItemExists(int id)
         {
-          return dbContext.slider.Any(e => e.Id == id);
+          return dbContext.campaignItems.Any(e => e.Id == id);
         }
     }
 }

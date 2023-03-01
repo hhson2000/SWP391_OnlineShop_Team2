@@ -23,7 +23,7 @@ namespace NitStore.Models.Domain
         public int Status { get; set; }
 
         [Required]
-        public DateTime CreateDate { get; set; }
+        public DateTime CreatedDate { get; set; }
 
         [Required]
         public DateTime UpdatedDate { get; set; }
