@@ -67,7 +67,8 @@
       </nav>
 
       <div class="w-100 m-3 justify-content-center text-center">
-        <a
+            
+            <a
           style="text-decoration: none; color: black; font-weight: bold"
           href="#"
           >Home </a
@@ -82,9 +83,18 @@
           href="#"
           >Contact</a
         >
-            @Html.ActionLink("/ Admin Dashboard", "ViewAllUser", "Users", new { @class = "nav-link" }, null)
+            @*@Html.ActionLink("/ Admin Dashboard", "ViewAllUser", "Users", new { @class = "nav-link" }, null)*@
       </div>
-
+        <div class="w-100 m-3 justify-content-center text-center">
+            @if (ViewBag.Categories != null)
+            {
+                foreach (var cate in ViewBag.Categories)
+                {
+                    <a style="text-decoration: none; color: black; font-weight: bold"
+               href="#">@cate.Name</a>
+                }
+            }
+        </div>
       <!-- Background image -->
       <div
         id="carouselExampleControlsNoTouching"

@@ -2,6 +2,7 @@
 using System.Diagnostics;
 using NitStore.Models;
 using NitStore.Data;
+using NitStore.Models.Domain;
 
 namespace NitStore.Controllers
 {
@@ -24,6 +25,9 @@ namespace NitStore.Controllers
         [HttpGet]
         public async Task<IActionResult> LandingPage()
         {
+            List<Category> categories = new List<Category>();
+            categories = dbContext.categories.ToList()/*.GetRange(0,5)*/;
+            ViewBag.Categories = categories;
             return View();
         }
 
@@ -33,16 +37,6 @@ namespace NitStore.Controllers
             return View();
         }
 
-        [HttpGet]
-        public async Task<IActionResult> Login()
-        {
-            return View();
-        }
-
-        [HttpGet]
-        public async Task<IActionResult> Register()
-        {
-            return View();
-        }
+        
     }
 }
