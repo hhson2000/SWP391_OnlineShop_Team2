@@ -19,10 +19,10 @@ namespace NitStore.Models.Domain
         public int Status { get; set; }
 
         [Required]
-        public DateTime CreateDate { get; set; }
+        public DateTime CreatedDate { get; set; }
 
         [Required]
-        public DateTime UpdateDate { get; set; }
+        public DateTime UpdatedDate { get; set; }
 
         [Required]
         public float Total { get; set; }
