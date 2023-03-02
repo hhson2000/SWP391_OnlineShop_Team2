@@ -3,11 +3,6 @@ using NitStore.Controllers;
 using NitStore.Data;
 using NitStore.Models.Domain;
 using NUnit.Framework;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Assert = NUnit.Framework.Assert;
 
 namespace NITStoreTest
@@ -52,29 +47,29 @@ namespace NITStoreTest
             Assert.AreEqual(product.Description, savedCategory.Description);
         }
 
-        //[Test]
-        //public void CreateCategoryFail_AddsNewCategoryToDatabaseFailed()
-        //{
-        //    // Arrange
-        //    using var context = new NitDbContext(_options);
-        //    var product = new Product
-        //    {
-        //        Name = "",
-        //        Category = 1,
-        //        Status = 1,
-        //        Money = 1,
-        //        Quantity = 1,
-        //        Description = "This is a test category"
-        //    };
+        [Test]
+        public void CreateCategoryFail_AddsNewCategoryToDatabaseFailed()
+        {
+            // Arrange
+            using var context = new NitDbContext(_options);
+            var product = new Product
+            {
+                Name = "",
+                Category = 1,
+                Status = 1,
+                Price = 1,
+                Quantity = 1,
+                Description = "This is a test category"
+            };
 
-        //    // Act
-        //    ProductsController repo = new ProductsController(context);
-        //    var resultTask = repo.Create(product);
-        //    resultTask.Wait();
-        //    bool result = resultTask.Result;
-        //    // Assert
-        //    Assert.AreEqual(result, false);
-        //}
+            // Act
+            ProductsController repo = new ProductsController(context);
+            var resultTask = repo.AddProduct(product);
+            resultTask.Wait();
+            bool result = resultTask.Result;
+            // Assert
+            Assert.AreEqual(result, false);
+        }
 
         [Test]
         public void ReadProduct_GetsProductFromDatabase()
