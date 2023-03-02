@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using NitStore.Controllers;
 using NitStore.Data;
 using NitStore.Models.Domain;
 using NUnit.Framework;
@@ -20,7 +21,7 @@ namespace NITStoreTest
         public void Setup()
         {
             _options = new DbContextOptionsBuilder<NitDbContext>()
-                .UseInMemoryDatabase(databaseName: "testDatabase")
+                .UseInMemoryDatabase(databaseName: "NIT")
                 .Options;
         }
 
@@ -36,8 +37,10 @@ namespace NITStoreTest
             };
 
             // Act
-            context.images.Add(image);
-            context.SaveChanges();
+            ImageController repo = new ImageController(context);
+            var result = repo.AddImage(image);
+            result.Wait();
+            bool check = result.Result;
 
             // Assert
             var savedImage = context.images.FirstOrDefault(c => c.Id == image.Id);

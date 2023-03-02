@@ -54,7 +54,7 @@ namespace NitStore.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,CustomerId,Status,CreateDate,UpdateDate,Total")] Order order)
+        public async Task<IActionResult> Create([Bind("Id,CustomerId,Status,CreatedDate,UpdatedDate,Total")] Order order)
         {
             if (ModelState.IsValid)
             {
@@ -86,7 +86,7 @@ namespace NitStore.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,CustomerId,Status,CreateDate,UpdateDate,Total")] Order order)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,CustomerId,Status,CreatedDate,UpdatedDate,Total")] Order order)
         {
             if (id != order.Id)
             {

@@ -58,11 +58,30 @@ namespace NitStore.Controllers
         {
             if (ModelState.IsValid)
             {
-                dbContext.Add(image);
-                await dbContext.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                bool result = await AddImage(image);
+                if(result == true)
+                {
+                    return RedirectToAction(nameof(Index));
+                } else
+                {
+                    return NotFound();
+                }
+                
             }
             return View(image);
+        }
+
+        public async Task<bool> AddImage(Image img)
+        {
+            if (img.ImageURL == null || img.ImageURL.Trim() == "")
+            {
+                return false;
+            } else
+            {
+                dbContext.Add(img);
+                await dbContext.SaveChangesAsync();
+                return true;
+            }
         }
 
         // GET: Image/Edit/5

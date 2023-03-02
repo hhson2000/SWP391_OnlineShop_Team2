@@ -40,7 +40,6 @@ namespace NitStore.Controllers
                 Email = dto.Email,
                 Role = 1,
                 Status = dto.Status,
-                NeedToChange = true,
                 Password = "123456"
             };
 

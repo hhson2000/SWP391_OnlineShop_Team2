@@ -18,6 +18,9 @@ namespace NitStore.Models.Domain
         [StringLength(255)]
         public string Description { get; set; }
 
+
+        [Required]
+        public bool Status { get; set; }
         [Required]
         public DateTime StartDate { get; set; }
 

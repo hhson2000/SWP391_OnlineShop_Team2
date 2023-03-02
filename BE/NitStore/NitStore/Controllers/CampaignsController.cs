@@ -22,7 +22,7 @@ namespace NitStore.Controllers
         // GET: Campaigns
         public async Task<IActionResult> Index()
         {
-            return View(await dbContext.campaigns.ToListAsync());
+              return View(await dbContext.campaigns.ToListAsync());
         }
 
         // GET: Campaigns/Details/5
@@ -54,25 +54,15 @@ namespace NitStore.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Name,Description,StartDate,EndDate")] Campaign campaign)
+        public async Task<IActionResult> Create([Bind("Id,Name,Description,Status,StartDate,EndDate")] Campaign campaign)
         {
             if (ModelState.IsValid)
             {
-                AddCampaign(campaign);
+                dbContext.Add(campaign);
+                await dbContext.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
             return View(campaign);
-        }
-
-        public async Task<bool> AddCampaign(Campaign campaign)
-        {
-            if (campaign.Name.Trim() == "")
-            {
-                return false;
-            }
-            dbContext.Add(campaign);
-            await dbContext.SaveChangesAsync();
-            return true;
         }
 
         // GET: Campaigns/Edit/5
@@ -96,7 +86,7 @@ namespace NitStore.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Description,StartDate,EndDate")] Campaign campaign)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Description,Status,StartDate,EndDate")] Campaign campaign)
         {
             if (id != campaign.Id)
             {

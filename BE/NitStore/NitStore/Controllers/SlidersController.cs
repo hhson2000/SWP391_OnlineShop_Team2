@@ -54,7 +54,7 @@ namespace NitStore.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,CampaignId,Image,Status,CreateDate,UpdatedDate")] Slider slider)
+        public async Task<IActionResult> Create([Bind("Id,CampaignId,Image,Status,CreatedDate,UpdatedDate")] Slider slider)
         {
             if (ModelState.IsValid)
             {
@@ -86,7 +86,7 @@ namespace NitStore.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,CampaignId,Image,Status,CreateDate,UpdatedDate")] Slider slider)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,CampaignId,Image,Status,CreatedDate,UpdatedDate")] Slider slider)
         {
             if (id != slider.Id)
             {

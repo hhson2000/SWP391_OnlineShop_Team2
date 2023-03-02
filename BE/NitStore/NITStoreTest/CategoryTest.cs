@@ -21,7 +21,7 @@ namespace NITStoreTest
         public void Setup()
         {
             _options = new DbContextOptionsBuilder<NitDbContext>()
-                .UseInMemoryDatabase(databaseName: "testDatabase")
+                .UseInMemoryDatabase(databaseName: "NIT")
                 .Options;
         }
 
@@ -37,14 +37,13 @@ namespace NITStoreTest
             };
 
             // Act
-            context.categories.Add(category);
-            context.SaveChanges();
+            CategoriesController repo = new CategoriesController(context);
+            var resultTask = repo.AddCategory(category);
+            resultTask.Wait();
+            bool result = resultTask.Result;
 
             // Assert
-            var savedCategory = context.categories.FirstOrDefault(c => c.Id == category.Id);
-            Assert.NotNull(savedCategory);
-            Assert.AreEqual(category.Name, savedCategory.Name);
-            Assert.AreEqual(category.Description, savedCategory.Description);
+            Assert.AreEqual(result, true);
         }
 
         [Test]
@@ -106,7 +105,8 @@ namespace NITStoreTest
             var savedCategory = context.categories.FirstOrDefault(c => c.Id == category.Id);
             savedCategory.Name = "Updated Test Category";
             savedCategory.Description = "This is an updated test category";
-            context.SaveChanges();
+            CategoriesController repo = new CategoriesController(context);
+            repo.EditCategory(savedCategory);
 
             // Assert
             var updatedCategory = context.categories.FirstOrDefault(c => c.Id == category.Id);

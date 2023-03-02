@@ -1,5 +1,5 @@
 ﻿@model IEnumerable<NitStore.Models.Domain.Order>
-
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
 @{
     Layout = null;
 }
@@ -25,10 +25,10 @@
                 @Html.DisplayNameFor(model => model.Status)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.CreateDate)
+                @Html.DisplayNameFor(model => model.CreatedDate)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.UpdateDate)
+                @Html.DisplayNameFor(model => model.UpdatedDate)
             </th>
             <th>
                     @Html.DisplayNameFor(model => model.Total)
@@ -46,10 +46,10 @@
                 @Html.DisplayFor(modelItem => item.Status)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.CreateDate)
+                @Html.DisplayFor(modelItem => item.CreatedDate)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.UpdateDate)
+                @Html.DisplayFor(modelItem => item.UpdatedDate)
             </td>
             <td>
                         @Html.DisplayFor(modelItem => item.Total)

@@ -1,5 +1,5 @@
 ﻿@model IEnumerable<NitStore.Models.Domain.Campaign>
-
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
 @{
     Layout = null;
 }
@@ -25,6 +25,9 @@
                 @Html.DisplayNameFor(model => model.Description)
             </th>
             <th>
+                @Html.DisplayNameFor(model => model.Status)
+            </th>
+            <th>
                 @Html.DisplayNameFor(model => model.StartDate)
             </th>
             <th>
@@ -41,6 +44,9 @@
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Description)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Status)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.StartDate)
