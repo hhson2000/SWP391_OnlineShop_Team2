@@ -32,12 +32,12 @@ namespace NITStoreTest
             using var context = new NitDbContext(_options);
             var image = new Image
             {
-                ImageURL = "Test  url",
+                ImageData = new byte[] { 0x20, 0x20, 0x20, 0x20, 0x20, 0x20, 0x20 },
                 Description = "This is a test image"
             };
 
             // Act
-            ImageController repo = new ImageController(context);
+            ImagesController repo = new ImagesController(context);
             var result = repo.AddImage(image);
             result.Wait();
             bool check = result.Result;
@@ -45,7 +45,7 @@ namespace NITStoreTest
             // Assert
             var savedImage = context.images.FirstOrDefault(c => c.Id == image.Id);
             Assert.NotNull(savedImage);
-            Assert.AreEqual(image.ImageURL, savedImage.ImageURL);
+            Assert.AreEqual(image.ImageData, savedImage.ImageData);
             Assert.AreEqual(image.Description, savedImage.Description);
         }
 
@@ -56,7 +56,7 @@ namespace NITStoreTest
             using var context = new NitDbContext(_options);
             var image = new Image
             {
-                ImageURL = "Test  url",
+                ImageData = new byte[] { 0x20, 0x20, 0x20, 0x20, 0x20, 0x20, 0x20 },
                 Description = "This is a test image"
             };
             context.images.Add(image);
@@ -67,7 +67,7 @@ namespace NITStoreTest
 
             // Assert
             Assert.NotNull(savedImage);
-            Assert.AreEqual(image.ImageURL, savedImage.ImageURL);
+            Assert.AreEqual(image.ImageData, savedImage.ImageData);
             Assert.AreEqual(image.Description, savedImage.Description);
         }
 
@@ -78,7 +78,7 @@ namespace NITStoreTest
             using var context = new NitDbContext(_options);
             var image = new Image
             {
-                ImageURL = "Test  url",
+                ImageData = new byte[] { 0x20, 0x20, 0x20, 0x20, 0x20, 0x20, 0x20 },
                 Description = "This is a test image"
             };
             context.images.Add(image);
@@ -86,14 +86,14 @@ namespace NITStoreTest
 
             // Act
             var savedImage = context.images.FirstOrDefault(c => c.Id == image.Id);
-            savedImage.ImageURL = "Test URL";
-            savedImage.Description = "This is an updated test category";
+            savedImage.ImageData = new byte[] { 0x10, 0x20, 0x20, 0x20, 0x20, 0x20, 0x20 };
+            savedImage.Description = "This is an updated test image";
             context.SaveChanges();
 
             // Assert
             var updatedImage = context.images.FirstOrDefault(c => c.Id == image.Id);
             Assert.NotNull(updatedImage);
-            Assert.AreEqual(savedImage.ImageURL, updatedImage.ImageURL);
+            Assert.AreEqual(savedImage.ImageData, updatedImage.ImageData);
             Assert.AreEqual(savedImage.Description, updatedImage.Description);
         }
 
@@ -104,7 +104,7 @@ namespace NITStoreTest
             using var context = new NitDbContext(_options);
             var image = new Image
             {
-                ImageURL = "Test  url",
+                ImageData = new byte[] { 0x20, 0x20, 0x20, 0x20, 0x20, 0x20, 0x20 },
                 Description = "This is a test image"
             };
             context.images.Add(image);

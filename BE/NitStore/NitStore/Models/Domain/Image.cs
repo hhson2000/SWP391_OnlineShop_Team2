@@ -10,8 +10,7 @@ namespace NitStore.Models.Domain
         [Column(Order = 0)]
         public int Id { get; set; }
 
-        [StringLength(255)]
-        public string ImageURL { get; set; }
+        public byte[] ImageData { get; set; }
 
         [StringLength(255)]
         public string Description { get; set; }

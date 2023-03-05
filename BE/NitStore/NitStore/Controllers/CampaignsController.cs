@@ -65,6 +65,20 @@ namespace NitStore.Controllers
             return View(campaign);
         }
 
+        public async Task<bool> AddCampaign(Campaign campaign)
+        {
+            if (campaign.Name == null || campaign.Name.Trim() == "")
+            {
+                return false;
+            }
+            else
+            {
+                dbContext.Add(campaign);
+                await dbContext.SaveChangesAsync();
+                return true;
+            }
+        }
+
         // GET: Campaigns/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
