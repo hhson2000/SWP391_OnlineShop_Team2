@@ -10,22 +10,22 @@ using NitStore.Models.Domain;
 
 namespace NitStore.Controllers
 {
-    public class ImageController : Controller
+    public class ImagesController : Controller
     {
         private readonly NitDbContext dbContext;
 
-        public ImageController(NitDbContext context)
+        public ImagesController(NitDbContext dbContext)
         {
-            this.dbContext = context;
+            this.dbContext = dbContext;
         }
 
-        // GET: Image
+        // GET: Images
         public async Task<IActionResult> Index()
         {
               return View(await dbContext.images.ToListAsync());
         }
 
-        // GET: Image/Details/5
+        // GET: Images/Details/5
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null || dbContext.images == null)
@@ -43,40 +43,34 @@ namespace NitStore.Controllers
             return View(image);
         }
 
-        // GET: Image/Create
+        // GET: Images/Create
         public IActionResult Create()
         {
             return View();
         }
 
-        // POST: Image/Create
+        // POST: Images/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Description,ImageURL")] Image image)
+        public async Task<IActionResult> Create([Bind("Id,ImageData,Description")] Image image)
         {
             if (ModelState.IsValid)
             {
-                bool result = await AddImage(image);
-                if(result == true)
-                {
-                    return RedirectToAction(nameof(Index));
-                } else
-                {
-                    return NotFound();
-                }
-                
+                AddImage(image);
+                return RedirectToAction(nameof(Index));
             }
             return View(image);
         }
 
         public async Task<bool> AddImage(Image img)
         {
-            if (img.ImageURL == null || img.ImageURL.Trim() == "")
+            if (img.ImageData == null)
             {
                 return false;
-            } else
+            }
+            else
             {
                 dbContext.Add(img);
                 await dbContext.SaveChangesAsync();
@@ -84,7 +78,7 @@ namespace NitStore.Controllers
             }
         }
 
-        // GET: Image/Edit/5
+        // GET: Images/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null || dbContext.images == null)
@@ -100,12 +94,12 @@ namespace NitStore.Controllers
             return View(image);
         }
 
-        // POST: Image/Edit/5
+        // POST: Images/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Description,ImageURL")] Image image)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,ImageData,Description")] Image image)
         {
             if (id != image.Id)
             {
@@ -135,7 +129,7 @@ namespace NitStore.Controllers
             return View(image);
         }
 
-        // GET: Image/Delete/5
+        // GET: Images/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null || dbContext.images == null)
@@ -153,14 +147,14 @@ namespace NitStore.Controllers
             return View(image);
         }
 
-        // POST: Image/Delete/5
+        // POST: Images/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             if (dbContext.images == null)
             {
-                return Problem("Entity set 'NitDbContext.Image'  is null.");
+                return Problem("Entity set 'NitDbContext.images'  is null.");
             }
             var image = await dbContext.images.FindAsync(id);
             if (image != null)
