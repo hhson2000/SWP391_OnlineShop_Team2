@@ -29,5 +29,7 @@ namespace NitStore.Models.DTO
 
         [Required]
         public float Price { get; set; }
+
+        public List<IFormFile> Image { get; set; }
     }
 }

@@ -194,26 +194,26 @@ namespace NitStore.Controllers
         //    return RedirectToAction("Index");
         //}
 
-        private Image InsertImage(Image img, HttpPostedFileBase singleFile, string Name)
-        {
+        //private Image InsertImage(Image img, HttpPostedFileBase singleFile, string Name)
+        //{
 
-            string path = AppDomain.CurrentDomain.BaseDirectory +
-                "images\\";
-            //get image from file: [file:*.*]
-            string filePat = @".*(?<file>\[file:.*\]).*";
+        //    string path = AppDomain.CurrentDomain.BaseDirectory +
+        //        "images\\";
+        //    //get image from file: [file:*.*]
+        //    string filePat = @".*(?<file>\[file:.*\]).*";
 
-            string imgPath = "" + Name;
+        //    string imgPath = "" + Name;
 
-            imgPath = path + "image";
-            singleFile.SaveAs(imgPath);
-            FileStream fs = new FileStream(imgPath, FileMode.Open);
-            byte[] buf = new byte[(int)fs.Length];
-            fs.Read(buf, 0, (int)fs.Length);
-            img.ImageData = buf;
-            fs.Close();
-            System.IO.File.Delete(imgPath);
+        //    imgPath = path + "image";
+        //    singleFile.SaveAs(imgPath);
+        //    FileStream fs = new FileStream(imgPath, FileMode.Open);
+        //    byte[] buf = new byte[(int)fs.Length];
+        //    fs.Read(buf, 0, (int)fs.Length);
+        //    img.ImageData = buf;
+        //    fs.Close();
+        //    System.IO.File.Delete(imgPath);
 
-            return img;
-        }
+        //    return img;
+        //}
     }
 }

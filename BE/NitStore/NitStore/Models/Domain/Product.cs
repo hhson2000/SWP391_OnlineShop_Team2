@@ -30,5 +30,7 @@ namespace NitStore.Models.Domain
 
         [Required]
         public float Price { get; set; }
+
+        
     }
 }

@@ -6,6 +6,7 @@ using System.Web;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Hosting.Internal;
 using NitStore.Data;
 using NitStore.Models.Domain;
 using NitStore.Models.DTO;
@@ -30,10 +31,25 @@ namespace NitStore.Controllers
         }
 
         [HttpPost]
-        public ActionResult AddProduct(HttpPostedFileBase[] files, ProductAddDTO dto)
+        public ActionResult AddProduct(ProductAddDTO dto)
         {
+            if (dto.Image != null)
+            {
+                //var uniqueFileName = GetUniqueFileName(dto.Image.FileName);
+                //model.MyImage.CopyTo(new FileStream(filePath, FileMode.Create));
+
+                //to do : Save uniqueFileName  to your db table   
+            }
             return View();
         }
+        //private string GetUniqueFileName(string fileName)
+        //{
+        //    fileName = Path.GetFileName(fileName);
+        //    return Path.GetFileNameWithoutExtension(fileName)
+        //              + "_"
+        //              + Guid.NewGuid().ToString().Substring(0, 4)
+        //              + Path.GetExtension(fileName);
+        //}
 
         // GET: Products
         public async Task<IActionResult> Index()
