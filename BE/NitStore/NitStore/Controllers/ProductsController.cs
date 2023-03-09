@@ -2,11 +2,13 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Web;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using NitStore.Data;
 using NitStore.Models.Domain;
+using NitStore.Models.DTO;
 
 namespace NitStore.Controllers
 {
@@ -19,26 +21,18 @@ namespace NitStore.Controllers
             this.dbContext = dbContext;
         }
 
-        public async Task<bool> AddProduct(Product product)
+        public async Task<IActionResult> AddProduct()
         {
-            if (product == null)
-            {
-                return false;
-            }
-            else if (product.Name == null || product.Description == null)
-            {
-                return false;
-            }
-            else if (product.Name.Trim() == "" || product.Description.Trim() == "")
-            {
-                return false;
-            }
-            else
-            {
-                dbContext.Add(product);
-                await dbContext.SaveChangesAsync();
-                return true;
-            }
+            List<Category> categoryList = dbContext.categories.ToList();
+            ProductAddDTO dto = new ProductAddDTO();
+            dto.CategoryList = new SelectList(categoryList, "Id", "Name");
+            return View(dto);
+        }
+
+        [HttpPost]
+        public ActionResult AddProduct(HttpPostedFileBase[] files, ProductAddDTO dto)
+        {
+            return View();
         }
 
         // GET: Products
