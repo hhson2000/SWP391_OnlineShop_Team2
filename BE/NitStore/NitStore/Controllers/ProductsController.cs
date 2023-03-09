@@ -33,14 +33,21 @@ namespace NitStore.Controllers
         [HttpPost]
         public ActionResult AddProduct(ProductAddDTO dto)
         {
-            if (dto.Image != null)
+            List<Category> categoryList = dbContext.categories.ToList();
+            ProductAddDTO dtos = new ProductAddDTO();
+            dtos.CategoryList = new SelectList(categoryList, "Id", "Name");
+            if (ModelState.IsValid)
             {
-                //var uniqueFileName = GetUniqueFileName(dto.Image.FileName);
-                //model.MyImage.CopyTo(new FileStream(filePath, FileMode.Create));
+                if (dto.Image != null)
+                {
+                    //var uniqueFileName = GetUniqueFileName(dto.Image.FileName);
+                    //model.MyImage.CopyTo(new FileStream(filePath, FileMode.Create));
 
-                //to do : Save uniqueFileName  to your db table   
+                    //to do : Save uniqueFileName  to your db table   
+                }
             }
-            return View();
+            
+            return View(dtos);
         }
         //private string GetUniqueFileName(string fileName)
         //{
