@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Web;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -22,6 +23,34 @@ namespace NitStore.Controllers
             this.dbContext = dbContext;
         }
 
+        public async Task<IActionResult> ViewAllProduct()
+        {
+            List<Product> productList = dbContext.products.ToList();
+            List<ProductShowDTO> productShowList = new List<ProductShowDTO>();
+            List<Category> categoryList = dbContext.categories.ToList();
+            
+            foreach(Product item in productList)
+            {
+                ProductImage productImage = dbContext.productsImage.Where(x => x.ProductId == item.Id).First();
+                Image image = dbContext.images.Where(x => x.Id== productImage.ImageId).First();
+                ProductShowDTO productShowDTO = new ProductShowDTO()
+                {
+                    Id = item.Id,
+                    Name = item.Name,
+                    Description = item.Description,
+                    Status = item.Status,
+                    Quantity = item.Quantity,
+                    CategoryId = item.Category,
+                    CategoryName = categoryList.Where(x => x.Id == item.Category).First().Name,
+                    Price = item.Price,
+                    imageBit = image.ImageData
+                };
+                productShowList.Add(productShowDTO);
+            }
+            ViewBag.ListProduct = productShowList;
+            return View();
+        }
+
         public async Task<IActionResult> AddProduct()
         {
             List<Category> categoryList = dbContext.categories.ToList();
@@ -33,30 +62,61 @@ namespace NitStore.Controllers
         [HttpPost]
         public ActionResult AddProduct(ProductAddDTO dto)
         {
+            
             List<Category> categoryList = dbContext.categories.ToList();
             ProductAddDTO dtos = new ProductAddDTO();
             dtos.CategoryList = new SelectList(categoryList, "Id", "Name");
-            if (ModelState.IsValid)
-            {
+            dto.CategoryList = new SelectList(categoryList, "Id", "Name");
+            //if (ModelState.IsValid)
+            //{
+                Product product = new Product()
+                {
+                    Name = dto.Name,
+                    Description = dto.Description,
+                    Status = dto.Status,
+                    Quantity = dto.Quantity,
+                    Category = dto.CategoryId,
+                    Price = dto.Price
+                };
+                dbContext.products.Add(product);
+                dbContext.SaveChanges();
                 if (dto.Image != null)
                 {
-                    //var uniqueFileName = GetUniqueFileName(dto.Image.FileName);
-                    //model.MyImage.CopyTo(new FileStream(filePath, FileMode.Create));
+                int index = 1;
+                    foreach (IFormFile file in dto.Image)
+                    {
+                        
+                        Image image = new Image();
+                        byte[] bytes = ConvertToBytes(file);
+                        image.ImageData = bytes;
+                        image.Description = "Product_" + dto.Name + "_" + index;
+                        index++;
+                        dbContext.images.Add(image);
+                        dbContext.SaveChanges();
 
-                    //to do : Save uniqueFileName  to your db table   
+                        ProductImage productImage = new ProductImage()
+                        {
+                            ProductId = product.Id,
+                            ImageId = image.Id
+                        };
+
+                        dbContext.productsImage.Add(productImage);
+                        dbContext.SaveChanges();
+                    } 
                 }
-            }
+            //}
             
             return View(dtos);
         }
-        //private string GetUniqueFileName(string fileName)
-        //{
-        //    fileName = Path.GetFileName(fileName);
-        //    return Path.GetFileNameWithoutExtension(fileName)
-        //              + "_"
-        //              + Guid.NewGuid().ToString().Substring(0, 4)
-        //              + Path.GetExtension(fileName);
-        //}
+        private byte[] ConvertToBytes(IFormFile file)
+        {
+            Stream stream = file.OpenReadStream();
+            using (var memoryStream = new MemoryStream())
+            {
+                stream.CopyTo(memoryStream);
+                return memoryStream.ToArray();
+            }
+        }
 
         // GET: Products
         public async Task<IActionResult> Index()

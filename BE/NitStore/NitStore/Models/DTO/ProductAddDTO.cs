@@ -28,7 +28,7 @@ namespace NitStore.Models.DTO
         public SelectList CategoryList { get; set; }
 
         [Required]
-        public float Price { get; set; }
+        public decimal Price { get; set; }
 
         public List<IFormFile> Image { get; set; }
     }

@@ -29,7 +29,7 @@ namespace NitStore.Models.Domain
         public int Category { get; set; }
 
         [Required]
-        public float Price { get; set; }
+        public decimal Price { get; set; }
 
         
     }
