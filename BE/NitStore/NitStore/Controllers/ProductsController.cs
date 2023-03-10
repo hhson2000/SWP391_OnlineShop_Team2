@@ -125,7 +125,7 @@ namespace NitStore.Controllers
         }
 
         // GET: Products/Details/5
-        public async Task<IActionResult> Details(int? id)
+        public async Task<IActionResult> ProductDetail(int? id)
         {
             if (id == null || dbContext.products == null)
             {
@@ -138,8 +138,16 @@ namespace NitStore.Controllers
             {
                 return NotFound();
             }
-
-            return View(product);
+            List<ProductImage> productImage = dbContext.productsImage.Where(x => x.ProductId == product.Id).ToList();
+            List<Image> imageList = new List<Image>();
+            foreach(ProductImage item in productImage)
+            {
+                Image image = dbContext.images.Where(x => x.Id == item.ImageId).First();
+                imageList.Add(image);
+            }
+            ViewBag.Product = product;
+            ViewBag.Images = imageList;
+            return View();
         }
 
         // GET: Products/Create

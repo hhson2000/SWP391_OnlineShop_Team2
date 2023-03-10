@@ -1,6 +1,14 @@
 ﻿@{
     Layout = "_LayoutProduct";
 }
+<style>
+    .cover {
+        object-fit: cover;
+        width: auto;
+        margin: 20px;
+        height: 300px;
+    }
+</style>
 <div class="d-flex container-fluid justify-content-center">
     <div class="w-75 mt-5">
         <button type="button" class="btn btn-success">Add New Product</button>
@@ -38,7 +46,7 @@
                         <td>@item.Quantity</td>
                         <td>@item.CategoryName</td>
                         <td>@item.Price</td>
-                        <td><img src="data:image;base64,@System.Convert.ToBase64String(item.imageBit)" /></td>
+                        <td><img class="cover" src="data:image;base64,@System.Convert.ToBase64String(item.imageBit)" /></td>
                         <td class="justify-content-center text-center">
                             <button type="button" class="btn btn-danger">Remove</button>
                             <button type="button" class="btn btn-warning">Edit</button>
