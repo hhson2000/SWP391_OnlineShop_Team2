@@ -23,6 +23,34 @@ namespace NitStore.Controllers
             this.dbContext = dbContext;
         }
 
+        public async Task<IActionResult> ListProduct()
+        {
+            List<Product> productList = dbContext.products.ToList();
+            List<ProductShowDTO> productShowList = new List<ProductShowDTO>();
+            List<Category> categoryList = dbContext.categories.ToList();
+
+            foreach (Product item in productList)
+            {
+                ProductImage productImage = dbContext.productsImage.Where(x => x.ProductId == item.Id).First();
+                Image image = dbContext.images.Where(x => x.Id == productImage.ImageId).First();
+                ProductShowDTO productShowDTO = new ProductShowDTO()
+                {
+                    Id = item.Id,
+                    Name = item.Name,
+                    Description = item.Description,
+                    Status = item.Status,
+                    Quantity = item.Quantity,
+                    CategoryId = item.Category,
+                    CategoryName = categoryList.Where(x => x.Id == item.Category).First().Name,
+                    Price = item.Price,
+                    imageBit = image.ImageData
+                };
+                productShowList.Add(productShowDTO);
+            }
+            ViewBag.ListProduct = productShowList;
+            return View();
+        }
+
         public async Task<IActionResult> ViewAllProduct()
         {
             List<Product> productList = dbContext.products.ToList();
