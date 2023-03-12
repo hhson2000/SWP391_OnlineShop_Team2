@@ -1,4 +1,5 @@
-﻿@{
+﻿@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@{
     Layout = "_LayoutProduct";
 }
 <style>
@@ -53,6 +54,7 @@
                         </td>
                     </tr>
                 }
+                <a asp-action="HomeMaketer" asp-controller="Home">  Back to List</a>
             </tbody>
         </table>
 
