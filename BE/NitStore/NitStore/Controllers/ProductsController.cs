@@ -29,6 +29,8 @@ namespace NitStore.Controllers
             List<ProductShowDTO> productShowList = new List<ProductShowDTO>();
             List<Category> categoryList = dbContext.categories.ToList();
 
+            ViewBag.CategoryList = categoryList;
+
             foreach (Product item in productList)
             {
                 ProductImage productImage = dbContext.productsImage.Where(x => x.ProductId == item.Id).First();
