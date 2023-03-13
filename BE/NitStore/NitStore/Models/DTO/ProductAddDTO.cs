@@ -1,14 +1,11 @@
-﻿using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.Data.SqlTypes;
+﻿using Microsoft.AspNetCore.Mvc.Rendering;
+using System.ComponentModel.DataAnnotations;
+using System.Web;
 
-namespace NitStore.Models.Domain
+namespace NitStore.Models.DTO
 {
-    [Table("Product")]
-    public partial class Product
+    public class ProductAddDTO
     {
-        [Key]
-        [Column(Order = 0)]
         public int Id { get; set; }
 
         [Required]
@@ -26,11 +23,13 @@ namespace NitStore.Models.Domain
         public int Quantity { get; set; }
 
         [Required]
-        public int Category { get; set; }
+        public int CategoryId { get; set; }
+
+        public SelectList CategoryList { get; set; }
 
         [Required]
         public decimal Price { get; set; }
 
-        
+        public List<IFormFile> Image { get; set; }
     }
 }

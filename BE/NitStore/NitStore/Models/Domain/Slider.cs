@@ -22,10 +22,10 @@ namespace NitStore.Models.Domain
         [Column(Order = 3)]
         public int Status { get; set; }
 
-        [Required]
-        public DateTime CreatedDate { get; set; }
+        //[Required]
+        //public DateTime CreatedDate { get; set; }
 
-        [Required]
-        public DateTime UpdatedDate { get; set; }
+        //[Required]
+        //public DateTime UpdatedDate { get; set; }
     }
 }

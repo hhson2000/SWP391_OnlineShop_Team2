@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using NitStore.Data;
 using NitStore.Models.Domain;
+using System.Web;
 
 namespace NitStore.Controllers
 {
@@ -170,5 +171,49 @@ namespace NitStore.Controllers
         {
           return dbContext.images.Any(e => e.Id == id);
         }
+
+        //[HttpPost]
+        //[ValidateAntiForgeryToken]
+        //public async Task<IActionResult> Import(HttpPostedFileBase[] files)
+        //{
+        //    if (files.Length < 0)
+        //    {
+        //        TempData["ErrorMessage"] = "Import Error. Image folder cannot empty!";
+        //        return RedirectToAction("Index");
+        //    }
+        //    else
+        //    {
+
+        //        foreach (var file in files)
+        //        {
+        //            Image image = new Image();
+        //            image = this.InsertImage(image, file, "Test");
+        //        }
+
+        //    }
+        //    return RedirectToAction("Index");
+        //}
+
+        //private Image InsertImage(Image img, HttpPostedFileBase singleFile, string Name)
+        //{
+
+        //    string path = AppDomain.CurrentDomain.BaseDirectory +
+        //        "images\\";
+        //    //get image from file: [file:*.*]
+        //    string filePat = @".*(?<file>\[file:.*\]).*";
+
+        //    string imgPath = "" + Name;
+
+        //    imgPath = path + "image";
+        //    singleFile.SaveAs(imgPath);
+        //    FileStream fs = new FileStream(imgPath, FileMode.Open);
+        //    byte[] buf = new byte[(int)fs.Length];
+        //    fs.Read(buf, 0, (int)fs.Length);
+        //    img.ImageData = buf;
+        //    fs.Close();
+        //    System.IO.File.Delete(imgPath);
+
+        //    return img;
+        //}
     }
 }

@@ -2,11 +2,15 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Web;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Hosting.Internal;
 using NitStore.Data;
 using NitStore.Models.Domain;
+using NitStore.Models.DTO;
 
 namespace NitStore.Controllers
 {
@@ -19,25 +23,128 @@ namespace NitStore.Controllers
             this.dbContext = dbContext;
         }
 
-        public async Task<bool> AddProduct(Product product)
+        public async Task<IActionResult> ListProduct()
         {
-            if (product == null)
+            List<Product> productList = dbContext.products.ToList();
+            List<ProductShowDTO> productShowList = new List<ProductShowDTO>();
+            List<Category> categoryList = dbContext.categories.ToList();
+
+            ViewBag.CategoryList = categoryList;
+
+            foreach (Product item in productList)
             {
-                return false;
+                ProductImage productImage = dbContext.productsImage.Where(x => x.ProductId == item.Id).First();
+                Image image = dbContext.images.Where(x => x.Id == productImage.ImageId).First();
+                ProductShowDTO productShowDTO = new ProductShowDTO()
+                {
+                    Id = item.Id,
+                    Name = item.Name,
+                    Description = item.Description,
+                    Status = item.Status,
+                    Quantity = item.Quantity,
+                    CategoryId = item.Category,
+                    CategoryName = categoryList.Where(x => x.Id == item.Category).First().Name,
+                    Price = item.Price,
+                    imageBit = image.ImageData
+                };
+                productShowList.Add(productShowDTO);
             }
-            else if (product.Name == null || product.Description == null)
+            ViewBag.ListProduct = productShowList;
+            return View();
+        }
+
+        public async Task<IActionResult> ViewAllProduct()
+        {
+            List<Product> productList = dbContext.products.ToList();
+            List<ProductShowDTO> productShowList = new List<ProductShowDTO>();
+            List<Category> categoryList = dbContext.categories.ToList();
+            
+            foreach(Product item in productList)
             {
-                return false;
+                ProductImage productImage = dbContext.productsImage.Where(x => x.ProductId == item.Id).First();
+                Image image = dbContext.images.Where(x => x.Id== productImage.ImageId).First();
+                ProductShowDTO productShowDTO = new ProductShowDTO()
+                {
+                    Id = item.Id,
+                    Name = item.Name,
+                    Description = item.Description,
+                    Status = item.Status,
+                    Quantity = item.Quantity,
+                    CategoryId = item.Category,
+                    CategoryName = categoryList.Where(x => x.Id == item.Category).First().Name,
+                    Price = item.Price,
+                    imageBit = image.ImageData
+                };
+                productShowList.Add(productShowDTO);
             }
-            else if (product.Name.Trim() == "" || product.Description.Trim() == "")
+            ViewBag.ListProduct = productShowList;
+            return View();
+        }
+
+        public async Task<IActionResult> AddProduct()
+        {
+            List<Category> categoryList = dbContext.categories.ToList();
+            ProductAddDTO dto = new ProductAddDTO();
+            dto.CategoryList = new SelectList(categoryList, "Id", "Name");
+            return View(dto);
+        }
+
+        [HttpPost]
+        public ActionResult AddProduct(ProductAddDTO dto)
+        {
+            
+            List<Category> categoryList = dbContext.categories.ToList();
+            ProductAddDTO dtos = new ProductAddDTO();
+            dtos.CategoryList = new SelectList(categoryList, "Id", "Name");
+            dto.CategoryList = new SelectList(categoryList, "Id", "Name");
+            //if (ModelState.IsValid)
+            //{
+                Product product = new Product()
+                {
+                    Name = dto.Name,
+                    Description = dto.Description,
+                    Status = dto.Status,
+                    Quantity = dto.Quantity,
+                    Category = dto.CategoryId,
+                    Price = dto.Price
+                };
+                dbContext.products.Add(product);
+                dbContext.SaveChanges();
+                if (dto.Image != null)
+                {
+                int index = 1;
+                    foreach (IFormFile file in dto.Image)
+                    {
+                        
+                        Image image = new Image();
+                        byte[] bytes = ConvertToBytes(file);
+                        image.ImageData = bytes;
+                        image.Description = "Product_" + dto.Name + "_" + index;
+                        index++;
+                        dbContext.images.Add(image);
+                        dbContext.SaveChanges();
+
+                        ProductImage productImage = new ProductImage()
+                        {
+                            ProductId = product.Id,
+                            ImageId = image.Id
+                        };
+
+                        dbContext.productsImage.Add(productImage);
+                        dbContext.SaveChanges();
+                    } 
+                }
+            //}
+            
+            return View(dtos);
+        }
+        private byte[] ConvertToBytes(IFormFile file)
+        {
+            Stream stream = file.OpenReadStream();
+            using (var memoryStream = new MemoryStream())
             {
-                return false;
-            }
-            else
-            {
-                dbContext.Add(product);
-                await dbContext.SaveChangesAsync();
-                return true;
+                stream.CopyTo(memoryStream);
+                return memoryStream.ToArray();
             }
         }
 
@@ -48,7 +155,7 @@ namespace NitStore.Controllers
         }
 
         // GET: Products/Details/5
-        public async Task<IActionResult> Details(int? id)
+        public async Task<IActionResult> ProductDetail(int? id)
         {
             if (id == null || dbContext.products == null)
             {
@@ -61,8 +168,16 @@ namespace NitStore.Controllers
             {
                 return NotFound();
             }
-
-            return View(product);
+            List<ProductImage> productImage = dbContext.productsImage.Where(x => x.ProductId == product.Id).ToList();
+            List<Image> imageList = new List<Image>();
+            foreach(ProductImage item in productImage)
+            {
+                Image image = dbContext.images.Where(x => x.Id == item.ImageId).First();
+                imageList.Add(image);
+            }
+            ViewBag.Product = product;
+            ViewBag.Images = imageList;
+            return View();
         }
 
         // GET: Products/Create

@@ -33,9 +33,5 @@ namespace NitStore.Data
 
         public DbSet<UserDetail> userDetail { get; set; }
 
-        protected override void OnModelCreating(ModelBuilder modelBuilder)
-        {
-            modelBuilder.Entity<ProductImage>().HasNoKey();
-        }
     }
 }
