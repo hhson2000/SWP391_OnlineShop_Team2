@@ -17,5 +17,9 @@ namespace NitStore.Models.Domain
         [Required]
         [Column(Order = 2)]
         public int ProductId { get; set; }
+
+        [Required]
+        [Column(Order = 3)]
+        public int Quantity { get; set; }
     }
 }

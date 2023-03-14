@@ -17,7 +17,7 @@ namespace NitStore.Models.Domain
 
         [Required]
         public int Status { get; set; }
-
+       // 0 cart || 1 pending || 2 confirm || 3 recived
         [Required]
         public DateTime CreatedDate { get; set; }
 
@@ -25,6 +25,6 @@ namespace NitStore.Models.Domain
         public DateTime UpdatedDate { get; set; }
 
         [Required]
-        public float Total { get; set; }
+        public decimal Total { get; set; }
     }
 }
