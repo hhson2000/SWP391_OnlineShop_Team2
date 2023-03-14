@@ -6,6 +6,7 @@ using NitStore.Models.Domain;
 using System.Web;
 using NitStore.Models.DTO;
 using Microsoft.AspNetCore.Http;
+using Microsoft.IdentityModel.Tokens;
 
 namespace NitStore.Controllers
 {
@@ -29,9 +30,11 @@ namespace NitStore.Controllers
         [HttpGet]
         public async Task<IActionResult> LandingPage()
         {
-            List<Category> categories = new List<Category>();
-            categories = dbContext.categories.ToList()/*.GetRange(0,5)*/;
-            ViewBag.Categories = categories;
+            List<Category> categoryList = dbContext.categories.ToList();
+            ViewBag.CategoryList = categoryList;
+            //List<Category> categories = new List<Category>();
+            //categories = dbContext.categories.ToList()/*.GetRange(0,5)*/;
+            //ViewBag.Categories = categories;
             return View();
         }
 
@@ -44,6 +47,9 @@ namespace NitStore.Controllers
         [HttpGet]
         public async Task<IActionResult> Cart()
         {
+            if (!(TempData["shortMessage"] ?? "").ToString().IsNullOrEmpty()){
+                ViewBag.Message = TempData["shortMessage"].ToString();
+            }
             List<CartShowDTO> returnList = new List<CartShowDTO>();
             int userId = -1;
             if (!string.IsNullOrEmpty(HttpContext.Session.GetString("UserId")))
@@ -101,9 +107,10 @@ namespace NitStore.Controllers
                 userId = Convert.ToInt32(HttpContext.Session.GetString("UserId"));
             }
             Product product = dbContext.products.Where(x => x.Id == productId).First();
+
+            //product con` hang`
             if (product.Quantity > 0)
             {
-                //product con` hang`
                 Order order = dbContext.orders.Where(x => x.CustomerId == userId && x.Status == 0).FirstOrDefault();
                 if (order != null)
                 {
@@ -197,6 +204,70 @@ namespace NitStore.Controllers
                 }
                 // xoa ra khoi gio hang
             }
+            TempData["shortMessage"] = "Add Cart Item Success";
+            return RedirectToAction("Cart");
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> RemoveCartItem(int productId)
+        {
+            // action = 1 is Add, action = 0 is Remove
+            int userId = -1;
+            if (!string.IsNullOrEmpty(HttpContext.Session.GetString("UserId")))
+            {
+                userId = Convert.ToInt32(HttpContext.Session.GetString("UserId"));
+            }
+            Product product = dbContext.products.Where(x => x.Id == productId).First();
+            if (product.Quantity > 0)
+            {
+                Order order = dbContext.orders.Where(x => x.CustomerId == userId && x.Status == 0).FirstOrDefault();
+                if (order != null)
+                {
+                    order.UpdatedDate = DateTime.Now;
+                    OrderDetail orderDetail = dbContext.ordersDetail.Where(x => x.OrderId == order.Id && x.ProductId == productId).FirstOrDefault();
+                    if(orderDetail != null)
+                    {
+                        if(orderDetail.Quantity > 1)
+                        {
+                            orderDetail.Quantity = orderDetail.Quantity - 1;
+                        }
+                        else
+                        {
+                            dbContext.ordersDetail.Remove(orderDetail);
+                            dbContext.SaveChanges();
+                            List<OrderDetail> otherOrder = dbContext.ordersDetail.Where(x => x.OrderId == order.Id).ToList();
+                            if(otherOrder.Count <= 0)
+                            {
+                                dbContext.orders.Remove(order);
+                                dbContext.SaveChanges();
+                            }
+                        }
+                        
+                    }
+                }
+            }
+            else
+            {
+                Order order = dbContext.orders.Where(x => x.CustomerId == userId && x.Status == 0).FirstOrDefault();
+                List<OrderDetail> itemList = dbContext.ordersDetail.Where(x => x.OrderId == order.Id).ToList();
+                foreach (OrderDetail item in itemList)
+                {
+                    if (item.ProductId == product.Id)
+                    {
+                        itemList.Remove(item);
+                        dbContext.Remove(item);
+                        dbContext.SaveChanges();
+                    }
+                }
+                if (itemList.Count <= 0)
+                {
+                    dbContext.orders.Remove(order);
+                    dbContext.SaveChanges();
+                }
+                // xoa ra khoi gio hang
+            }
+            dbContext.SaveChanges();
+            TempData["shortMessage"] = "Remove Cart Item Success";
             return RedirectToAction("Cart");
         }
     }

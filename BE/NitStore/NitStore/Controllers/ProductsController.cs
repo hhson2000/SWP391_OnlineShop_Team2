@@ -58,8 +58,9 @@ namespace NitStore.Controllers
             List<Product> productList = dbContext.products.ToList();
             List<ProductShowDTO> productShowList = new List<ProductShowDTO>();
             List<Category> categoryList = dbContext.categories.ToList();
-            
-            foreach(Product item in productList)
+            ViewBag.CategoryList = categoryList;
+
+            foreach (Product item in productList)
             {
                 ProductImage productImage = dbContext.productsImage.Where(x => x.ProductId == item.Id).First();
                 Image image = dbContext.images.Where(x => x.Id== productImage.ImageId).First();
@@ -157,6 +158,8 @@ namespace NitStore.Controllers
         // GET: Products/Details/5
         public async Task<IActionResult> ProductDetail(int? id)
         {
+            List<Category> categoryList = dbContext.categories.ToList();
+            ViewBag.CategoryList = categoryList;
             if (id == null || dbContext.products == null)
             {
                 return NotFound();
