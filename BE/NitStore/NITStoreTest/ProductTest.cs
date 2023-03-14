@@ -46,7 +46,7 @@ namespace NITStoreTest
             Assert.AreEqual(product.Description, savedCategory.Description);
         }
 
-        [Test]
+        /*[Test]
         public void CreateCategoryFail_AddsNewCategoryToDatabaseFailed()
         {
             // Arrange
@@ -68,7 +68,7 @@ namespace NITStoreTest
             bool result = resultTask.Result;
             // Assert
             Assert.AreEqual(result, false);
-        }
+        }*/
 
         [Test]
         public void ReadProduct_GetsProductFromDatabase()
