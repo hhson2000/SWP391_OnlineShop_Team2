@@ -10,7 +10,7 @@
       integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
       crossorigin="anonymous"
     />
-    <title>Admin Site</title>
+    <title>Markerter Site</title>
   </head>
   <body>
     <div>
@@ -18,8 +18,8 @@
         <div class="container-fluid">
           <span class="navbar-brand mb-0 h1">NIT Maketer</span>
           <nav class="nav">
-            <a class="nav-link" href="#">Manage Category</a>
-            <a class="nav-link" href="#">Manage Product</a>
+                    @Html.ActionLink("Manage Categories", "Index", "Categories", new {}, null)
+                    @Html.ActionLink("Manage Products", "ViewAllProduct", "Products", new {}, null)
           </nav>
         </div>
       </nav>

@@ -98,6 +98,7 @@ namespace NitStore.Controllers
             {
                 try
                 {
+                    user.Role = 4;
                     _context.Update(user);
                     await _context.SaveChangesAsync();
                 }

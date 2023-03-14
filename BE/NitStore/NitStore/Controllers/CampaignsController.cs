@@ -44,6 +44,7 @@ namespace NitStore.Controllers
         }
 
         // GET: Campaigns/Create
+        [HttpGet]
         public IActionResult Create()
         {
             return View();
@@ -54,7 +55,7 @@ namespace NitStore.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Name,Description,Status")] Campaign campaign)
+        public async Task<IActionResult> Create(Campaign campaign)
         {
             if (ModelState.IsValid)
             {
