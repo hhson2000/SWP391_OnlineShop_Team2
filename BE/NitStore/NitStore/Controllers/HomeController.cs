@@ -6,6 +6,7 @@ using NitStore.Models.Domain;
 using System.Web;
 using NitStore.Models.DTO;
 using Microsoft.AspNetCore.Http;
+using Microsoft.IdentityModel.Tokens;
 
 namespace NitStore.Controllers
 {
@@ -46,6 +47,9 @@ namespace NitStore.Controllers
         [HttpGet]
         public async Task<IActionResult> Cart()
         {
+            if (!(TempData["shortMessage"] ?? "").ToString().IsNullOrEmpty()){
+                ViewBag.Message = TempData["shortMessage"].ToString();
+            }
             List<CartShowDTO> returnList = new List<CartShowDTO>();
             int userId = -1;
             if (!string.IsNullOrEmpty(HttpContext.Session.GetString("UserId")))
@@ -200,6 +204,7 @@ namespace NitStore.Controllers
                 }
                 // xoa ra khoi gio hang
             }
+            TempData["shortMessage"] = "Add Cart Item Success";
             return RedirectToAction("Cart");
         }
 
@@ -262,6 +267,7 @@ namespace NitStore.Controllers
                 // xoa ra khoi gio hang
             }
             dbContext.SaveChanges();
+            TempData["shortMessage"] = "Remove Cart Item Success";
             return RedirectToAction("Cart");
         }
     }
