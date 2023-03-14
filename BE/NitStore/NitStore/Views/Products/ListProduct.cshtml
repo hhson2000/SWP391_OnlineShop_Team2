@@ -1,11 +1,11 @@
-﻿@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers 
+﻿@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
 @{
     Layout = "~/shared/_LayoutShop.cshtml";
-} 
+}
 
 <section style="background-color: #eee">
-      <h1 class="p-3">List product</h1>
-      <div class="container py-5">
+    <h1 class="p-3">List product</h1>
+    <div class="container py-5">
         <div class="row">
             @foreach (var item in ViewBag.ListProduct)
             {
@@ -33,18 +33,18 @@
                                 <button onclick="window.location.href='@Url.Action("AddCartItem","Home", new { productId = @item.Id})''" type="button" class="btn btn-primary flex-fill me-1">
                                     Add to Cart
                                 </button>
-                               @* <a href="@Url.Action("ProductDetail","Products", new { id = @item.Id})">
-                                    Learn more
-                                        </a>
-                                <a href="@Url.Action("AddCartItem","Home", new { productId = @item.Id})">
-                                    Add to Cart
-                                        </a>*@
+                                @* <a href="@Url.Action("ProductDetail","Products", new { id = @item.Id})">
+                            Learn more
+                            </a>
+                            <a href="@Url.Action("AddCartItem","Home", new { productId = @item.Id})">
+                            Add to Cart
+                            </a>*@
                             </div>
                         </div>
                     </div>
                 </div>
             }
-          
+
         </div>
-      </div>
-    </section>
+    </div>
+</section>
