@@ -2,14 +2,18 @@
 @addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
 @{
     ViewData["Title"] = "Index";
-    Layout = "~/shared/_LayoutSaleManagers.cshtml";
+    Layout = "_LayoutMaketer";
 }
-
+<div class="container">
 <h1>Index</h1>
 
 <p>
     <a asp-action="Create">Create New</a>
 </p>
+<!--DUng cai duoi nay dep hon-->
+@*<button type="button" class="mt-2 btn btn-success" asp-action="Create">
+    Create New
+</button>*@
 <table class="table">
     <thead>
         <tr>
@@ -48,3 +52,4 @@
             @*<a asp-action="HomeMaketer" asp-controller="Home">  Back to List</a>*@
     </tbody>
 </table>
+</div>
