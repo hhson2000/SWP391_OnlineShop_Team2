@@ -21,10 +21,6 @@ namespace NitStore.Models.Domain
 
         [Required]
         public bool Status { get; set; }
-        [Required]
-        public DateTime StartDate { get; set; }
 
-        [Required]
-        public DateTime EndDate { get; set; }
     }
 }
