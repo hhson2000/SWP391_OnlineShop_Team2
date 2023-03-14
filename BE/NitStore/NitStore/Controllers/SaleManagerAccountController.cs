@@ -54,7 +54,7 @@ namespace NitStore.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         
-        public async Task<IActionResult> Create([Bind("Id,UserName,Password,Status,Email")] User user)
+        public async Task<IActionResult> Create(User user)
         {
             if (ModelState.IsValid)
             {
@@ -87,7 +87,7 @@ namespace NitStore.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         
-        public async Task<IActionResult> Edit(int id, [Bind("Id,UserName,Password,Role,Status,Email")] User user)
+        public async Task<IActionResult> Edit(int id, User user)
         {
             if (id != user.Id)
             {

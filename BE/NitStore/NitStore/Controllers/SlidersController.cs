@@ -54,7 +54,7 @@ namespace NitStore.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         
-        public async Task<IActionResult> Create([Bind("Id,CampaignId,Image,Status,CreatedDate,UpdatedDate")] Slider slider)
+        public async Task<IActionResult> Create(Slider slider)
         {
             if (ModelState.IsValid)
             {
@@ -86,7 +86,7 @@ namespace NitStore.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         
-        public async Task<IActionResult> Edit(int id, [Bind("Id,CampaignId,Image,Status,CreatedDate,UpdatedDate")] Slider slider)
+        public async Task<IActionResult> Edit(int id, Slider slider)
         {
             if (id != slider.Id)
             {

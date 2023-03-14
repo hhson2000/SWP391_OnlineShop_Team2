@@ -55,7 +55,7 @@ namespace NitStore.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         
-        public async Task<IActionResult> Create([Bind("Id,ImageData,Description")] Image image)
+        public async Task<IActionResult> Create(Image image)
         {
             if (ModelState.IsValid)
             {
@@ -100,7 +100,7 @@ namespace NitStore.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         
-        public async Task<IActionResult> Edit(int id, [Bind("Id,ImageData,Description")] Image image)
+        public async Task<IActionResult> Edit(int id, Image image)
         {
             if (id != image.Id)
             {
