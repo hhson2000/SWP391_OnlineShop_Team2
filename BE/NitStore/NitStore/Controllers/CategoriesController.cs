@@ -25,6 +25,11 @@ namespace NitStore.Controllers
               return View(await dbContext.categories.ToListAsync());
         }
 
+        public async Task<IActionResult> ViewAllCategory()
+        {
+            return View("ViewAllCategory",await dbContext.categories.ToListAsync());
+        }
+
         // GET: Categories/Details/5
         public async Task<IActionResult> Details(int? id)
         {
