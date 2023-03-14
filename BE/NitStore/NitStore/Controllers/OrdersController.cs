@@ -53,8 +53,8 @@ namespace NitStore.Controllers
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,CustomerId,Status,CreatedDate,UpdatedDate,Total")] Order order)
+        
+        public async Task<IActionResult> Create(Order order)
         {
             if (ModelState.IsValid)
             {
@@ -85,8 +85,8 @@ namespace NitStore.Controllers
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,CustomerId,Status,CreatedDate,UpdatedDate,Total")] Order order)
+        
+        public async Task<IActionResult> Edit(int id, Order order)
         {
             if (id != order.Id)
             {
@@ -136,7 +136,7 @@ namespace NitStore.Controllers
 
         // POST: Orders/Delete/5
         [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
+        
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             if (dbContext.orders == null)

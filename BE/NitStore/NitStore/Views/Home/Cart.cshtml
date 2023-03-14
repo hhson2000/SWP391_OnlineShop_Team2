@@ -51,46 +51,19 @@
                 </div>
             </div>
         </nav>
-
-        <div class="container-fluid w-100 m-3 justify-content-center text-center">
-            <ul class="d-flex justify-content-center" style="list-style-type: none">
-                <li class="px-3">
-                    <a style="text-decoration: none; color: black; font-weight: bold"
-                       href="#">
-                        Macbook
-                    </a>
-                </li>
-                <li class="px-3">
-                    <a style="text-decoration: none; color: black; font-weight: bold"
-                       href="#">
-                        Gaming
-                    </a>
-                </li>
-                <li class="px-3">
-                    <a style="text-decoration: none; color: black; font-weight: bold"
-                       href="#">
-                        Workstation
-                    </a>
-                </li>
-                <li class="px-3">
-                    <a style="text-decoration: none; color: black; font-weight: bold"
-                       href="#">
-                        Graphic Design
-                    </a>
-                </li>
-                <li class="px-3">
-                    <a style="text-decoration: none; color: black; font-weight: bold"
-                       href="#">
-                        Secound-hand
-                    </a>
-                </li>
-            </ul>
+        <div class="w-100 m-3 justify-content-center text-center">
+            <a style="text-decoration: none; color: black; font-weight: bold"
+               href="@Url.Action("LandingPage","Home")">Home </a>/
+            <a style="text-decoration: none; color: black; font-weight: bold"
+               href="@Url.Action("ListProduct","Products")">Shop </a>/
+            <a style="text-decoration: none; color: black; font-weight: bold"
+               href="#">Contact</a>
+            /
+            <a style="text-decoration: none; color: black; font-weight: bold"
+               href="@Url.Action("Cart","Home")">Cart</a>
         </div>
     </header>
-    @{
-        var add = 1;
-        var remove = 0;
-    }
+
     <section class="h-100" style="background-category: #eee">
         <div class="container h-100 py-5">
             <div class="row d-flex justify-content-center align-items-center h-100">
@@ -98,6 +71,10 @@
                     <div class="d-flex justify-content-between align-items-center mb-4">
                         <h3 class="fw-normal mb-0 text-black">Shopping Cart</h3>
                         <div>
+                            @if (ViewBag.Message != null)
+                            {
+                                <a>@ViewBag.Message !</a>
+                            }
                         </div>
                     </div>
                     @foreach (var item in ViewBag.ShoppingCart)
@@ -118,12 +95,15 @@
                                         </p>
                                     </div>
                                     <div class="col-md-3 col-lg-3 col-xl-2 d-flex">
-                                        @Html.ActionLink(
+                                        <a href="@Url.Action("RemoveCartItem","Home", new { productId = @item.ProductId})">
+                                            remove
+                                        </a>
+                                        @*@Html.ActionLink(
                                     "-",
                                     "AddCartItem",                         
                                     "Home",        // controller
-                                    new { productId = @item.ProductId, action = remove },
-                                    new { @class = "btn btn-link px-2" }) 
+                                    new { productId = @item.ProductId },
+                                    new { @class = "btn btn-link px-2" }) *@
                                         
 
                                         <input id="form1"
@@ -133,17 +113,15 @@
                                            type="number"
                                            class="form-control form-control-sm" />
 
-                                        @*<button class="btn btn-link px-2"
-                                    onclick="this.parentNode.querySelector('input[type=number]').stepUp()">
-                                    <i class="fas fa-plus"></i>
-                                    </button>*@
-                                        
-                                        @Html.ActionLink(
+                                        <a href="@Url.Action("AddCartItem","Home", new { productId = @item.ProductId})">
+                                            add
+                                        </a>
+                                        @*@Html.ActionLink(
                                     "+",
                                     "AddCartItem",                         // controller action
                                     "Home",        // controller
                                     new { productId = @item.ProductId, action = add },         // action parameters aka route values
-                                    new { @class = "btn btn-link px-2" }) 
+                                    new { @class = "btn btn-link px-2" }) *@
                                     </div>
                                     <div class="col-md-3 col-lg-2 col-xl-2 offset-lg-1">
                                         <h5 class="mb-0">$@item.ProductPrice</h5>
