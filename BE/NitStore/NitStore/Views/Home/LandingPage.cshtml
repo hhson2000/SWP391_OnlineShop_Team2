@@ -70,14 +70,11 @@
             
             <a
           style="text-decoration: none; color: black; font-weight: bold"
-          href="#"
-          >Home </a
+                href="@Url.Action("LandingPage","Home")">Home </a
         >/
         <a
           style="text-decoration: none; color: black; font-weight: bold"
-          href="#"
-          >Shop </a
-        >/
+               href="@Url.Action("ListProduct","Products")">Shop </a>/
         <a
           style="text-decoration: none; color: black; font-weight: bold"
           href="#"
@@ -85,16 +82,31 @@
         >
             @*@Html.ActionLink("/ Admin Dashboard", "ViewAllUser", "Users", new { @class = "nav-link" }, null)*@
       </div>
-        <div class="w-100 m-3 justify-content-center text-center">
-            @if (ViewBag.Categories != null)
-            {
-                foreach (var cate in ViewBag.Categories)
-                {
-                    <a style="text-decoration: none; color: black; font-weight: bold"
-               href="#">@cate.Name</a>
-                }
-            }
-        </div>
+        <div class="container-fluid w-100 m-3 justify-content-center text-center">
+            <div class="container mt-3">
+                <div class="row justify-content-center">
+                    <div class="col-md-6">
+                        <label for="category"
+                               class="form-label"
+                               style="
+                              text-decoration: none;
+                              font-size: large;
+                              color: black;
+                              font-weight: bold;
+                            ">Category</label>
+                        <select class="form-select" id="category" aria-label="Category">
+                            <option selected>All</option>
+                            @if (ViewBag.CategoryList != null)
+                            {
+                                @foreach (var item in ViewBag.CategoryList)
+                                {
+                                    <option value="@item.Id">@item.Name</option>
+                                }
+                            }
+                        </select>
+                    </div>
+                </div>
+            </div>
       <!-- Background image -->
       <div
         id="carouselExampleControlsNoTouching"

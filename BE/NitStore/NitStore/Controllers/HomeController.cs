@@ -29,9 +29,11 @@ namespace NitStore.Controllers
         [HttpGet]
         public async Task<IActionResult> LandingPage()
         {
-            List<Category> categories = new List<Category>();
-            categories = dbContext.categories.ToList()/*.GetRange(0,5)*/;
-            ViewBag.Categories = categories;
+            List<Category> categoryList = dbContext.categories.ToList();
+            ViewBag.CategoryList = categoryList;
+            //List<Category> categories = new List<Category>();
+            //categories = dbContext.categories.ToList()/*.GetRange(0,5)*/;
+            //ViewBag.Categories = categories;
             return View();
         }
 
