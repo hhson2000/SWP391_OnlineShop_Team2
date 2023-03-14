@@ -16,8 +16,6 @@ namespace NitStore.Models.DTO
 
         [Required]
         public int Status { get; set; }
-        [Required]
-        public bool NeedToChange { get; set; }
 
         public string Email { get; set; }
     }

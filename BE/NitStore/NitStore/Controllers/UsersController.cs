@@ -32,6 +32,11 @@ namespace NitStore.Controllers
         [HttpPost]
         public async Task<IActionResult> Add(UserAddDTO dto)
         {
+            if(string.IsNullOrEmpty(dto.Email) || string.IsNullOrEmpty(dto.UserName))
+            {
+                ViewBag.Error = "You must fill all field!";
+                return View();
+            }
             List<Role> roleList = new List<Role>();
             //roleList = = await dbContext.
             var User = new User()

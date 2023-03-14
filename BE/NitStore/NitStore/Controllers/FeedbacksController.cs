@@ -53,7 +53,7 @@ namespace NitStore.Controllers
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
-        [ValidateAntiForgeryToken]
+        
         public async Task<IActionResult> Create([Bind("Id,CustomerId,ProductId,Description,UpdatedDate")] Feedback feedback)
         {
             if (ModelState.IsValid)
@@ -92,7 +92,7 @@ namespace NitStore.Controllers
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
-        [ValidateAntiForgeryToken]
+        
         public async Task<IActionResult> Edit(int id, [Bind("Id,CustomerId,ProductId,Description,UpdatedDate")] Feedback feedback)
         {
             if (id != feedback.Id)
@@ -143,7 +143,7 @@ namespace NitStore.Controllers
 
         // POST: Feedbacks/Delete/5
         [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
+        
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             if (dbContext.feedbacks == null)

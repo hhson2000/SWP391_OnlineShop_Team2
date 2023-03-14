@@ -88,8 +88,8 @@
         </div>
     </header>
     @{
-        var add = 1;
-        var remove = 0;
+        int add = 1;
+        int remove = 0;
     }
     <section class="h-100" style="background-category: #eee">
         <div class="container h-100 py-5">
@@ -118,12 +118,15 @@
                                         </p>
                                     </div>
                                     <div class="col-md-3 col-lg-3 col-xl-2 d-flex">
-                                        @Html.ActionLink(
+                                        <a href="@Url.Action("AddCartItem","Home", new { productId = @item.ProductId, action = remove})">
+                                            remove
+                                        </a>
+                                        @*@Html.ActionLink(
                                     "-",
                                     "AddCartItem",                         
                                     "Home",        // controller
-                                    new { productId = @item.ProductId, action = remove },
-                                    new { @class = "btn btn-link px-2" }) 
+                                    new { productId = @item.ProductId },
+                                    new { @class = "btn btn-link px-2" }) *@
                                         
 
                                         <input id="form1"
@@ -133,17 +136,15 @@
                                            type="number"
                                            class="form-control form-control-sm" />
 
-                                        @*<button class="btn btn-link px-2"
-                                    onclick="this.parentNode.querySelector('input[type=number]').stepUp()">
-                                    <i class="fas fa-plus"></i>
-                                    </button>*@
-                                        
-                                        @Html.ActionLink(
+                                        <a href="@Url.Action("AddCartItem","Home", new { productId = @item.ProductId, action = add})">
+                                            add
+                                        </a>
+                                        @*@Html.ActionLink(
                                     "+",
                                     "AddCartItem",                         // controller action
                                     "Home",        // controller
                                     new { productId = @item.ProductId, action = add },         // action parameters aka route values
-                                    new { @class = "btn btn-link px-2" }) 
+                                    new { @class = "btn btn-link px-2" }) *@
                                     </div>
                                     <div class="col-md-3 col-lg-2 col-xl-2 offset-lg-1">
                                         <h5 class="mb-0">$@item.ProductPrice</h5>
