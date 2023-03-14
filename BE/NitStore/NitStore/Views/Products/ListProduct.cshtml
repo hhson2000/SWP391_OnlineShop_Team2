@@ -30,9 +30,15 @@
                                     onclick="window.location.href='@Url.Action("ProductDetail","Products", new { id = @item.Id})'">
                                     Learn more
                                 </button>
-                                <button onclick="window.location.href='@Url.Action("AddCartItem","Home", new { productId = @item.Id})''" type="button" class="btn btn-primary flex-fill me-1">
+                                <button type="button"
+                                    class="btn btn-primary flex-fill me-1"
+                                    data-mdb-ripple-color="dark"
+                                    onclick="window.location.href='@Url.Action("AddCartItem","Home", new { productId = @item.Id})'">
                                     Add to Cart
                                 </button>
+                                @*<button onclick="window.location.href='@Url.Action("AddCartItem","Home", new { productId = @item.Id})''" type="button" class="btn btn-primary flex-fill me-1">
+                                    Add to Cart
+                                </button>*@
                                 @* <a href="@Url.Action("ProductDetail","Products", new { id = @item.Id})">
                             Learn more
                             </a>
