@@ -58,8 +58,6 @@ namespace NitStore.Controllers
         {
             if (ModelState.IsValid)
             {
-                campaign.StartDate = DateTime.Now;
-                campaign.EndDate = campaign.StartDate;
                 _context.Add(campaign);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
@@ -88,7 +86,7 @@ namespace NitStore.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Description,Status,EndDate")] Campaign campaign)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Description,Status")] Campaign campaign)
         {
             if (id != campaign.Id)
             {
