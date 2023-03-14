@@ -3,10 +3,17 @@ using NitStore.Data;
 
 var builder = WebApplication.CreateBuilder(args);
 
+
+
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 builder.Services.AddDbContext<NitDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("CompanyDB")));
+builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+builder.Services.AddSession(option =>
+{
+    option.IdleTimeout = TimeSpan.FromMinutes(120);
+});
 
 var app = builder.Build();
 
@@ -20,8 +27,9 @@ if (!app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 app.UseStaticFiles();
-
+app.UseSession();
 app.UseRouting();
+
 
 app.UseAuthorization();
 
