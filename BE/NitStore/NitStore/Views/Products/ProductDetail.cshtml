@@ -167,8 +167,9 @@
                     <p>@ViewBag.Product.Description</p>
           </div>
           <div>
-            <button type="button" class="btn btn-success">Buy $$$</button>
-            <button type="button" class="btn btn-primary">Add to cart</button>
+                    <a href="@Url.Action("AddCartItem","Home", new { productId = @ViewBag.Product.Id})">
+                        Add to Cart
+                    </a>
           </div>
         </div>
       </div>
