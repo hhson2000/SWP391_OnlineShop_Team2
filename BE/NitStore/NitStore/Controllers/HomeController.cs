@@ -7,6 +7,7 @@ using System.Web;
 using NitStore.Models.DTO;
 using Microsoft.AspNetCore.Http;
 using Microsoft.IdentityModel.Tokens;
+using System;
 
 namespace NitStore.Controllers
 {
@@ -99,8 +100,6 @@ namespace NitStore.Controllers
         [HttpGet]
         public async Task<IActionResult> AddCartItem(int productId)
         {
-
-            // action = 1 is Add, action = 0 is Remove
             int userId = -1;
             if (!string.IsNullOrEmpty(HttpContext.Session.GetString("UserId")))
             {
@@ -211,7 +210,6 @@ namespace NitStore.Controllers
         [HttpGet]
         public async Task<IActionResult> RemoveCartItem(int productId)
         {
-            // action = 1 is Add, action = 0 is Remove
             int userId = -1;
             if (!string.IsNullOrEmpty(HttpContext.Session.GetString("UserId")))
             {
@@ -268,6 +266,23 @@ namespace NitStore.Controllers
             }
             dbContext.SaveChanges();
             TempData["shortMessage"] = "Remove Cart Item Success";
+            return RedirectToAction("Cart");
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> DeleteCartItem(int productId)
+        {
+            int userId = -1;
+            if (!string.IsNullOrEmpty(HttpContext.Session.GetString("UserId")))
+            {
+                userId = Convert.ToInt32(HttpContext.Session.GetString("UserId"));
+            }
+            Product product = dbContext.products.Where(x => x.Id == productId).First();
+            Order order = dbContext.orders.Where(x => x.CustomerId == userId && x.Status == 0).FirstOrDefault();
+            OrderDetail orderDetail = dbContext.ordersDetail.Where(x => x.OrderId == order.Id && x.ProductId == productId).FirstOrDefault();
+            dbContext.ordersDetail.Remove(orderDetail);
+            dbContext.SaveChanges();
+            TempData["shortMessage"] = "Delete Cart Item Success";
             return RedirectToAction("Cart");
         }
     }
