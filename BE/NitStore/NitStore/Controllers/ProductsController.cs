@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -111,10 +112,10 @@ namespace NitStore.Controllers
                 };
                 dbContext.products.Add(product);
                 dbContext.SaveChanges();
-                if (dto.Image != null)
+                if (dto.Imagess != null)
                 {
                 int index = 1;
-                    foreach (IFormFile file in dto.Image)
+                    foreach (IFormFile file in dto.Imagess)
                     {
                         
                         Image image = new Image();
@@ -148,6 +149,16 @@ namespace NitStore.Controllers
                 return memoryStream.ToArray();
             }
         }
+
+        //private IFormFile ConvertToIFormFile(byte[] data)
+        //{
+        //    Stream stream = data.OpenReadStream();
+        //    using (var memoryStream = new MemoryStream())
+        //    {
+        //        stream.CopyTo(memoryStream);
+        //        return memoryStream.ToArray();
+        //    }
+        //}
 
         // GET: Products
         public async Task<IActionResult> Index()
@@ -221,6 +232,45 @@ namespace NitStore.Controllers
             return View(product);
         }
 
+        public async Task<IActionResult> EditProduct(int id)
+        {
+            if (id == null || dbContext.products == null)
+            {
+                return NotFound();
+            }
+
+            var product = await dbContext.products.FindAsync(id);
+            if (product == null)
+            {
+                return NotFound();
+            }
+            List<Category> categoryList = dbContext.categories.ToList();
+            List<ProductImage> list = dbContext.productsImage.Where(x => x.ProductId == id).ToList();
+            List<byte[]> forms = new List<byte[]>();
+            foreach(ProductImage productImage in list)
+            {
+                Image image = dbContext.images.Where(x => x.Id == productImage.ImageId).FirstOrDefault();
+                if (image != null)
+                {
+                    forms.Add(image.ImageData);
+                }
+            }
+            ProductEditDTO dto = new ProductEditDTO()
+            {
+                Id = product.Id,
+                Name= product.Name,
+                Description= product.Description,
+                Status= product.Status,
+                Quantity= product.Quantity,
+                CategoryId  = product.Category,
+                Price= product.Price,
+                CategoryList = new SelectList(categoryList, "Id", "Name"),
+                imageBit = forms
+            };
+            ViewBag.Product = dto;
+            return View(dto);
+        }
+
         // POST: Products/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
@@ -257,25 +307,25 @@ namespace NitStore.Controllers
         }
 
         // GET: Products/Delete/5
-        public async Task<IActionResult> Delete(int? id)
-        {
-            if (id == null || dbContext.products == null)
-            {
-                return NotFound();
-            }
+        //public async Task<IActionResult> Delete(int? id)
+        //{
+        //    if (id == null || dbContext.products == null)
+        //    {
+        //        return NotFound();
+        //    }
 
-            var product = await dbContext.products
-                .FirstOrDefaultAsync(m => m.Id == id);
-            if (product == null)
-            {
-                return NotFound();
-            }
+        //    var product = await dbContext.products
+        //        .FirstOrDefaultAsync(m => m.Id == id);
+        //    if (product == null)
+        //    {
+        //        return NotFound();
+        //    }
 
-            return View(product);
-        }
+        //    return View(product);
+        //}
 
         // POST: Products/Delete/5
-        [HttpPost, ActionName("Delete")]
+        //[HttpPost, ActionName("Delete")]
         
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
@@ -286,7 +336,29 @@ namespace NitStore.Controllers
             var product = await dbContext.products.FindAsync(id);
             if (product != null)
             {
+                List<CampaignItem> campaignItems = await dbContext.campaignItems.Where(x => x.ProductId == product.Id).ToListAsync();
+                foreach(var campaignItem in campaignItems)
+                {
+                    dbContext.campaignItems.Remove(campaignItem);
+                }
+                List<Feedback> feedbacks = await dbContext.feedbacks.Where(x => x.ProductId == product.Id).ToListAsync();
+                foreach(var feedback in feedbacks)
+                {
+                    dbContext.feedbacks.Remove(feedback);
+                }
+                List<ProductImage> listProdctImage = await dbContext.productsImage.Where(x => x.ProductId == product.Id).ToListAsync();
+                foreach(var productImage in listProdctImage)
+                {
+                    Image img = await dbContext.images.Where(x => x.Id == productImage.ImageId).FirstAsync();
+                    
+                    dbContext.productsImage.Remove(productImage);
+                    dbContext.SaveChanges();
+                    dbContext.images.Remove(img);
+
+                }
+                dbContext.SaveChanges();
                 dbContext.products.Remove(product);
+                dbContext.SaveChanges();
             }
             
             await dbContext.SaveChangesAsync();
