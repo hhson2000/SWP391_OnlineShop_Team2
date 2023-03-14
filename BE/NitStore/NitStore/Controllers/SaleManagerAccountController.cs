@@ -10,85 +10,86 @@ using NitStore.Models.Domain;
 
 namespace NitStore.Controllers
 {
-    public class CampaignsController : Controller
+    public class SaleManagerAccountController : Controller
     {
         private readonly NitDbContext _context;
 
-        public CampaignsController(NitDbContext context)
+        public SaleManagerAccountController(NitDbContext context)
         {
             _context = context;
         }
 
-        // GET: Campaigns
+        // GET: SaleManagerAccount
         public async Task<IActionResult> Index()
         {
-              return View(await _context.campaigns.ToListAsync());
+              return View(await _context.users.Where(u => u.Role == 4).ToListAsync());
         }
 
-        // GET: Campaigns/Details/5
+        // GET: SaleManagerAccount/Details/5
         public async Task<IActionResult> Details(int? id)
         {
-            if (id == null || _context.campaigns == null)
+            if (id == null || _context.users == null)
             {
                 return NotFound();
             }
 
-            var campaign = await _context.campaigns
+            var user = await _context.users
                 .FirstOrDefaultAsync(m => m.Id == id);
-            if (campaign == null)
+            if (user == null)
             {
                 return NotFound();
             }
 
-            return View(campaign);
+            return View(user);
         }
 
-        // GET: Campaigns/Create
+        // GET: SaleManagerAccount/Create
         public IActionResult Create()
         {
             return View();
         }
 
-        // POST: Campaigns/Create
+        // POST: SaleManagerAccount/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Name,Description,Status")] Campaign campaign)
+        public async Task<IActionResult> Create([Bind("Id,UserName,Password,Status,Email")] User user)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(campaign);
+                user.Role = 4;
+                _context.Add(user);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(campaign);
+            return View(user);
         }
 
-        // GET: Campaigns/Edit/5
+        // GET: SaleManagerAccount/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
-            if (id == null || _context.campaigns == null)
+            if (id == null || _context.users == null)
             {
                 return NotFound();
             }
 
-            var campaign = await _context.campaigns.FindAsync(id);
-            if (campaign == null)
+            var user = await _context.users.FindAsync(id);
+            if (user == null)
             {
                 return NotFound();
             }
-            return View(campaign);
+            return View(user);
         }
 
-        // POST: Campaigns/Edit/5
+        // POST: SaleManagerAccount/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Description,Status")] Campaign campaign)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,UserName,Password,Role,Status,Email")] User user)
         {
-            if (id != campaign.Id)
+            if (id != user.Id)
             {
                 return NotFound();
             }
@@ -97,12 +98,12 @@ namespace NitStore.Controllers
             {
                 try
                 {
-                    _context.Update(campaign);
+                    _context.Update(user);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!CampaignExists(campaign.Id))
+                    if (!UserExists(user.Id))
                     {
                         return NotFound();
                     }
@@ -113,49 +114,49 @@ namespace NitStore.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(campaign);
+            return View(user);
         }
 
-        // GET: Campaigns/Delete/5
+        // GET: SaleManagerAccount/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
-            if (id == null || _context.campaigns == null)
+            if (id == null || _context.users == null)
             {
                 return NotFound();
             }
 
-            var campaign = await _context.campaigns
+            var user = await _context.users
                 .FirstOrDefaultAsync(m => m.Id == id);
-            if (campaign == null)
+            if (user == null)
             {
                 return NotFound();
             }
 
-            return View(campaign);
+            return View(user);
         }
 
-        // POST: Campaigns/Delete/5
+        // POST: SaleManagerAccount/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            if (_context.campaigns == null)
+            if (_context.users == null)
             {
-                return Problem("Entity set 'NitDbContext.campaigns'  is null.");
+                return Problem("Entity set 'NitDbContext.users'  is null.");
             }
-            var campaign = await _context.campaigns.FindAsync(id);
-            if (campaign != null)
+            var user = await _context.users.FindAsync(id);
+            if (user != null)
             {
-                _context.campaigns.Remove(campaign);
+                _context.users.Remove(user);
             }
             
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
-        private bool CampaignExists(int id)
+        private bool UserExists(int id)
         {
-          return _context.campaigns.Any(e => e.Id == id);
+          return _context.users.Any(e => e.Id == id);
         }
     }
 }
