@@ -90,5 +90,61 @@ namespace NitStore.Controllers
             dbContext.SaveChangesAsync();
             return RedirectToAction("ViewAllUser", "Users", new { area = "" });
         }
+
+        // GET: UserDetails/Edit/5
+        public async Task<IActionResult> EditUserDetail(int? id)
+        {
+            if (id == null || dbContext.userDetail == null)
+            {
+                return NotFound();
+            }
+
+            var userDetail = await dbContext.userDetail.FindAsync(id);
+            if (userDetail == null)
+            {
+                return NotFound();
+            }
+            return View(userDetail);
+        }
+
+        // POST: UserDetails/Edit/5
+        [HttpPost]
+        public async Task<IActionResult> EditUserDetail(int id, UserDetail userDetail)
+        {
+            if (id != userDetail.Id)
+            {
+                return NotFound();
+            }
+
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    dbContext.Update(userDetail);
+                    await dbContext.SaveChangesAsync();
+                }
+                catch (DbUpdateConcurrencyException)
+                {
+                    if (!UserDetailExists(userDetail.Id))
+                    {
+                        return NotFound();
+                    }
+                    else
+                    {
+                        throw;
+                    }
+                }
+                return RedirectToAction("Cart", "Home", new { area = "" });
+            }
+            string shortMessage = "Update user detail success!";
+            TempData["shortMessage"] = shortMessage;
+            //return RedirectToAction("Cart", "Home");
+            return RedirectToAction("Cart", "Home", new { area = "", arg = shortMessage });
+
+        }
+        private bool UserDetailExists(int id)
+        {
+            return (dbContext.userDetail?.Any(e => e.Id == id)).GetValueOrDefault();
+        }
     }
 }

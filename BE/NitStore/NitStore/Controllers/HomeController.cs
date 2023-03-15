@@ -48,6 +48,8 @@ namespace NitStore.Controllers
         [HttpGet]
         public async Task<IActionResult> Cart()
         {
+            //cart item 
+
             if (!(TempData["shortMessage"] ?? "").ToString().IsNullOrEmpty()){
                 ViewBag.Message = TempData["shortMessage"].ToString();
             }
@@ -94,6 +96,13 @@ namespace NitStore.Controllers
                 }
             }
             ViewBag.ShoppingCart = returnList;
+
+            //user detail
+            UserDetail userDetail = dbContext.userDetail.Where(x => x.Id == userId).FirstOrDefault();
+            if(userDetail != null)
+            {
+                ViewBag.UserDetail = userDetail;
+            }
             return View();
         }
 

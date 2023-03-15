@@ -95,16 +95,9 @@
                                         </p>
                                     </div>
                                     <div class="col-md-3 col-lg-3 col-xl-2 d-flex">
-                                        <a href="@Url.Action("RemoveCartItem","Home", new { productId = @item.ProductId})">
-                                            remove
+                                        <a class="mx-2" style="text-decoration: none" href="@Url.Action("RemoveCartItem","Home", new { productId = @item.ProductId})">
+                                            -
                                         </a>
-                                        @*@Html.ActionLink(
-                                    "-",
-                                    "AddCartItem",                         
-                                    "Home",        // controller
-                                    new { productId = @item.ProductId },
-                                    new { @class = "btn btn-link px-2" }) *@
-                                        
 
                                         <input id="form1"
                                            min="0"
@@ -113,15 +106,10 @@
                                            type="number"
                                            class="form-control form-control-sm" />
 
-                                        <a href="@Url.Action("AddCartItem","Home", new { productId = @item.ProductId})">
-                                            add
+                                        <a class="mx-2" style="text-decoration: none" href="@Url.Action("AddCartItem","Home", new { productId = @item.ProductId})">
+                                            +
                                         </a>
-                                        @*@Html.ActionLink(
-                                    "+",
-                                    "AddCartItem",                         // controller action
-                                    "Home",        // controller
-                                    new { productId = @item.ProductId, action = add },         // action parameters aka route values
-                                    new { @class = "btn btn-link px-2" }) *@
+
                                     </div>
                                     <div class="col-md-3 col-lg-2 col-xl-2 offset-lg-1">
                                         <h5 class="mb-0">$@item.ProductPrice</h5>
@@ -136,7 +124,29 @@
                         </div>
                     }
 
-                    <div class="card">
+                    
+                        @if (ViewBag.UserDetail != null)
+                        {
+                            <div class="card rounded-3 mb-4">
+                                <div class="card-body p-4">
+                                    <div class="row d-flex justify-content-between align-items-center">
+                                        <p class="lead fw-normal mb-2">Customer: </p><a> @ViewBag.UserDetail.Name </a>
+                                    </div>
+                                    <div class="row d-flex justify-content-between align-items-center">
+                                        <p class="lead fw-normal mb-2">PhoneNumber: </p><a>@ViewBag.UserDetail.PhoneNumber </a>
+                                    </div>
+                                    <div class="row d-flex justify-content-between align-items-center">
+                                        <p class="lead fw-normal mb-2">Address: </p><a>@ViewBag.UserDetail.Address </a>
+                                    </div>
+                                </div>
+                            <button onclick="window.location.href='@Url.Action("EditUserDetail", "Users", new { id = @ViewBag.UserDetail.Id})'" type="button" class="btn btn-success btn-block btn-lg">
+                                Edit Profile
+                            </button>
+                            </div>
+                        }
+                    
+
+                    <div class="card my-2">
                         <div class="card-body">
                             <button type="button" class="btn btn-warning btn-block btn-lg">
                                 Proceed to Pay
