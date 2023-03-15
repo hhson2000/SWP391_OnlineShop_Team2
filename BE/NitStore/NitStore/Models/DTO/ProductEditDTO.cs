@@ -4,7 +4,7 @@ using System.Web;
 
 namespace NitStore.Models.DTO
 {
-    public class ProductAddDTO
+    public class ProductEditDTO
     {
         public int Id { get; set; }
 
@@ -31,5 +31,7 @@ namespace NitStore.Models.DTO
         public decimal Price { get; set; }
 
         public List<IFormFile> Imagess { get; set; }
+
+        public List<byte[]> imageBit { get; set; }
     }
 }
