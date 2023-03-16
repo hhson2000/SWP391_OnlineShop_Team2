@@ -147,10 +147,9 @@
                     
 
                     <div class="card my-2">
-                        <div class="card-body">
-                            Pay Now @Html.CheckBoxFor(m => m.PayNow, htmlAttributes: new { id = "chkYes", onchange = "ModifyCheckBoxes('chkYes')", @checked = true, @class = "big-checkbox" })
-
-                            Pay Later  @Html.CheckBoxFor(m => m.PayLater, htmlAttributes: new { id = "chkNo", onchange = "ModifyCheckBoxes('chkNo')", @checked = false, @class = "big-checkbox" })
+                        <div class="card-body">                           
+                            Pay Now @Html.RadioButtonFor(m => m.PayNow,"Pay Now") <br />
+                            Pay Later @Html.RadioButtonFor(m => m.PayNow,"Pay Later")<br />
                             <button type="button" class="btn btn-warning btn-block btn-lg">
                                 Proceed to Pay
                             </button>
