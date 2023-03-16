@@ -8,6 +8,7 @@ using NitStore.Models.DTO;
 using Microsoft.AspNetCore.Http;
 using Microsoft.IdentityModel.Tokens;
 using System;
+using NitStore.Service;
 
 namespace NitStore.Controllers
 {
@@ -15,6 +16,7 @@ namespace NitStore.Controllers
     {
         //private readonly ILogger<HomeController> _logger;
         private readonly NitDbContext dbContext;
+        
 
         public HomeController(NitDbContext dbContext)
         {
@@ -294,5 +296,7 @@ namespace NitStore.Controllers
             TempData["shortMessage"] = "Delete Cart Item Success";
             return RedirectToAction("Cart");
         }
+
+        
     }
 }

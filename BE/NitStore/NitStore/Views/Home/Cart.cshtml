@@ -147,12 +147,20 @@
                     
 
                     <div class="card my-2">
-                        <div class="card-body">                           
-                            Pay Now @Html.RadioButtonFor(m => m.PayNow,"Pay Now") <br />
-                            Pay Later @Html.RadioButtonFor(m => m.PayNow,"Pay Later")<br />
-                            <button type="button" class="btn btn-warning btn-block btn-lg">
-                                Proceed to Pay
-                            </button>
+                        <div class="card-body">    
+                            @using (Html.BeginForm("CreateOrder", "Orders", FormMethod.Post
+                            ))
+                            {
+                                <a>Pay Now</a> @Html.RadioButtonFor(m => m.PayNow, true)
+                            <br />
+                                <a>Pay Later</a> @Html.RadioButtonFor(m => m.PayNow, false)
+                            <br />
+                               @* <button type="button" class="btn btn-warning btn-block btn-lg">
+                                    Proceed to Pay
+                                </button>*@
+                                <input type="submit" value="Proceed to Purchase" class=" btn btn-warning btn-block btn-lg" />
+                            }
+                            
                         </div>
                     </div>
                 </div>
@@ -184,14 +192,3 @@
     </footer>
 </body>
 </html>
-<script type="text/javascript">
-    function ModifyCheckBoxes(Id) {
-        if (document.getElementById(Id).checked) {
-            if (Id == "chkNo") {
-                document.getElementById("chkYes").checked = false;
-            } else if (Id == "chkYes") {
-                document.getElementById("chkNo").checked = false;
-            }
-        };
-    };
-</script>

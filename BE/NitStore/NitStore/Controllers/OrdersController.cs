@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using NitStore.Data;
 using NitStore.Models.Domain;
+using NitStore.Models.DTO;
 
 namespace NitStore.Controllers
 {
@@ -156,6 +157,51 @@ namespace NitStore.Controllers
         private bool OrderExists(int id)
         {
           return dbContext.orders.Any(e => e.Id == id);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> CreateOrder(PaymentMethodDTO dto)
+        {
+            int userId = -1;
+            if (!string.IsNullOrEmpty(HttpContext.Session.GetString("UserId")))
+            {
+                userId = Convert.ToInt32(HttpContext.Session.GetString("UserId"));
+            }
+            //get customer order
+            Order order = dbContext.orders.Where(x => x.CustomerId == userId && x.Status == 0).FirstOrDefault();
+            List<OrderDetail> detail = new List<OrderDetail>();
+            if (order != null)
+            {
+                detail = dbContext.ordersDetail.Where(x => x.OrderId == order.Id).ToList();
+            }
+            if(detail.Count > 0)
+            {
+                // process cart to order
+                if (dto.PayNow == true)
+                {
+                    //paypal
+                }
+                else
+                {
+                    // put out quantity of a product
+                    decimal totalPrice = 0; 
+                    foreach(OrderDetail item in detail)
+                    {
+                        Product product = dbContext.products.Where(x => x.Id== item.ProductId).First();
+                        product.Quantity = product.Quantity - item.Quantity;
+                        totalPrice = totalPrice + product.Price;
+                        dbContext.SaveChanges();
+                    }
+                    // put cart into order
+                    order.Status = 1;
+                    order.UpdatedDate= DateTime.Now;
+                    order.Total = totalPrice;
+                    dbContext.SaveChanges();
+                    return RedirectToAction("LandingPage","Home", new { area = "" });
+                }
+            }
+            
+            return View();
         }
     }
 }

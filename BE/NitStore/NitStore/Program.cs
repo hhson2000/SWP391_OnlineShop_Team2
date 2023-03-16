@@ -1,5 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using NitStore.Data;
+using NitStore.Service;
+using NitStore.Service.ServiceImplement;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -14,6 +16,7 @@ builder.Services.AddSession(option =>
 {
     option.IdleTimeout = TimeSpan.FromMinutes(120);
 });
+builder.Services.AddScoped<IVnPayService, VnPayServiceImplement>();
 
 var app = builder.Build();
 
