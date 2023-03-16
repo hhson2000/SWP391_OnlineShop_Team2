@@ -1,5 +1,5 @@
 ﻿@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
-
+@model NitStore.Models.DTO.PaymentMethodDTO
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -148,6 +148,9 @@
 
                     <div class="card my-2">
                         <div class="card-body">
+                            Pay Now @Html.CheckBoxFor(m => m.PayNow, htmlAttributes: new { id = "chkYes", onchange = "ModifyCheckBoxes('chkYes')", @checked = true, @class = "big-checkbox" })
+
+                            Pay Later  @Html.CheckBoxFor(m => m.PayLater, htmlAttributes: new { id = "chkNo", onchange = "ModifyCheckBoxes('chkNo')", @checked = false, @class = "big-checkbox" })
                             <button type="button" class="btn btn-warning btn-block btn-lg">
                                 Proceed to Pay
                             </button>
@@ -182,3 +185,14 @@
     </footer>
 </body>
 </html>
+<script type="text/javascript">
+    function ModifyCheckBoxes(Id) {
+        if (document.getElementById(Id).checked) {
+            if (Id == "chkNo") {
+                document.getElementById("chkYes").checked = false;
+            } else if (Id == "chkYes") {
+                document.getElementById("chkNo").checked = false;
+            }
+        };
+    };
+</script>
