@@ -26,7 +26,7 @@ namespace NitStore.Controllers
             if (loginUser != null)
             {
                 string username = loginUser.UserName;
-                string password = loginUser.Password;
+                string password = EncryptPassword(loginUser.Password);
                 var user = await dbContext.users.Where(u => u.UserName.Equals(username) && u.Password.Equals(password)).FirstAsync();
                 if(user != null)
                 {
@@ -60,7 +60,7 @@ namespace NitStore.Controllers
                     {
                         UserName = user.UserName,
                         Email = user.Email,
-                        Password = user.Password,
+                        Password = EncryptPassword(user.Password),
                         Role = 5,
                         Status = 1
                     };
@@ -94,6 +94,21 @@ namespace NitStore.Controllers
             {
                 return View();
             }
+        }
+
+        private string EncryptPassword(string password)
+        {
+            string result = "";
+            try
+            {
+                byte[] enCryptByte = new byte[password.Length];
+                enCryptByte = System.Text.Encoding.UTF8.GetBytes(password);
+                result = Convert.ToBase64String(enCryptByte);
+            } catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+            return result;
         }
     }
 }
