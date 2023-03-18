@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using NitStore.Data;
 using NitStore.Models.Domain;
+using NitStore.Models.DTO;
 
 namespace NitStore.Controllers
 {
@@ -22,7 +23,7 @@ namespace NitStore.Controllers
         // GET: Campaigns
         public async Task<IActionResult> Index()
         {
-              return View(await _context.campaigns.ToListAsync());
+            return View(await _context.campaigns.ToListAsync());
         }
 
         // GET: Campaigns/Details/5
@@ -54,7 +55,7 @@ namespace NitStore.Controllers
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
-        
+
         public async Task<IActionResult> Create(Campaign campaign)
         {
             if (ModelState.IsValid)
@@ -71,7 +72,7 @@ namespace NitStore.Controllers
         {
             if (id == null || _context.campaigns == null)
             {
-                 return NotFound();
+                return NotFound();
             }
 
             var campaign = await _context.campaigns.FindAsync(id);
@@ -86,7 +87,7 @@ namespace NitStore.Controllers
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
-        
+
         public async Task<IActionResult> Edit(int id, Campaign campaign)
         {
             if (id != campaign.Id)
@@ -137,7 +138,7 @@ namespace NitStore.Controllers
 
         // POST: Campaigns/Delete/5
         [HttpPost, ActionName("Delete")]
-        
+
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             if (_context.campaigns == null)
@@ -149,14 +150,75 @@ namespace NitStore.Controllers
             {
                 _context.campaigns.Remove(campaign);
             }
-            
+
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
         private bool CampaignExists(int id)
         {
-          return _context.campaigns.Any(e => e.Id == id);
+            return _context.campaigns.Any(e => e.Id == id);
+        }
+
+
+        public async Task<IActionResult> CampaignItem(int id)
+        {
+            var campaign = _context.campaigns.FirstOrDefault(e => e.Id == id);
+            ViewBag.Campaign = campaign;
+            var lsCampaignItem = await _context.campaignItems.Where(e => e.CampaignId == id).ToListAsync();
+            List<CampaignItemShowDTO> lsResult = new List<CampaignItemShowDTO>();
+            foreach (var item in lsCampaignItem)
+            {
+                var tempProduct = _context.products.FirstOrDefault(p => p.Id == item.ProductId);
+                ProductImage img = _context.productsImage.FirstOrDefault(i => i.ProductId == tempProduct.Id);
+                Image image = _context.images.FirstOrDefault(p => p.Id == img.ImageId);
+                CampaignItemShowDTO temp = new CampaignItemShowDTO
+                {
+                    CampaignItemID = item.Id,
+                    CampaignID = item.CampaignId,
+                    ProductId = item.ProductId,
+                    Name = tempProduct.Name,
+                    CategoryId = tempProduct.Category,
+                    Price = tempProduct.Price,
+                    Discount = item.Discount,
+                    imageBit = image.ImageData
+                };
+                lsResult.Add(temp);
+            }
+            return View(lsResult);
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> AddNewCampaignItem(int id)
+        {
+            ViewBag.CampaignId = id;
+            return View();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> AddNewCampaignItem(CampaignItem campaignItem)
+        {
+
+            if (ModelState.IsValid)
+            {
+                campaignItem.Id = 0;
+                _context.Add(campaignItem);
+                await _context.SaveChangesAsync();
+                return RedirectToAction("CampaignItem", new { id = campaignItem.CampaignId });
+            }
+            return View(campaignItem);
+        }
+
+        public async Task<IActionResult> DeleteCampaignItem(int id)
+        {
+            var campaignItem = _context.campaignItems.FirstOrDefault(c => c.Id == id);
+            int campaignId = campaignItem.CampaignId;
+            if(campaignItem != null)
+            {
+                _context.Remove(campaignItem);
+                await _context.SaveChangesAsync();
+            }
+            return RedirectToAction("CampaignItem", new {id = campaignId });
         }
     }
 }
