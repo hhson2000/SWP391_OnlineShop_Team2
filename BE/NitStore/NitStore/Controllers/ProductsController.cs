@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Hosting.Internal;
+using Microsoft.IdentityModel.Tokens;
 using NitStore.Data;
 using NitStore.Models.Domain;
 using NitStore.Models.DTO;
@@ -253,6 +254,10 @@ namespace NitStore.Controllers
 
         public async Task<IActionResult> EditProduct(int id)
         {
+            if (!(TempData["shortMessage"] ?? "").ToString().IsNullOrEmpty())
+            {
+                ViewBag.Message = TempData["shortMessage"].ToString();
+            }
             if (id == null || dbContext.products == null)
             {
                 return NotFound();
@@ -295,9 +300,22 @@ namespace NitStore.Controllers
         [HttpPost]
         public async Task<IActionResult> EditProduct(ProductEditDTO dto)
         {
+            Product p = dbContext.products.Where(x => x.Id == dto.Id).FirstOrDefault();
+            if (p != null)
+            {
+                p.Price = dto.Price;
+                p.Quantity = dto.Quantity;
+                p.Status = dto.Status;
+                p.Category = dto.CategoryId;
+                p.Description = dto.Description;
+                p.Name = dto.Name;
+                dbContext.SaveChanges();
+            }
+            List<Category> categoryList = dbContext.categories.ToList();
             if (dto.Imagess != null)
             {
                 List<ProductImage> imageList = dbContext.productsImage.Where(x => x.ProductId == dto.Id).ToList();
+                
                 int index = 1;
                 if(imageList.Count > 0)                 
                 {
@@ -324,7 +342,8 @@ namespace NitStore.Controllers
                     dbContext.SaveChanges();
                 }
             }
-            return View();
+            TempData["shortMessage"] = "Update Product success!";
+            return RedirectToAction("EditProduct", new { id = dto.Id });
         }
         // POST: Products/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to.

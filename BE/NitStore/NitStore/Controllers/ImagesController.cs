@@ -191,6 +191,7 @@ namespace NitStore.Controllers
             }
 
             await dbContext.SaveChangesAsync();
+            TempData["shortMessage"] = " Delete Image success!";
             return RedirectToAction("EditProduct","Products", new { id = productId });
         }
     }
