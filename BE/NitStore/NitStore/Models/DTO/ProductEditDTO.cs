@@ -33,5 +33,7 @@ namespace NitStore.Models.DTO
         public List<IFormFile> Imagess { get; set; }
 
         public List<byte[]> imageBit { get; set; }
+
+        public List<int> imageIds { get; set; }
     }
 }

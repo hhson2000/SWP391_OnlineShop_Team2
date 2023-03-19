@@ -30,7 +30,7 @@ namespace NitStore.Controllers
             }
             List<OrderHistory> itemInside = new List<OrderHistory>();
             List<OrderDetail> orderDetails = new List<OrderDetail>();
-            List<Order> orders = await dbContext.orders.Where(x => x.Status != 0 && x.Status != 3).OrderBy(x => x.UpdatedDate).ToListAsync();
+            List<Order> orders = await dbContext.orders.Where(x => x.Status != 0).ToListAsync();
             foreach(Order item in orders)
             {
                 orderDetails = dbContext.ordersDetail.Where(x => x.OrderId == item.Id).ToList();
@@ -45,11 +45,15 @@ namespace NitStore.Controllers
                 {
                     orderStatus = "Order Confirm";
                 }
-                else
+                else if (item.Status == 2)
                 {
                     orderStatus = "Order Shipping";
                 }
-                
+                else
+                {
+                    orderStatus = "Order Received";
+                }
+
                 OrderHistory dto = new OrderHistory()
                 {
                     Id = item.Id,

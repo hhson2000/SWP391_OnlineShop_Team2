@@ -172,48 +172,26 @@ namespace NitStore.Controllers
           return dbContext.images.Any(e => e.Id == id);
         }
 
-        //[HttpPost]
-        //
-        //public async Task<IActionResult> Import(HttpPostedFileBase[] files)
-        //{
-        //    if (files.Length < 0)
-        //    {
-        //        TempData["ErrorMessage"] = "Import Error. Image folder cannot empty!";
-        //        return RedirectToAction("Index");
-        //    }
-        //    else
-        //    {
+        public async Task<IActionResult> DeleteProductImage(int id, int productId)
+        {
+            if (dbContext.images == null)
+            {
+                return Problem("Entity set 'NitDbContext.images'  is null.");
+            }
+            var image = await dbContext.images.FindAsync(id);
+            if (image != null)
+            {
+                var imageProduct = dbContext.productsImage.Where(x => x.ProductId == productId && x.ImageId == id).FirstOrDefault();
+                if(imageProduct != null)
+                {
+                    dbContext.productsImage.Remove(imageProduct);
+                    dbContext.SaveChanges();
+                }
+                dbContext.images.Remove(image);
+            }
 
-        //        foreach (var file in files)
-        //        {
-        //            Image image = new Image();
-        //            image = this.InsertImage(image, file, "Test");
-        //        }
-
-        //    }
-        //    return RedirectToAction("Index");
-        //}
-
-        //private Image InsertImage(Image img, HttpPostedFileBase singleFile, string Name)
-        //{
-
-        //    string path = AppDomain.CurrentDomain.BaseDirectory +
-        //        "images\\";
-        //    //get image from file: [file:*.*]
-        //    string filePat = @".*(?<file>\[file:.*\]).*";
-
-        //    string imgPath = "" + Name;
-
-        //    imgPath = path + "image";
-        //    singleFile.SaveAs(imgPath);
-        //    FileStream fs = new FileStream(imgPath, FileMode.Open);
-        //    byte[] buf = new byte[(int)fs.Length];
-        //    fs.Read(buf, 0, (int)fs.Length);
-        //    img.ImageData = buf;
-        //    fs.Close();
-        //    System.IO.File.Delete(imgPath);
-
-        //    return img;
-        //}
+            await dbContext.SaveChangesAsync();
+            return RedirectToAction("EditProduct","Products", new { id = productId });
+        }
     }
 }

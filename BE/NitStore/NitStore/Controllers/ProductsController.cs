@@ -247,12 +247,14 @@ namespace NitStore.Controllers
             List<Category> categoryList = dbContext.categories.ToList();
             List<ProductImage> list = dbContext.productsImage.Where(x => x.ProductId == id).ToList();
             List<byte[]> forms = new List<byte[]>();
+            List<int> imageIdList = new List<int>();
             foreach(ProductImage productImage in list)
             {
                 Image image = dbContext.images.Where(x => x.Id == productImage.ImageId).FirstOrDefault();
                 if (image != null)
                 {
                     forms.Add(image.ImageData);
+                    imageIdList.Add(image.Id);
                 }
             }
             ProductEditDTO dto = new ProductEditDTO()
@@ -265,7 +267,8 @@ namespace NitStore.Controllers
                 CategoryId  = product.Category,
                 Price= product.Price,
                 CategoryList = new SelectList(categoryList, "Id", "Name"),
-                imageBit = forms
+                imageBit = forms,
+                imageIds= imageIdList
             };
             ViewBag.Product = dto;
             return View(dto);

@@ -67,6 +67,10 @@
                             {
                                 @Html.ActionLink("Received", "ChangeOrderStatus", new {orderId = item.Id, status = 3 })
                             }
+                            @if (item.Status == "Order Received")
+                            {
+                                @Html.ActionLink("Return Order", "ChangeOrderStatus", new {orderId = item.Id, status = 1 })
+                            }
                         </td>
                     </tr>
                 }
