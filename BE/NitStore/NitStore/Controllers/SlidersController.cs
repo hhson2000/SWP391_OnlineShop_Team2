@@ -194,19 +194,23 @@ namespace NitStore.Controllers
         // GET: Sliders/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
-            if (id == null || dbContext.slider == null)
-            {
-                return NotFound();
-            }
-
             var slider = await dbContext.slider
                 .FirstOrDefaultAsync(m => m.Id == id);
+
             if (slider == null)
             {
                 return NotFound();
+            }  else
+            {
+                var img = dbContext.images.Where(i => i.Id == slider.Image).FirstOrDefault();
+                dbContext.slider.Remove(slider);
+                await dbContext.SaveChangesAsync();
+                dbContext.images.Remove(img);
+                await dbContext.SaveChangesAsync();
+                
             }
 
-            return View(slider);
+            return RedirectToAction(nameof(Index));
         }
 
         // POST: Sliders/Delete/5

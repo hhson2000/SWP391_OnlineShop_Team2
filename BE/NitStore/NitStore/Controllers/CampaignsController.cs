@@ -148,6 +148,24 @@ namespace NitStore.Controllers
             var campaign = await _context.campaigns.FindAsync(id);
             if (campaign != null)
             {
+                var slider = _context.slider.Where(s => s.CampaignId == campaign.Id).FirstOrDefault();
+                if (slider != null)
+                {
+                    var img = _context.images.Where(i => i.Id == slider.Image).FirstOrDefault();
+                    _context.slider.Remove(slider);
+                    await _context.SaveChangesAsync();
+                    _context.images.Remove(img);
+                    await _context.SaveChangesAsync();
+                }
+                var campaignItems = _context.campaignItems.Where(c => c.CampaignId == campaign.Id).ToList();
+                if(campaignItems != null)
+                {
+                    foreach(var item in campaignItems)
+                    {
+                        _context.campaignItems.Remove(item);
+                        await _context.SaveChangesAsync();
+                    }
+                }
                 _context.campaigns.Remove(campaign);
             }
 
