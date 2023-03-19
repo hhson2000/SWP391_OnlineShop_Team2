@@ -273,7 +273,40 @@ namespace NitStore.Controllers
             ViewBag.Product = dto;
             return View(dto);
         }
+        [HttpPost]
+        public async Task<IActionResult> EditProduct(ProductEditDTO dto)
+        {
+            if (dto.Imagess != null)
+            {
+                List<ProductImage> imageList = dbContext.productsImage.Where(x => x.ProductId == dto.Id).ToList();
+                int index = 1;
+                if(imageList.Count > 0)                 
+                {
+                    index = imageList.Count + 1;
+                }
+                foreach (IFormFile file in dto.Imagess)
+                {
 
+                    Image image = new Image();
+                    byte[] bytes = ConvertToBytes(file);
+                    image.ImageData = bytes;
+                    image.Description = "Product_" + dto.Name + "_" + index;
+                    index++;
+                    dbContext.images.Add(image);
+                    dbContext.SaveChanges();
+
+                    ProductImage productImage = new ProductImage()
+                    {
+                        ProductId = dto.Id,
+                        ImageId = image.Id
+                    };
+
+                    dbContext.productsImage.Add(productImage);
+                    dbContext.SaveChanges();
+                }
+            }
+            return View();
+        }
         // POST: Products/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
