@@ -18,14 +18,15 @@
         <div class="container-fluid">
           <span class="navbar-brand mb-0 h1">NIT Maketer</span>
           <nav class="nav">
-                    @Html.ActionLink("Manage Categories", "Index", "Categories", new {}, null)
-                    @Html.ActionLink("Manage Products", "ViewAllProduct", "Products", new {}, null)
+                    @Html.ActionLink("Manage Categories", "Index", "Categories", new {}, null) | 
+                    @Html.ActionLink("Manage Products", "ViewAllProduct", "Products", new {}, null) | 
+                    @Html.ActionLink("Manage Slider", "Index", "Sliders", new {}, null)
           </nav>
         </div>
       </nav>
     </div>
     @RenderBody()
-    <footer
+    @*<footer
       style="position: fixed; bottom: 0; width: 100%"
       class="align-items-end bg-dark text-center text-white"
     >
@@ -49,6 +50,6 @@
           >MDBootstrap.com</a
         >
       </div>
-    </footer>
+    </footer>*@
   </body>
 </html>

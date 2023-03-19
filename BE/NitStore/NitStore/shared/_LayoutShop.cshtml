@@ -46,7 +46,7 @@
                              height="50px" />
                     </span>
                     <a class="text-white" style="text-decoration: none">Hi! Ngo Dong Duong</a>
-              @*      <a class="text-white" style="text-decoration: none">Login</a>
+                    @*      <a class="text-white" style="text-decoration: none">Login</a>
                     <a class="text-white" style="text-decoration: none">Register</a>*@
                 </div>
             </div>
@@ -69,59 +69,79 @@
              class="carousel slide"
              data-bs-touch="false">
             <div class="carousel-inner">
-                <div class="carousel-item active">
-                    <img src="https://www.mcex.co.uk/wp-content/uploads/2020/05/1920x400_Main-3-MCEX-Our-Services-banner-NO-TEXT.png"
+                @foreach (var item in ViewBag.ListSliders)
+                {
+                    <div class="carousel-item active">
+                        <img src="data:image;base64,@System.Convert.ToBase64String(item.ImageData)"
                          class="d-block w-100"
                          alt="..."
                          width="100%"
-                         height="400"
+                         height="100%"
                          style="background-size: cover" />
-                    <div class="text-light border border-3"
+                        <div class="text-light border border-3"
                          style="
                 position: absolute;
                 top: 50%;
                 left: 50%;
                 transform: translate(-50%, -50%);
               ">
-                        <h2 class="p-3">Những mẫu Macbook mới nhất</h2>
+                            <h2 class="p-3">@item.CampaignName</h2>
+                        </div>
                     </div>
+                }
+                @*<div class="carousel-item active">
+                <img src="https://www.mcex.co.uk/wp-content/uploads/2020/05/1920x400_Main-3-MCEX-Our-Services-banner-NO-TEXT.png"
+                class="d-block w-100"
+                alt="..."
+                width="100%"
+                height="400"
+                style="background-size: cover" />
+                <div class="text-light border border-3"
+                style="
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                ">
+                <h2 class="p-3">Những mẫu Macbook mới nhất</h2>
+                </div>
+                </div>*@
+                @*<div class="carousel-item">
+                <img src="https://static.lenovo.com/cap/images/CAP-LenovoPro-banner-1920x400-0802.jpg"
+                class="d-block w-100"
+                alt="..."
+                width="100%"
+                height="400"
+                style="background-size: cover" />
+                <div class="text-light border border-3"
+                style="
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                ">
+                <h2 class="p-3">
+                Đuổi kịp deadline cùng các "quái vật" work station
+                </h2>
+                </div>
                 </div>
                 <div class="carousel-item">
-                    <img src="https://static.lenovo.com/cap/images/CAP-LenovoPro-banner-1920x400-0802.jpg"
-                         class="d-block w-100"
-                         alt="..."
-                         width="100%"
-                         height="400"
-                         style="background-size: cover" />
-                    <div class="text-light border border-3"
-                         style="
+                <img src="https://assets2.razerzone.com/images/pnx.assets/89acc9610698ee3466330248ab890176/magic-intel-pdp-banner---1920x400.jpg"
+                class="d-block w-100"
+                alt="..."
+                width="100%"
+                height="400"
+                style="background-size: cover" />
+                <div class="text-light border border-3"
+                style="
                 position: absolute;
                 top: 50%;
                 left: 50%;
                 transform: translate(-50%, -50%);
-              ">
-                        <h2 class="p-3">
-                            Đuổi kịp deadline cùng các "quái vật" work station
-                        </h2>
-                    </div>
+                ">
+                <h2 class="p-3">Chinh phục đỉnh cao đồ họa</h2>
                 </div>
-                <div class="carousel-item">
-                    <img src="https://assets2.razerzone.com/images/pnx.assets/89acc9610698ee3466330248ab890176/magic-intel-pdp-banner---1920x400.jpg"
-                         class="d-block w-100"
-                         alt="..."
-                         width="100%"
-                         height="400"
-                         style="background-size: cover" />
-                    <div class="text-light border border-3"
-                         style="
-                position: absolute;
-                top: 50%;
-                left: 50%;
-                transform: translate(-50%, -50%);
-              ">
-                        <h2 class="p-3">Chinh phục đỉnh cao đồ họa</h2>
-                    </div>
-                </div>
+                </div>*@
             </div>
             <button class="carousel-control-prev"
                     type="button"
