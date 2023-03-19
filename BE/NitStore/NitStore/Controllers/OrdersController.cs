@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
 using NitStore.Data;
 using NitStore.Models.Domain;
 using NitStore.Models.DTO;
@@ -23,6 +24,10 @@ namespace NitStore.Controllers
         // GET: Orders
         public async Task<IActionResult> Index()
         {
+            if (!(TempData["shortMessage"] ?? "").ToString().IsNullOrEmpty())
+            {
+                ViewBag.Message = TempData["shortMessage"].ToString();
+            }
             List<OrderHistory> itemInside = new List<OrderHistory>();
             List<OrderDetail> orderDetails = new List<OrderDetail>();
             List<Order> orders = await dbContext.orders.Where(x => x.Status != 0 && x.Status != 3).OrderBy(x => x.UpdatedDate).ToListAsync();
@@ -293,7 +298,7 @@ namespace NitStore.Controllers
                 itemInside.Add(dto);
             }
             ViewBag.OrderHistory = itemInside;
-            return View();
+            return View(itemInside);
         }
 
         public async Task<IActionResult> ChangeOrderStatus(int orderId, int status)
@@ -303,7 +308,7 @@ namespace NitStore.Controllers
                 return NotFound();
             }
             Order order = dbContext.orders.Where(x => x.Id== orderId).FirstOrDefault();
-            if(order == null)
+            if(order != null)
             {
                 order.Status = status;
                 dbContext.SaveChanges();
