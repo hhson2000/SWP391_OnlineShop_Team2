@@ -297,6 +297,10 @@ namespace NitStore.Controllers
             return RedirectToAction("Cart");
         }
 
-        
+        [HttpGet]
+        public async Task<IActionResult> HomeSale()
+        {
+            return View();
+        }
     }
 }

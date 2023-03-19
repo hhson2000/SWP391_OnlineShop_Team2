@@ -23,7 +23,43 @@ namespace NitStore.Controllers
         // GET: Orders
         public async Task<IActionResult> Index()
         {
-              return View(await dbContext.orders.ToListAsync());
+            List<OrderHistory> itemInside = new List<OrderHistory>();
+            List<OrderDetail> orderDetails = new List<OrderDetail>();
+            List<Order> orders = await dbContext.orders.Where(x => x.Status != 0 && x.Status != 3).OrderBy(x => x.UpdatedDate).ToListAsync();
+            foreach(Order item in orders)
+            {
+                orderDetails = dbContext.ordersDetail.Where(x => x.OrderId == item.Id).ToList();
+                decimal totalMoney = 0;
+                foreach (OrderDetail itemDetails in orderDetails)
+                {
+                    Product p = dbContext.products.Where(x => x.Id == itemDetails.ProductId).FirstOrDefault();
+                    totalMoney = totalMoney + p.Price;
+                }
+                string orderStatus = "";
+                if (item.Status == 1)
+                {
+                    orderStatus = "Order Confirm";
+                }
+                else
+                {
+                    orderStatus = "Order Shipping";
+                }
+                
+                OrderHistory dto = new OrderHistory()
+                {
+                    Id = item.Id,
+                    Quantity = orderDetails.Count,
+                    OrderDate = item.UpdatedDate.ToString("dd/MM/yyyy"),
+                    Status = orderStatus,
+                    TotalMoney = totalMoney,
+                    FeedbackAble = false
+                };
+
+                itemInside.Add(dto);
+            }
+
+            ViewBag.ListOrder = itemInside;
+              return View();
         }
 
         // GET: Orders/Details/5
@@ -258,6 +294,22 @@ namespace NitStore.Controllers
             }
             ViewBag.OrderHistory = itemInside;
             return View();
+        }
+
+        public async Task<IActionResult> ChangeOrderStatus(int orderId, int status)
+        {
+            if(orderId == null)
+            {
+                return NotFound();
+            }
+            Order order = dbContext.orders.Where(x => x.Id== orderId).FirstOrDefault();
+            if(order == null)
+            {
+                order.Status = status;
+                dbContext.SaveChanges();
+            }
+            TempData["shortMessage"] = "Change Order Status Success";
+            return RedirectToAction("Index");
         }
     }
 }
