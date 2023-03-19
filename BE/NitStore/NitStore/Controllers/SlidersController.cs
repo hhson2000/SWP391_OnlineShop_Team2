@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using NitStore.Data;
 using NitStore.Models.Domain;
+using NitStore.Models.DTO;
 
 namespace NitStore.Controllers
 {
@@ -22,7 +23,23 @@ namespace NitStore.Controllers
         // GET: Sliders
         public async Task<IActionResult> Index()
         {
-              return View(await dbContext.slider.ToListAsync());
+            var sliders = await dbContext.slider.Where(s => s.Status == true).ToListAsync();
+            List<SliderShowDTO> lsResult = new List<SliderShowDTO>();
+            foreach (var slider in sliders)
+            {
+                Image img = dbContext.images.Where(i => i.Id == slider.Image).FirstOrDefault();
+                Campaign cmp = dbContext.campaigns.Where(c => c.Id == slider.CampaignId && c.Status == true).FirstOrDefault();
+                SliderShowDTO temp = new SliderShowDTO
+                {
+                    CampaignId = cmp.Id,
+                    CampaignName = cmp.Name,
+                    SliderId = cmp.Id,
+                    ImageData = img.ImageData,
+                    Status = slider.Status
+                };
+                lsResult.Add(temp);
+            }
+            return View(lsResult);
         }
 
         // GET: Sliders/Details/5
@@ -46,6 +63,21 @@ namespace NitStore.Controllers
         // GET: Sliders/Create
         public IActionResult Create()
         {
+            var lsCampaign = dbContext.campaigns.Where(c => c.Status == true);
+            List<Campaign> lsResult = new List<Campaign>();
+            foreach(var item in lsCampaign)
+            {
+                lsResult.Add(item);
+            }
+            foreach(var item in lsResult)
+            {
+                var slider = dbContext.slider.Where(i => i.CampaignId == item.Id).FirstOrDefault();
+                if(slider != null)
+                {
+                    lsResult.Remove(item);
+                }
+            }
+            ViewBag.ListCampaigns = lsResult;
             return View();
         }
 
@@ -53,16 +85,52 @@ namespace NitStore.Controllers
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
-        
-        public async Task<IActionResult> Create(Slider slider)
+
+        public async Task<IActionResult> Create(SliderAddDTO slider)
         {
             if (ModelState.IsValid)
             {
-                dbContext.Add(slider);
-                await dbContext.SaveChangesAsync();
+                if(slider.Image == null || slider.Image.Count > 1)
+                {
+
+                } else
+                {
+                    var campaign = dbContext.campaigns.Where(c => c.Id == slider.CampaignId).FirstOrDefault();
+                    foreach(var item in slider.Image)
+                    {
+                        Image img = new Image();
+                        byte[] imgData = ConvertToBytes(item);
+                        img.ImageData = imgData;
+
+                        img.Description = "Slider_" + campaign.Name;
+                        dbContext.images.Add(img);
+                        await dbContext.SaveChangesAsync();
+
+                        Slider newSlider = new Slider
+                        {
+                            CampaignId = slider.CampaignId,
+                            Image = img.Id,
+                            Status = true
+                        };
+                        dbContext.slider.Add(newSlider);
+                        await dbContext.SaveChangesAsync();
+                    }
+
+                    
+                }
+
                 return RedirectToAction(nameof(Index));
             }
             return View(slider);
+        }
+        private byte[] ConvertToBytes(IFormFile file)
+        {
+            Stream stream = file.OpenReadStream();
+            using (var memoryStream = new MemoryStream())
+            {
+                stream.CopyTo(memoryStream);
+                return memoryStream.ToArray();
+            }
         }
 
         // GET: Sliders/Edit/5
@@ -85,7 +153,7 @@ namespace NitStore.Controllers
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
-        
+
         public async Task<IActionResult> Edit(int id, Slider slider)
         {
             if (id != slider.Id)
@@ -136,7 +204,7 @@ namespace NitStore.Controllers
 
         // POST: Sliders/Delete/5
         [HttpPost, ActionName("Delete")]
-        
+
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             if (dbContext.slider == null)
@@ -148,14 +216,14 @@ namespace NitStore.Controllers
             {
                 dbContext.slider.Remove(slider);
             }
-            
+
             await dbContext.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
         private bool SliderExists(int id)
         {
-          return dbContext.slider.Any(e => e.Id == id);
+            return dbContext.slider.Any(e => e.Id == id);
         }
     }
 }

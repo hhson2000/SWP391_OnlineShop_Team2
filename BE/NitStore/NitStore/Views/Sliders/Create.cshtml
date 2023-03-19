@@ -1,5 +1,5 @@
-﻿@model NitStore.Models.Domain.Slider
-
+﻿@model NitStore.Models.DTO.SliderAddDTO
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
 @{
     ViewData["Title"] = "Create";
     Layout = "~/Views/Shared/_LayoutMaketer.cshtml";
@@ -11,27 +11,25 @@
 <hr />
 <div class="row">
     <div class="col-md-4">
-        <form asp-action="Create">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        @using (Html.BeginForm("Create", "Sliders", FormMethod.Post, 
+                               new { enctype = "multipart/form-data" }))
+{
             <div class="form-group">
                 <label asp-for="CampaignId" class="control-label"></label>
-                <input asp-for="CampaignId" class="form-control" />
-                <span asp-validation-for="CampaignId" class="text-danger"></span>
+                @Html.DropDownList("CampaignId", new SelectList(ViewBag.ListCampaigns, "Id", "Name"))
             </div>
             <div class="form-group">
-                <label asp-for="Image" class="control-label"></label>
-                <input asp-for="Image" class="form-control" />
-                <span asp-validation-for="Image" class="text-danger"></span>
+                <div class="form-group">
+                    <label class="col-form-label">Select 1 Picture</label>
+                    <input asp-for="Image" class="form-control" multiple />
+                    <span asp-validation-for="Image" class="text-danger"></span>
+                </div>
             </div>
-            <div class="form-group">
-                <label asp-for="Status" class="control-label"></label>
-                <input asp-for="Status" class="form-control" />
-                <span asp-validation-for="Status" class="text-danger"></span>
-            </div>
+            <br />
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-primary" />
             </div>
-        </form>
+        }
     </div>
 </div>
 

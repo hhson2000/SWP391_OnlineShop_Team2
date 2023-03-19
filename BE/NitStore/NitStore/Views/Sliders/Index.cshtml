@@ -1,5 +1,5 @@
-﻿@model IEnumerable<NitStore.Models.Domain.Slider>
-
+﻿@model List<NitStore.Models.DTO.SliderShowDTO>
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
 @{
     ViewData["Title"] = "Index";
     Layout = "~/Views/Shared/_LayoutMaketer.cshtml";
@@ -14,35 +14,36 @@
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.CampaignId)
+                SliderId
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Image)
+                CampaignName
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Status)
+               Status
             </th>
             <th></th>
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.CampaignId)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Image)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Status)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
-            </td>
-        </tr>
-}
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.SliderId)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CampaignName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Status)
+                </td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.SliderId">Edit</a> |
+                    <a asp-action="Details" asp-route-id="@item.SliderId">Details</a> |
+                    <a asp-action="Delete" asp-route-id="@item.SliderId">Delete</a>
+                </td>
+            </tr>
+        }
     </tbody>
 </table>

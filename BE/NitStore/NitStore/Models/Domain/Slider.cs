@@ -20,7 +20,7 @@ namespace NitStore.Models.Domain
 
         [Required]
         [Column(Order = 3)]
-        public int Status { get; set; }
+        public bool Status { get; set; }
 
         //[Required]
         //public DateTime CreatedDate { get; set; }
