@@ -15,7 +15,7 @@ namespace NitStore.Controllers
     {
         private readonly NitDbContext dbContext;
 
-        public OrdersController(NitDbContext context)
+        public OrdersController(NitDbContext dbContext)
         {
             this.dbContext = dbContext;
         }
@@ -201,6 +201,62 @@ namespace NitStore.Controllers
                 }
             }
             
+            return View();
+        }
+
+        public async Task<IActionResult> OrderHistory()
+        {
+            int userId = -1;
+            if (!string.IsNullOrEmpty(HttpContext.Session.GetString("UserId")))
+            {
+                userId = Convert.ToInt32(HttpContext.Session.GetString("UserId"));
+            }
+            
+            List<OrderDetail> orderDetails = new List<OrderDetail>();
+            List<Order> orders = dbContext.orders.ToList();
+            //recived
+            orders = orders.Where(x => x.Status != 0).ToList();
+            List<OrderHistory> itemInside = new List<OrderHistory>();
+            foreach (Order item in orders)
+            {
+                
+                orderDetails = dbContext.ordersDetail.Where(x => x.OrderId == item.Id).ToList();
+                decimal totalMoney = 0;
+                foreach(OrderDetail itemDetails in orderDetails)
+                {
+                    Product p = dbContext.products.Where(x => x.Id == itemDetails.ProductId).FirstOrDefault();
+                    totalMoney = totalMoney + p.Price;
+                }
+                string orderStatus = "";
+                if(item.Status == 1)
+                {
+                    orderStatus = "Order Confirm";
+                }else if (item.Status == 2)
+                {
+                    orderStatus = "Order Shipping";
+                }
+                else
+                {
+                    orderStatus = "Order Received";
+                }
+                List<Feedback> feedback = dbContext.feedbacks.Where(x => x.OrderId == item.Id).ToList();
+                bool isFeedback = false;
+                if(feedback.Count <= 0 && orderStatus == "Order Received")
+                {
+                    isFeedback = true;
+                }
+                OrderHistory dto = new OrderHistory()
+                {
+                    Id = item.Id,
+                    Quantity = orderDetails.Count,
+                    OrderDate = item.UpdatedDate.ToString("dd/MM/yyyy"),
+                    Status = orderStatus,
+                    TotalMoney= totalMoney,
+                    FeedbackAble = isFeedback
+                };
+                itemInside.Add(dto);
+            }
+            ViewBag.OrderHistory = itemInside;
             return View();
         }
     }
