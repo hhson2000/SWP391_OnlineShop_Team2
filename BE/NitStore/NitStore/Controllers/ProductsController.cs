@@ -26,10 +26,29 @@ namespace NitStore.Controllers
 
         public async Task<IActionResult> ListProduct()
         {
+            //Slider
+            var sliders = dbContext.slider.Where(s => s.Status == true).ToList();
+            List<SliderShowDTO> lsSliderShow = new List<SliderShowDTO>();
+            foreach(var slider in sliders)
+            {
+                var img = dbContext.images.Where(i => i.Id == slider.Image).FirstOrDefault();
+                var cmp = dbContext.campaigns.Where(c => c.Id == slider.CampaignId).FirstOrDefault();
+                SliderShowDTO result = new SliderShowDTO
+                {
+                    CampaignId = cmp.Id,
+                    CampaignName = cmp.Name,
+                    SliderId = slider.Id,
+                    ImageData = img.ImageData,
+                    Status = slider.Status
+                };
+                lsSliderShow.Add(result);
+            }
+            ViewBag.ListSliders = lsSliderShow;
+            //End of Slider
             List<Product> productList = dbContext.products.ToList();
             List<ProductShowDTO> productShowList = new List<ProductShowDTO>();
             List<Category> categoryList = dbContext.categories.ToList();
-
+            
             ViewBag.CategoryList = categoryList;
 
             foreach (Product item in productList)

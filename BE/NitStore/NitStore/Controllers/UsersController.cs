@@ -54,6 +54,53 @@ namespace NitStore.Controllers
         }
 
         [HttpGet]
+        public async Task<IActionResult> Create()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Create(User user)
+        {
+            if(user != null)
+            {
+                if(user.Role >= 1 && user.Role <= 5)
+                {
+                    if(user.Status == 0 || user.Status == 1)
+                    {
+                        user.Password = EncryptPassword(user.Password);
+                        dbContext.users.Add(user);
+                        await dbContext.SaveChangesAsync();
+                    } else
+                    {
+                        
+                    }
+                   
+                } else
+                {
+
+                }
+            }
+            return RedirectToAction("ViewAllUser", "Users", new { area = "" });
+        }
+
+        private string EncryptPassword(string password)
+        {
+            string result = "";
+            try
+            {
+                byte[] enCryptByte = new byte[password.Length];
+                enCryptByte = System.Text.Encoding.UTF8.GetBytes(password);
+                result = Convert.ToBase64String(enCryptByte);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+            return result;
+        }
+
+        [HttpGet]
         public IActionResult Delete(int id)
         {
             var user = dbContext.users.Where(x => x.Id == id).First();
@@ -87,7 +134,11 @@ namespace NitStore.Controllers
             //currentUser.NeedToChange = true;
             //currentUser.Email = dto.UserName;
             //currentUser.Password = "123456";
-            dbContext.SaveChangesAsync();
+            if(currentUser.Status == 0 || currentUser.Status == 1)
+            {
+                dbContext.users.Update(currentUser);
+                await dbContext.SaveChangesAsync();
+            }
             return RedirectToAction("ViewAllUser", "Users", new { area = "" });
         }
 

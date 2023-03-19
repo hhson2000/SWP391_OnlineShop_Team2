@@ -33,7 +33,7 @@ namespace NitStore.Controllers
                 {
                     CampaignId = cmp.Id,
                     CampaignName = cmp.Name,
-                    SliderId = cmp.Id,
+                    SliderId = slider.Id,
                     ImageData = img.ImageData,
                     Status = slider.Status
                 };
@@ -52,27 +52,34 @@ namespace NitStore.Controllers
 
             var slider = await dbContext.slider
                 .FirstOrDefaultAsync(m => m.Id == id);
+            var img = dbContext.images.Where(i => i.Id == slider.Image).FirstOrDefault();
+            var cmp = dbContext.campaigns.Where(c => c.Id == slider.CampaignId).FirstOrDefault();
+            SliderShowDTO result = new SliderShowDTO
+            {
+                CampaignId = cmp.Id,
+                CampaignName = cmp.Name,
+                SliderId =  slider.Id,
+                ImageData = img.ImageData,
+                Status = slider.Status
+            };
             if (slider == null)
             {
                 return NotFound();
             }
 
-            return View(slider);
+            return View(result);
         }
 
         // GET: Sliders/Create
         public IActionResult Create()
         {
-            var lsCampaign = dbContext.campaigns.Where(c => c.Status == true);
+            var lsCampaign = dbContext.campaigns.Where(c => c.Status == true).ToList();
             List<Campaign> lsResult = new List<Campaign>();
             foreach(var item in lsCampaign)
             {
                 lsResult.Add(item);
-            }
-            foreach(var item in lsResult)
-            {
                 var slider = dbContext.slider.Where(i => i.CampaignId == item.Id).FirstOrDefault();
-                if(slider != null)
+                if (slider != null)
                 {
                     lsResult.Remove(item);
                 }
@@ -90,7 +97,7 @@ namespace NitStore.Controllers
         {
             if (ModelState.IsValid)
             {
-                if(slider.Image == null || slider.Image.Count > 1)
+                if(slider.CampaignId == 0 ||slider.Image == null || slider.Image.Count > 1 || slider.Image.Count == 0)
                 {
 
                 } else
@@ -121,7 +128,7 @@ namespace NitStore.Controllers
 
                 return RedirectToAction(nameof(Index));
             }
-            return View(slider);
+            return RedirectToAction(nameof(Index));
         }
         private byte[] ConvertToBytes(IFormFile file)
         {
@@ -187,19 +194,23 @@ namespace NitStore.Controllers
         // GET: Sliders/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
-            if (id == null || dbContext.slider == null)
-            {
-                return NotFound();
-            }
-
             var slider = await dbContext.slider
                 .FirstOrDefaultAsync(m => m.Id == id);
+
             if (slider == null)
             {
                 return NotFound();
+            }  else
+            {
+                var img = dbContext.images.Where(i => i.Id == slider.Image).FirstOrDefault();
+                dbContext.slider.Remove(slider);
+                await dbContext.SaveChangesAsync();
+                dbContext.images.Remove(img);
+                await dbContext.SaveChangesAsync();
+                
             }
 
-            return View(slider);
+            return RedirectToAction(nameof(Index));
         }
 
         // POST: Sliders/Delete/5
