@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using NitStore.Data;
 using NitStore.Models.Domain;
+using NitStore.Models.DTO;
 
 namespace NitStore.Controllers
 {
@@ -46,6 +47,31 @@ namespace NitStore.Controllers
         // GET: Feedbacks/Create
         public IActionResult Create()
         {
+            return View();
+        }
+
+        public IActionResult FeedbackOrder(int orderId)
+        {
+            int userId = -1;
+            if (!string.IsNullOrEmpty(HttpContext.Session.GetString("UserId")))
+            {
+                userId = Convert.ToInt32(HttpContext.Session.GetString("UserId"));
+            }
+            Order order = dbContext.orders.Where(x => x.Id == orderId).FirstOrDefault();
+            List<OrderDetail > orderDetail = new List<OrderDetail>();
+            List<FeedbackOrderDTO> feedbacks = new List<FeedbackOrderDTO>();
+            if (order != null)
+            {
+                orderDetail = dbContext.ordersDetail.Where(x => x.OrderId == orderId).ToList();
+               
+                //foreach (OrderDetail item in orderDetail)
+                //{
+                //    ProductImage productImage = dbContext.productsImage.Where(x => x.ProductId == item.ProductId).First();
+                //    Image image = dbContext.images.Where(x => x.Id == item.ProductId).First();
+                //    FeedbackOrderDTO dto = new FeedbackOrderDTO();
+                //    dto.imageBit = 
+                //}
+            }
             return View();
         }
 
