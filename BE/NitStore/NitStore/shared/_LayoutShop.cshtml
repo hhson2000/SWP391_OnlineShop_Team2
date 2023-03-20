@@ -79,7 +79,7 @@
 <body style="overflow-x: hidden">
     <header>
         <nav class="navbar navbar-light bg-dark">
-            <div class="container-fluid justify-content-between p-2">
+            <div style="z-index:1" class="container-fluid justify-content-between p-2">
                 <div class="d-flex flex-row align-items-center">
                     <img src="../img/logoNit.png"
                          alt="Girl in a jacket"
@@ -102,7 +102,7 @@
                 </div>
                 <div>
                     <span>
-                        <img src="https://images.acer.com/is/image/acer/Nitro_Laptop_KSP3:Static-KSP-Image-Right-Left-XL"
+                        <img src="https://cdn3.iconfinder.com/data/icons/vector-icons-6/96/256-512.png"
                              alt="Avatar"
                              style="border-radius: 50%; box-shadow: 0 0 50px #ccc"
                              width="50px"
@@ -112,7 +112,7 @@
                     </span>
                     @if (isLogin == 1)
                     {
-                        <div style="z-index=1" id="myDropdown" class="dropdown-content">
+                        <div style="z-index:0" id="myDropdown" class="dropdown-content">
                             <a href="@Url.Action("UserProfile","Users")">Profile</a>
                             <a href="@Url.Action("OrderHistory","Orders")">Order History</a>
                             <a href="@Url.Action("Logout","Authen")">Logout</a>
@@ -175,7 +175,7 @@
                 <span class="carousel-control-prev-icon" aria-hidden="true"></span>
                 <span class="visually-hidden">Previous</span>
             </button>
-            <button class="carousel-control-next"
+            <button style="z-index: 0" class="carousel-control-next"
                     type="button"
                     data-bs-target="#carouselExampleControlsNoTouching"
                     data-bs-slide="next">

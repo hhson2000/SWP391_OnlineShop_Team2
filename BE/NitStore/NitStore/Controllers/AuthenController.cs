@@ -64,7 +64,7 @@ namespace NitStore.Controllers
                                 {
                                     HttpContext.Session.SetString("Username", userDetail.Name);
                                 }
-                                
+
                                 break;
 
                         }
