@@ -19,7 +19,8 @@
                     <span class="navbar-brand mb-0 h1">NIT Sale manager</span>
                     <nav class="nav">
                         @Html.ActionLink("Manage Sale Account", "Index", "SaleManagerAccount", new {}, null)    |
-                        @Html.ActionLink("Manage Campaign", "Index", "Campaigns", new {}, null)
+                        @Html.ActionLink("Manage Campaign", "Index", "Campaigns", new {}, null) | 
+                        @Html.ActionLink("Logout", "Logout", "Authen", new {}, null)
                     </nav>
                 </div>
             </nav>

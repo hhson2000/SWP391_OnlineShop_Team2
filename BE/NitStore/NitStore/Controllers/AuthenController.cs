@@ -28,20 +28,60 @@ namespace NitStore.Controllers
                 string username = loginUser.UserName;
                 string password = EncryptPassword(loginUser.Password);
                 var user = await dbContext.users.Where(u => u.UserName.Equals(username) && u.Password.Equals(password)).FirstAsync();
-                if(user != null)
+                if (user != null)
                 {
-                    if(user.Role == 5)
+                    if (user.Status == 0)
                     {
-                        return RedirectToAction("ListProduct", "Products", new { area = "" });
+
                     }
-                    
+                    else 
+                    {
+                        string action = "";
+                        string method = "";
+                        switch(user.Role)
+                        {
+                            case 1:
+                                method = "ViewAllUser";
+                                action = "Users";
+                                break;
+                            case 2:
+                                method = "Index";
+                                action = "Categories";
+                                break;
+                            case 3:
+                                method = "Index";
+                                action = "Campaigns";
+                                break;
+                            case 4:
+                                method = "";
+                                action = "";
+                                break;
+                            case 5:
+                                method = "ListProduct";
+                                action = "Products";
+                                break;
+
+                        }
+                        HttpContext.Session.SetInt32("LoginRole", user.Role);
+                        HttpContext.Session.SetInt32("isLogin", 1);
+                        return RedirectToAction(method, action, new { area = "" });
+                    }
+
                 }
-            } else
+            }
+            else
             {
                 return View();
             }
             return View();
 
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> Logout()
+        {
+            HttpContext.Session.Clear();
+            return RedirectToAction("Login");
         }
 
         [HttpGet]
@@ -55,7 +95,8 @@ namespace NitStore.Controllers
         {
             if (user != null)
             {
-                if (user.Password.Equals(user.RePassword)) {
+                if (user.Password.Equals(user.RePassword))
+                {
                     User newUser = new User
                     {
                         UserName = user.UserName,
@@ -85,7 +126,8 @@ namespace NitStore.Controllers
                         throw ex;
                         return View();
                     }
-                } else
+                }
+                else
                 {
                     return View();
                 }
@@ -104,7 +146,8 @@ namespace NitStore.Controllers
                 byte[] enCryptByte = new byte[password.Length];
                 enCryptByte = System.Text.Encoding.UTF8.GetBytes(password);
                 result = Convert.ToBase64String(enCryptByte);
-            } catch (Exception ex)
+            }
+            catch (Exception ex)
             {
                 throw new Exception(ex.Message);
             }

@@ -17,7 +17,8 @@
                 <div class="container-fluid">
                     <span class="navbar-brand mb-0 h1">NIT Admin</span>
                     <nav class="nav">
-                        @Html.ActionLink("Manage User", "ViewAllUser", "Users", new { @class = "nav-link" }, null)
+                        @Html.ActionLink("Manage User", "ViewAllUser", "Users", new { @class = "nav-link" }, null) | 
+                        @Html.ActionLink("Logout", "Logout", "Authen", new {}, null)
                     </nav>
                 </div>
             </nav>
