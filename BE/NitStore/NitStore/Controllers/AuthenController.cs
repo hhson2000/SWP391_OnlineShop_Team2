@@ -59,6 +59,12 @@ namespace NitStore.Controllers
                             case 5:
                                 method = "ListProduct";
                                 action = "Products";
+                                var userDetail = dbContext.userDetail.Where(ud => ud.Id == user.Id).FirstOrDefault();
+                                if(userDetail != null)
+                                {
+                                    HttpContext.Session.SetString("Username", userDetail.Name);
+                                }
+                                
                                 break;
 
                         }

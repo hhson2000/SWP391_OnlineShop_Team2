@@ -1,4 +1,10 @@
-﻿<!DOCTYPE html>
+﻿@using Microsoft.AspNetCore.Http
+@inject IHttpContextAccessor HttpContextAccessor
+@{
+    int isLogin = (HttpContextAccessor.HttpContext.Session.GetInt32("isLogin") ?? 0);
+    string userName = (HttpContextAccessor.HttpContext.Session.GetString("Username") ?? "Customer");
+}
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8" />
@@ -12,6 +18,63 @@
     <script src="https://kit.fontawesome.com/6039db1001.js"
             crossorigin="anonymous"></script>
     <title>NIT Shop</title>
+    <script>
+        function myFunction() {
+            document.getElementById("myDropdown").classList.toggle("show");
+        }
+
+        window.onclick = function (event) {
+            if (!event.target.matches('.dropbtn')) {
+                var dropdowns = document.getElementsByClassName("dropdown-content");
+                var i;
+                for (i = 0; i < dropdowns.length; i++) {
+                    var openDropdown = dropdowns[i];
+                    if (openDropdown.classList.contains('show')) {
+                        openDropdown.classList.remove('show');
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .dropbtn {
+            border: none;
+            cursor: pointer;
+        }
+
+            .dropbtn:hover, .dropbtn:focus {
+            }
+
+        .dropdown {
+            position: relative;
+            display: inline-block;
+        }
+
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: #f1f1f1;
+            min-width: 160px;
+            overflow: auto;
+            box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+            z-index: 1;
+        }
+
+            .dropdown-content a {
+                color: black;
+                padding: 12px 16px;
+                text-decoration: none;
+                display: block;
+            }
+
+        .dropdown a:hover {
+            background-color: #ddd;
+        }
+
+        .show {
+            display: block;
+        }
+    </style>
 </head>
 <body style="overflow-x: hidden">
     <header>
@@ -43,9 +106,24 @@
                              alt="Girl in a jacket"
                              style="border-radius: 50%; box-shadow: 0 0 50px #ccc"
                              width="50px"
-                             height="50px" />
+                             height="50px"
+                             onclick="myFunction()"
+                             class="dropbtn" />
                     </span>
-                    <a class="text-white" style="text-decoration: none">Hi! Ngo Dong Duong</a>
+                    @if (isLogin == 1)
+                    {
+                        <div id="myDropdown" class="dropdown-content">
+                            <a href="@Url.Action("UserProfile","Users")">Profile</a>
+                            <a href="@Url.Action("OrderHistory","Orders")">Order History</a>
+                            <a href="@Url.Action("Logout","Authen")">Logout</a>
+                        </div>
+                        <a class="text-white" style="text-decoration: none">Hi! @userName</a>
+                    }
+                    else
+                    {
+                        <a class="text-white" style="text-decoration: none">Hello! Customer</a>
+                    }
+
                     @*      <a class="text-white" style="text-decoration: none">Login</a>
                     <a class="text-white" style="text-decoration: none">Register</a>*@
                 </div>
@@ -89,59 +167,6 @@
                         </div>
                     </div>
                 }
-                @*<div class="carousel-item active">
-                <img src="https://www.mcex.co.uk/wp-content/uploads/2020/05/1920x400_Main-3-MCEX-Our-Services-banner-NO-TEXT.png"
-                class="d-block w-100"
-                alt="..."
-                width="100%"
-                height="400"
-                style="background-size: cover" />
-                <div class="text-light border border-3"
-                style="
-                position: absolute;
-                top: 50%;
-                left: 50%;
-                transform: translate(-50%, -50%);
-                ">
-                <h2 class="p-3">Những mẫu Macbook mới nhất</h2>
-                </div>
-                </div>*@
-                @*<div class="carousel-item">
-                <img src="https://static.lenovo.com/cap/images/CAP-LenovoPro-banner-1920x400-0802.jpg"
-                class="d-block w-100"
-                alt="..."
-                width="100%"
-                height="400"
-                style="background-size: cover" />
-                <div class="text-light border border-3"
-                style="
-                position: absolute;
-                top: 50%;
-                left: 50%;
-                transform: translate(-50%, -50%);
-                ">
-                <h2 class="p-3">
-                Đuổi kịp deadline cùng các "quái vật" work station
-                </h2>
-                </div>
-                </div>
-                <div class="carousel-item">
-                <img src="https://assets2.razerzone.com/images/pnx.assets/89acc9610698ee3466330248ab890176/magic-intel-pdp-banner---1920x400.jpg"
-                class="d-block w-100"
-                alt="..."
-                width="100%"
-                height="400"
-                style="background-size: cover" />
-                <div class="text-light border border-3"
-                style="
-                position: absolute;
-                top: 50%;
-                left: 50%;
-                transform: translate(-50%, -50%);
-                ">
-                <h2 class="p-3">Chinh phục đỉnh cao đồ họa</h2>
-                </div>
-                </div>*@
             </div>
             <button class="carousel-control-prev"
                     type="button"
