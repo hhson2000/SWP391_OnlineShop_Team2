@@ -86,6 +86,10 @@ namespace NitStore.Controllers
 
         public async Task<IActionResult> ViewAllProduct()
         {
+            if (!(TempData["shortMessage"] ?? "").ToString().IsNullOrEmpty())
+            {
+                ViewBag.Message = TempData["shortMessage"].ToString();
+            }
             List<Product> productList = dbContext.products.ToList();
             List<ProductShowDTO> productShowList = new List<ProductShowDTO>();
             List<Category> categoryList = dbContext.categories.ToList();
@@ -167,8 +171,9 @@ namespace NitStore.Controllers
                     } 
                 }
             //}
-            
-            return View(dtos);
+            TempData["shortMessage"] = "Add Product Success!";
+            return RedirectToAction("ViewAllProduct");
+            //return View(dtos);
         }
         private byte[] ConvertToBytes(IFormFile file)
         {
@@ -228,7 +233,8 @@ namespace NitStore.Controllers
                 {
                     CustomerName = userDetail.Name,
                     feedback = feedbackss.Description,
-                    DateFeedback = feedbackss.UpdatedDate.ToString()
+                    DateFeedback = feedbackss.UpdatedDate.ToString(),
+                    Rate = feedbackss.Rate
                 };
                 feedsOrderDTO.Add(dto);
             }
@@ -454,13 +460,27 @@ namespace NitStore.Controllers
                     dbContext.images.Remove(img);
 
                 }
+                List<OrderDetail> orderDetail = await dbContext.ordersDetail.Where(x => x.ProductId ==  product.Id).ToListAsync();
+                foreach(var items in orderDetail)
+                {
+                    dbContext.ordersDetail.Remove(items);
+                    dbContext.SaveChanges();
+                    Order order = dbContext.orders.Where(x => x.Id == items.OrderId).FirstOrDefault();
+                    List<OrderDetail> orderDetailsLeft = dbContext.ordersDetail.Where(x => x.OrderId == order.Id).ToList();
+                    if(orderDetailsLeft.Count() <= 0) 
+                    {
+                        dbContext.orders.Remove(order);
+                        dbContext.SaveChanges();
+                    }
+                }
                 dbContext.SaveChanges();
                 dbContext.products.Remove(product);
                 dbContext.SaveChanges();
             }
             
             await dbContext.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
+            TempData["shortMessage"] = "Remove product successfull";
+            return RedirectToAction("ViewAllProduct");
         }
 
         private bool ProductExists(int id)

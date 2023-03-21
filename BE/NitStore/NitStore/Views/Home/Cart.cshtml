@@ -1,4 +1,10 @@
-﻿@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+﻿@using Microsoft.AspNetCore.Http
+@inject IHttpContextAccessor HttpContextAccessor
+@{
+    int isLogin = (HttpContextAccessor.HttpContext.Session.GetInt32("isLogin") ?? 0);
+    string userName = (HttpContextAccessor.HttpContext.Session.GetString("Username") ?? "Customer");
+}
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
 @model NitStore.Models.DTO.PaymentMethodDTO
 <!DOCTYPE html>
 <html lang="en">
@@ -14,6 +20,63 @@
     <script src="https://kit.fontawesome.com/6039db1001.js"
             crossorigin="anonymous"></script>
     <title>NIT Shop</title>
+    <script>
+        function myFunction() {
+            document.getElementById("myDropdown").classList.toggle("show");
+        }
+
+        window.onclick = function (event) {
+            if (!event.target.matches('.dropbtn')) {
+                var dropdowns = document.getElementsByClassName("dropdown-content");
+                var i;
+                for (i = 0; i < dropdowns.length; i++) {
+                    var openDropdown = dropdowns[i];
+                    if (openDropdown.classList.contains('show')) {
+                        openDropdown.classList.remove('show');
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .dropbtn {
+            border: none;
+            cursor: pointer;
+        }
+
+            .dropbtn:hover, .dropbtn:focus {
+            }
+
+        .dropdown {
+            position: relative;
+            display: inline-block;
+        }
+
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: #f1f1f1;
+            min-width: 160px;
+            overflow: auto;
+            box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+            z-index: 1;
+        }
+
+            .dropdown-content a {
+                color: black;
+                padding: 12px 16px;
+                text-decoration: none;
+                display: block;
+            }
+
+        .dropdown a:hover {
+            background-color: #ddd;
+        }
+
+        .show {
+            display: block;
+        }
+    </style>
 </head>
 <body style="overflow-x: hidden">
     <header>
@@ -41,13 +104,30 @@
                 </div>
                 <div>
                     <span>
-                        <img src="https://images.acer.com/is/image/acer/Nitro_Laptop_KSP3:Static-KSP-Image-Right-Left-XL"
-                             alt="Girl in a jacket"
+                        <img src="https://cdn3.iconfinder.com/data/icons/vector-icons-6/96/256-512.png"
+                             alt="Avatar"
                              style="border-radius: 50%; box-shadow: 0 0 50px #ccc"
                              width="50px"
-                             height="50px" />
+                             height="50px"
+                             onclick="myFunction()"
+                             class="dropbtn" />
                     </span>
-                    <a class="text-white" style="text-decoration: none">Hi! Ngo Dong Duong</a>
+                    @if (isLogin == 1)
+                    {
+                        <div style="z-index:0" id="myDropdown" class="dropdown-content">
+                            <a href="@Url.Action("UserProfile","Users")">Profile</a>
+                            <a href="@Url.Action("OrderHistory","Orders")">Order History</a>
+                            <a href="@Url.Action("Logout","Authen")">Logout</a>
+                        </div>
+                        <a class="text-white" style="text-decoration: none">Hi! @userName</a>
+                    }
+                    else
+                    {
+                        <a class="text-white" style="text-decoration: none">Hello! Customer</a>
+                        <div style="z-index:0" id="myDropdown" class="dropdown-content">
+                            <a href="@Url.Action("Login","Authen")">Login</a>
+                        </div>
+                    }
                 </div>
             </div>
         </nav>
@@ -124,8 +204,8 @@
                         </div>
                     }
 
-                    
-                        @if (ViewBag.UserDetail != null)
+
+                    @if (ViewBag.UserDetail != null )
                         {
                             <div class="card rounded-3 mb-4">
                                 <div class="card-body p-4">
@@ -145,24 +225,27 @@
                             </div>
                         }
                     
+                    @if (ViewBag.ShoppingCart.Count > 0)
+                    {
+                        <div class="card my-2">
+                            <div class="card-body">
+                                @using (Html.BeginForm("CreateOrder", "Orders", FormMethod.Post
+                               ))
+                                {
+                                    <a>Pay Now</a> @Html.RadioButtonFor(m => m.PayNow, true)
+                                    <br />
+                                    <a>Pay Later</a> @Html.RadioButtonFor(m => m.PayNow, false)
+                                    <br />
+                                    @* <button type="button" class="btn btn-warning btn-block btn-lg">
+                            Proceed to Pay
+                            </button>*@
+                                    <input type="submit" value="Proceed to Purchase" class=" btn btn-warning btn-block btn-lg" />
+                                }
 
-                    <div class="card my-2">
-                        <div class="card-body">    
-                            @using (Html.BeginForm("CreateOrder", "Orders", FormMethod.Post
-                            ))
-                            {
-                                <a>Pay Now</a> @Html.RadioButtonFor(m => m.PayNow, true)
-                            <br />
-                                <a>Pay Later</a> @Html.RadioButtonFor(m => m.PayNow, false)
-                            <br />
-                               @* <button type="button" class="btn btn-warning btn-block btn-lg">
-                                    Proceed to Pay
-                                </button>*@
-                                <input type="submit" value="Proceed to Purchase" class=" btn btn-warning btn-block btn-lg" />
-                            }
-                            
+                            </div>
                         </div>
-                    </div>
+                    }
+                    
                 </div>
             </div>
         </div>

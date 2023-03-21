@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
 using NitStore.Data;
 using NitStore.Models.Domain;
 using NitStore.Models.DTO;
@@ -23,6 +24,10 @@ namespace NitStore.Controllers
         // GET: Sliders
         public async Task<IActionResult> Index()
         {
+            if (!(TempData["shortMessage"] ?? "").ToString().IsNullOrEmpty())
+            {
+                ViewBag.Message = TempData["shortMessage"].ToString();
+            }
             var sliders = await dbContext.slider.Where(s => s.Status == true).ToListAsync();
             List<SliderShowDTO> lsResult = new List<SliderShowDTO>();
             foreach (var slider in sliders)
@@ -99,7 +104,7 @@ namespace NitStore.Controllers
             {
                 if(slider.CampaignId == 0 ||slider.Image == null || slider.Image.Count > 1 || slider.Image.Count == 0)
                 {
-
+                    TempData["shortMessage"] = "Add Slider Fail";
                 } else
                 {
                     var campaign = dbContext.campaigns.Where(c => c.Id == slider.CampaignId).FirstOrDefault();
@@ -120,12 +125,13 @@ namespace NitStore.Controllers
                             Status = true
                         };
                         dbContext.slider.Add(newSlider);
+                        TempData["shortMessage"] = "Add Slider Success";
                         await dbContext.SaveChangesAsync();
                     }
 
                     
                 }
-
+                
                 return RedirectToAction(nameof(Index));
             }
             return RedirectToAction(nameof(Index));
@@ -138,57 +144,6 @@ namespace NitStore.Controllers
                 stream.CopyTo(memoryStream);
                 return memoryStream.ToArray();
             }
-        }
-
-        // GET: Sliders/Edit/5
-        public async Task<IActionResult> Edit(int? id)
-        {
-            if (id == null || dbContext.slider == null)
-            {
-                return NotFound();
-            }
-
-            var slider = await dbContext.slider.FindAsync(id);
-            if (slider == null)
-            {
-                return NotFound();
-            }
-            return View(slider);
-        }
-
-        // POST: Sliders/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-
-        public async Task<IActionResult> Edit(int id, Slider slider)
-        {
-            if (id != slider.Id)
-            {
-                return NotFound();
-            }
-
-            if (ModelState.IsValid)
-            {
-                try
-                {
-                    dbContext.Update(slider);
-                    await dbContext.SaveChangesAsync();
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!SliderExists(slider.Id))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
-                }
-                return RedirectToAction(nameof(Index));
-            }
-            return View(slider);
         }
 
         // GET: Sliders/Delete/5
@@ -207,28 +162,9 @@ namespace NitStore.Controllers
                 await dbContext.SaveChangesAsync();
                 dbContext.images.Remove(img);
                 await dbContext.SaveChangesAsync();
-                
+                TempData["shortMessage"] = "Delete Slider Success";
             }
 
-            return RedirectToAction(nameof(Index));
-        }
-
-        // POST: Sliders/Delete/5
-        [HttpPost, ActionName("Delete")]
-
-        public async Task<IActionResult> DeleteConfirmed(int id)
-        {
-            if (dbContext.slider == null)
-            {
-                return Problem("Entity set 'NitDbContext.slider'  is null.");
-            }
-            var slider = await dbContext.slider.FindAsync(id);
-            if (slider != null)
-            {
-                dbContext.slider.Remove(slider);
-            }
-
-            await dbContext.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 

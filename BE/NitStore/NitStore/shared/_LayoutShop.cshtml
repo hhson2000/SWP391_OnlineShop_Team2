@@ -203,7 +203,8 @@
                               font-weight: bold;
                             ">Category</label>
                         <select class="form-select" id="category" aria-label="Category" onchange="location = this.value;">
-                            <option value="/Products/ListProduct" selected>All</option>
+                            <option value="/Products/ListProduct"></option>
+                            <option value="/Products/ListProduct">All</option>
                             @if (ViewBag.CategoryList != null)
                             {
                                 @foreach (var item in ViewBag.CategoryList)
@@ -211,6 +212,7 @@
                                     <option value="/Products/ListProduct?id=@item.Id">@item.Name</option>
                                 }
                             }
+                            <option value="/Products/ListProduct"></option>
                         </select>
                     </div>
                 </div>

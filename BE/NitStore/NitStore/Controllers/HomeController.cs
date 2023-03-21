@@ -25,7 +25,7 @@ namespace NitStore.Controllers
 
         public IActionResult Index()
         {
-            HttpContext.Session.SetString("UserId", "15");
+            //HttpContext.Session.SetString("UserId", "15");
             //return RedirectToAction("HomeAdmin", "Admin", new { area = "" });
             return RedirectToAction("ListProduct", "Products");
         }
@@ -60,6 +60,10 @@ namespace NitStore.Controllers
             if (!string.IsNullOrEmpty(HttpContext.Session.GetString("UserId")))
             {
                 userId = Convert.ToInt32(HttpContext.Session.GetString("UserId"));
+            }
+            else
+            {
+                return RedirectToAction("Login", "Authen");
             }
             Order order = dbContext.orders.Where(x => x.Status == 0 && x.CustomerId == userId).FirstOrDefault();
             if (order != null)
@@ -115,6 +119,10 @@ namespace NitStore.Controllers
             if (!string.IsNullOrEmpty(HttpContext.Session.GetString("UserId")))
             {
                 userId = Convert.ToInt32(HttpContext.Session.GetString("UserId"));
+            }
+            else
+            {
+                return RedirectToAction("Login", "Authen");
             }
             Product product = dbContext.products.Where(x => x.Id == productId).First();
 
@@ -289,6 +297,10 @@ namespace NitStore.Controllers
             if (!string.IsNullOrEmpty(HttpContext.Session.GetString("UserId")))
             {
                 userId = Convert.ToInt32(HttpContext.Session.GetString("UserId"));
+            }
+            else
+            {
+                return RedirectToAction("Login", "Authen");
             }
             Product product = dbContext.products.Where(x => x.Id == productId).First();
             Order order = dbContext.orders.Where(x => x.CustomerId == userId && x.Status == 0).FirstOrDefault();

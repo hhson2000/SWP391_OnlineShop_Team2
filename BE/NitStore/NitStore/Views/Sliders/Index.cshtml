@@ -7,7 +7,12 @@
 <div class="container">
 
     <h1>Index</h1>
-
+    <div>
+        @if (ViewBag.Message != null)
+        {
+            <a>@ViewBag.Message !</a>
+        }
+    </div>
     <p>
         <a asp-action="Create">Create New</a>
     </p>
@@ -40,7 +45,7 @@
                         @Html.DisplayFor(modelItem => item.Status)
                     </td>
                     <td>
-                        <a asp-action="Edit" asp-route-id="@item.SliderId">Edit</a> |
+                        <a asp-action="Delete" asp-route-id="@item.SliderId">Delete</a> |
                         <a asp-action="Details" asp-route-id="@item.SliderId">Details</a>
                     </td>
                 </tr>

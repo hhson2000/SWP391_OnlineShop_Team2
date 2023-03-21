@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
 using NitStore.Data;
 using NitStore.Models.Domain;
 
@@ -22,7 +23,11 @@ namespace NitStore.Controllers
         // GET: Categories
         public async Task<IActionResult> Index()
         {
-              return View(await dbContext.categories.ToListAsync());
+            if (!(TempData["shortMessage"] ?? "").ToString().IsNullOrEmpty())
+            {
+                ViewBag.Message = TempData["shortMessage"].ToString();
+            }
+            return View(await dbContext.categories.ToListAsync());
         }
 
         public async Task<IActionResult> ViewAllCategory()
@@ -185,9 +190,15 @@ namespace NitStore.Controllers
             var category = await dbContext.categories.FindAsync(id);
             if (category != null)
             {
+                Product p = dbContext.products.Where(p => p.Category == id).FirstOrDefault();
+                if (p != null)
+                {
+                    TempData["shortMessage"] = "Cannot Delete Category because still in use";
+                    return RedirectToAction("Index");
+                }
                 dbContext.categories.Remove(category);
             }
-            
+            TempData["shortMessage"] = "Delete Category Success";
             await dbContext.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }

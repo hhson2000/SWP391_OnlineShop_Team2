@@ -212,6 +212,10 @@ namespace NitStore.Controllers
             {
                 userId = Convert.ToInt32(HttpContext.Session.GetString("UserId"));
             }
+            else
+            {
+                return RedirectToAction("Login", "Authen");
+            }
             //get customer order
             Order order = dbContext.orders.Where(x => x.CustomerId == userId && x.Status == 0).FirstOrDefault();
             List<OrderDetail> detail = new List<OrderDetail>();
@@ -260,7 +264,11 @@ namespace NitStore.Controllers
             {
                 userId = Convert.ToInt32(HttpContext.Session.GetString("UserId"));
             }
-            
+            else
+            {
+                return RedirectToAction("Login", "Authen");
+            }
+
             List<OrderDetail> orderDetails = new List<OrderDetail>();
             List<Order> orders = dbContext.orders.ToList();
             //recived

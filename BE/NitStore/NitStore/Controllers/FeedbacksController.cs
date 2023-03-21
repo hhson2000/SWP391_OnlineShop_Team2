@@ -57,6 +57,10 @@ namespace NitStore.Controllers
             {
                 userId = Convert.ToInt32(HttpContext.Session.GetString("UserId"));
             }
+            else
+            {
+                return RedirectToAction("Login", "Authen");
+            }
             Order order = dbContext.orders.Where(x => x.Id == orderId).FirstOrDefault();
             List<OrderDetail > orderDetail = new List<OrderDetail>();
             List<FeedbackOrderDTO> feedbacks = new List<FeedbackOrderDTO>();
@@ -101,7 +105,7 @@ namespace NitStore.Controllers
                 dbContext.feedbacks.Add(f);
                 dbContext.SaveChanges();
             }
-            TempData["shortMessage"] = "Change Order Status Success";
+            TempData["shortMessage"] = "Feedback Success";
             return RedirectToAction("OrderHistory", "Orders");
         }
         // POST: Feedbacks/Create
