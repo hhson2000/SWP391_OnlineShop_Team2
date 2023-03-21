@@ -21,7 +21,7 @@ namespace NitStore.Controllers
 
             //check out form
             List<Category> categoryList = dbContext.categories.ToList();
-            ViewBag.CategoryList = categoryList;
+            ViewBag.CategoryListVNPAY = categoryList;
             string customerName = "";
             decimal totalMoney = 0;
             Order order = dbContext.orders.Where(x => x.Id == orderId).FirstOrDefault();
