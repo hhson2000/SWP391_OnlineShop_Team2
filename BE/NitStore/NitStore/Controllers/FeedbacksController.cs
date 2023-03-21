@@ -95,7 +95,8 @@ namespace NitStore.Controllers
                     CustomerId = dto.CustomerId,
                     Description = dto.feedback,
                     UpdatedDate = DateTime.Now,
-                    OrderId = dto.OrderID
+                    OrderId = dto.OrderID,
+                    Rate = dto.Rate
                 };
                 dbContext.feedbacks.Add(f);
                 dbContext.SaveChanges();

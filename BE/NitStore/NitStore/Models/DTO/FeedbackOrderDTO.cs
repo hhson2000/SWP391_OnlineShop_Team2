@@ -3,6 +3,8 @@
     public class FeedbackOrderDTO
     {
         public int OrderID { get; set; }
+
+        public int Rate { get; set; }
         public int ProductId { get; set; }
 
         public int CustomerId { get; set; }

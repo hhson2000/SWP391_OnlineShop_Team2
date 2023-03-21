@@ -26,5 +26,7 @@ namespace NitStore.Models.Domain
         public DateTime UpdatedDate { get; set; }
 
         public int OrderId { get; set; }
+
+        public int Rate { get; set; }
     }
 }

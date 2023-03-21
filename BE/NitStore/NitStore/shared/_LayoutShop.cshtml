@@ -147,7 +147,9 @@
              class="carousel slide"
              data-bs-touch="false">
             <div class="carousel-inner">
-                @foreach (var item in ViewBag.ListSliders)
+                @if(ViewBag.Sliders != null)
+                {
+                    @foreach (var item in ViewBag.ListSliders)
                 {
                     <div class="carousel-item active">
                         <img src="data:image;base64,@System.Convert.ToBase64String(item.ImageData)"
@@ -167,6 +169,8 @@
                         </div>
                     </div>
                 }
+                }
+                
             </div>
             <button class="carousel-control-prev"
                     type="button"

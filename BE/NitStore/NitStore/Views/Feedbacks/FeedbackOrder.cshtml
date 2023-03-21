@@ -24,6 +24,10 @@
                     <span class="input-group-text" id="inputGroup-sizing-default">@Model[i].ProductName</span>
                     @Html.EditorFor(model => model[i].feedback, new { htmlAttributes = new { @class = "form-control" } })
                 </div>
+                <div class="input-group mb-3">
+                    <span class="input-group-text" id="inputGroup-sizing-default">@Model[i].ProductName</span>
+                    @Html.EditorFor(model => model[i].Rate, new { htmlAttributes = new { @class = "form-control", min = 0, max = 5 } })
+                </div>
             }
             
 

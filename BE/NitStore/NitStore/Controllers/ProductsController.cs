@@ -227,7 +227,7 @@ namespace NitStore.Controllers
                 {
                     CustomerName = userDetail.Name,
                     feedback = feedbackss.Description,
-                    DateFeedback = feedbackss.UpdatedDate.ToString("dd/MM/yyyy")
+                    DateFeedback = feedbackss.UpdatedDate.ToString()
                 };
                 feedsOrderDTO.Add(dto);
             }
