@@ -18,7 +18,8 @@
         <div class="container-fluid">
           <span class="navbar-brand mb-0 h1">NIT Maketer</span>
           <nav class="nav">
-                    <a class="nav-link" href="@Url.Action("Index", "Orders")">Manage Order</a>
+                    <a class="nav-link" href="@Url.Action("Index", "Orders")">Manage Order</a> | 
+                    @Html.ActionLink("Logout", "Logout", "Authen", new {}, null)
           </nav>
         </div>
       </nav>

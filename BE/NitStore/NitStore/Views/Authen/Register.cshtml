@@ -37,12 +37,12 @@
                         </div>
                         <div class="form-group">
                             <label asp-for="Password" class="control-label"></label>
-                            @Html.EditorFor(model => model.Password, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.EditorFor(model => model.Password, new { htmlAttributes = new { @class = "form-control", type = "password" } })
                             @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
                         </div>
                         <div class="form-group">
                             <label asp-for="RePassword" class="control-label"></label>
-                            @Html.EditorFor(model => model.RePassword, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.EditorFor(model => model.RePassword, new { htmlAttributes = new { @class = "form-control", type = "password" } })
                             @Html.ValidationMessageFor(model => model.RePassword, "", new { @class = "text-danger" })
                         </div>
                         <div class="form-group">
@@ -57,7 +57,7 @@
                         </div>
                         <div class="form-group">
                             <label asp-for="Gender" class="control-label"></label>
-                            @Html.CheckBoxFor(model => model.Gender, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.CheckBoxFor(model => model.Gender, new { htmlAttributes = new { @class = "form-control" } })  Checked if male
                             @Html.ValidationMessageFor(model => model.Gender, "", new { @class = "text-danger" })
                         </div>
                         <div class="form-group">
@@ -70,39 +70,14 @@
                             @Html.EditorFor(model => model.Address, new { htmlAttributes = new { @class = "form-control" } })
                             @Html.ValidationMessageFor(model => model.Address, "", new { @class = "text-danger" })
                         </div>
+                        <br />
                         <div class="m-auto text-center form-group">
-                            <input type="submit" value="Register" class="btn btn-primary" />
+                            <input type="submit" value="Register" class="btn btn-danger" />
                         </div>
                     
                 }
-
-                @* <div class="input-group input-group-sm mb-3">
-                <span class="input-group-text bg-danger text-light"
-                id="inputGroup-sizing-sm">Username</span>
-                <input type="text"
-                class="form-control"
-                aria-label="Sizing example input"
-                aria-describedby="inputGroup-sizing-sm" />
-                </div>
-                <div class="input-group input-group-sm mb-3">
-                <span class="input-group-text bg-danger text-light"
-                id="inputGroup-sizing-sm">Password</span>
-                <input type="password"
-                class="form-control"
-                aria-label="Sizing example input"
-                aria-describedby="inputGroup-sizing-sm" />
-                </div>
-                <div class="input-group input-group-sm mb-3">
-                <span class="input-group-text bg-danger text-light"
-                id="inputGroup-sizing-sm">Re-enter your password</span>
-                <input type="password"
-                class="form-control"
-                aria-label="Sizing example input"
-                aria-describedby="inputGroup-sizing-sm" />
-                </div>**@
-                @*<div class="m-auto text-center">
-                <button type="button" class="btn btn-danger">Register</button>
-                </div>*@
+                <br />
+                @Html.ActionLink("Click here to Login", "Login", "Authen", new {}, null)
             </div>
         </div>
     </div>

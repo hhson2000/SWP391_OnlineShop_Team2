@@ -4,20 +4,18 @@
     ViewData["Title"] = "Index";
     Layout = "~/shared/_LayoutSaleManagers.cshtml";
 }
+<div class="container">
 
 <h1>Index</h1>
 
-<p>
+@*<p>
     <a asp-action="Create">Create New</a>
-</p>
+</p>*@
 <table class="table">
     <thead>
         <tr>
             <th>
                 @Html.DisplayNameFor(model => model.UserName)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Password)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Role)
@@ -38,9 +36,6 @@
                 @Html.DisplayFor(modelItem => item.UserName)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Password)
-            </td>
-            <td>
                 @Html.DisplayFor(modelItem => item.Role)
             </td>
             <td>
@@ -58,3 +53,4 @@
 }
     </tbody>
 </table>
+</div>

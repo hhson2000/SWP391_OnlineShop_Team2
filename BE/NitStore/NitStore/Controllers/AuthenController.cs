@@ -27,7 +27,7 @@ namespace NitStore.Controllers
             {
                 string username = loginUser.UserName;
                 string password = EncryptPassword(loginUser.Password);
-                var user = await dbContext.users.Where(u => u.UserName.Equals(username) && u.Password.Equals(password)).FirstAsync();
+                var user = await dbContext.users.Where(u => u.UserName.Equals(username) && u.Password.Equals(password)).FirstOrDefaultAsync();
                 if (user != null)
                 {
                     if (user.Status == 0)
@@ -53,8 +53,8 @@ namespace NitStore.Controllers
                                 action = "Campaigns";
                                 break;
                             case 4:
-                                method = "";
-                                action = "";
+                                method = "HomeSale";
+                                action = "Home";
                                 break;
                             case 5:
                                 method = "ListProduct";
@@ -68,11 +68,15 @@ namespace NitStore.Controllers
                                 break;
 
                         }
+                        HttpContext.Session.SetString("UserId", user.Id + "");
                         HttpContext.Session.SetInt32("LoginRole", user.Role);
                         HttpContext.Session.SetInt32("isLogin", 1);
                         return RedirectToAction(method, action, new { area = "" });
                     }
 
+                }else
+                {
+                    ViewBag.ErrorMessage = "Username or password invalid!";
                 }
             }
             else
@@ -99,49 +103,56 @@ namespace NitStore.Controllers
         [HttpPost]
         public async Task<IActionResult> Register(RegisterUserDTO user)
         {
-            if (user != null)
+            if(ModelState.IsValid)
             {
-                if (user.Password.Equals(user.RePassword))
+                if (user != null)
                 {
-                    User newUser = new User
+                    if (user.Password.Equals(user.RePassword))
                     {
-                        UserName = user.UserName,
-                        Email = user.Email,
-                        Password = EncryptPassword(user.Password),
-                        Role = 5,
-                        Status = 1
-                    };
-                    try
-                    {
-                        dbContext.users.Add(newUser);
-                        await dbContext.SaveChangesAsync();
-                        UserDetail userDetail = new UserDetail
+                        User newUser = new User
                         {
-                            Id = newUser.Id,
-                            Name = user.Name,
-                            Address = user.Address,
-                            PhoneNumber = user.PhoneNumber,
-                            Gender = user.Gender
+                            UserName = user.UserName,
+                            Email = user.Email,
+                            Password = EncryptPassword(user.Password),
+                            Role = 5,
+                            Status = 1
                         };
-                        dbContext.userDetail.Add(userDetail);
-                        await dbContext.SaveChangesAsync();
-                        return RedirectToAction("Login");
+                        try
+                        {
+                            dbContext.users.Add(newUser);
+                            await dbContext.SaveChangesAsync();
+                            UserDetail userDetail = new UserDetail
+                            {
+                                Id = newUser.Id,
+                                Name = user.Name,
+                                Address = user.Address,
+                                PhoneNumber = user.PhoneNumber,
+                                Gender = user.Gender
+                            };
+                            dbContext.userDetail.Add(userDetail);
+                            await dbContext.SaveChangesAsync();
+                            return RedirectToAction("Login");
+                        }
+                        catch (Exception ex)
+                        {
+                            throw ex;
+                            return View();
+                        }
                     }
-                    catch (Exception ex)
+                    else
                     {
-                        throw ex;
-                        return View();
+                        return View(user);
                     }
                 }
                 else
                 {
                     return View();
                 }
-            }
-            else
+            } else
             {
-                return View();
+                return View(user);
             }
+            
         }
 
         private string EncryptPassword(string password)
