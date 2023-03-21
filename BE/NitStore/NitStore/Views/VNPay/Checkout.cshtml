@@ -3,8 +3,8 @@
 }
 
 <div class="text-center">
-    <h1 class="display-4">Thanh toán VnPay tại <a href="https://code-mega.com">Code Mega</a></h1>
-    <p>Learn about <a href="https://code-mega.com">building Web apps with ASP.NET Core</a>.</p>
+    <h1 class="display-4">Thanh toán VnPay tại <a href="">NIT Shop</a></h1>
+    
 </div>
 
 <div class="table-responsive">
@@ -12,9 +12,14 @@
         <div class="form-group">
             <label for="ordertype">Loại hàng hóa </label>
             <select name="OrderType" id="ordertype" class="form-control">
-                <option value="electric">Đồ điện tử</option>
-                <option value="fashion">Thời trang</option>
-                <option value="other">Khác</option>
+                @if (ViewBag.CategoryList != null)
+                {
+                    @foreach(var item in ViewBag.CategoryList)
+                    {
+                        <option value="@item.Name">@item.Name</option>
+                    }
+                    
+                }
             </select>
         </div>
         <br/>
@@ -24,7 +29,7 @@
                    id="Name"
                    name="Name"
                    type="text"
-                   value="Code Mega">
+                   value="@ViewBag.CustomerName">
         </div>
         <br/>
         <div class="form-group">
@@ -33,7 +38,7 @@
                    id="Amount"
                    name="Amount"
                    type="text"
-                   value="20000000">
+                   value="@ViewBag.TotalMoney">
         </div>
         <br/>
         <div class="form-group">
@@ -42,7 +47,7 @@
                       cols="20" 
                       id="OrderDescription" 
                       name="OrderDescription" 
-                      rows="2">Thanh toán tại Code Mega</textarea>
+                      rows="2">Thanh toán đơn hàng (@ViewBag.OrderId) NitStore</textarea>
         </div>
         <br/>
         <button type="submit" class="btn btn-primary">Thanh toán (Checkout)</button>

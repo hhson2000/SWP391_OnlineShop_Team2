@@ -27,19 +27,19 @@ namespace NitStore.Controllers
         {
             HttpContext.Session.SetString("UserId", "15");
             //return RedirectToAction("HomeAdmin", "Admin", new { area = "" });
-            return RedirectToAction("LandingPage");
+            return RedirectToAction("ListProduct", "Products");
         }
 
-        [HttpGet]
-        public async Task<IActionResult> LandingPage()
-        {
-            List<Category> categoryList = dbContext.categories.ToList();
-            ViewBag.CategoryList = categoryList;
-            //List<Category> categories = new List<Category>();
-            //categories = dbContext.categories.ToList()/*.GetRange(0,5)*/;
-            //ViewBag.Categories = categories;
-            return View();
-        }
+        //[HttpGet]
+        //public async Task<IActionResult> LandingPage()
+        //{
+        //    List<Category> categoryList = dbContext.categories.ToList();
+        //    ViewBag.CategoryList = categoryList;
+        //    //List<Category> categories = new List<Category>();
+        //    //categories = dbContext.categories.ToList()/*.GetRange(0,5)*/;
+        //    //ViewBag.Categories = categories;
+        //    return View();
+        //}
 
         [HttpGet]
         public async Task<IActionResult> HomeMaketer()
@@ -91,7 +91,7 @@ namespace NitStore.Controllers
                         ProductCategory = category.Name,
                         ProductDescription = product.Description,
                         Quantity = item.Quantity,
-                        ProductPrice = product.Price,
+                        ProductPrice = product.Price * item.Quantity,
                         imageBit = image.ImageData
                     };
                     returnList.Add(dto);
@@ -137,6 +137,7 @@ namespace NitStore.Controllers
                             if (currentItem.Quantity < product.Quantity)
                             {
                                 currentItem.Quantity = currentItem.Quantity + 1;
+                                order.Total = order.Total + product.Price;
                             }
                         }
                         else
@@ -239,6 +240,7 @@ namespace NitStore.Controllers
                         if(orderDetail.Quantity > 1)
                         {
                             orderDetail.Quantity = orderDetail.Quantity - 1;
+                            order.Total = order.Total - product.Price;
                         }
                         else
                         {

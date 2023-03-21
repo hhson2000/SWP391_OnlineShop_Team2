@@ -224,7 +224,7 @@ namespace NitStore.Controllers
                 // process cart to order
                 if (dto.PayNow == true)
                 {
-                    //paypal
+                    return RedirectToAction("Checkout", "VNPay", new { orderId = order.Id });
                 }
                 else
                 {
@@ -234,7 +234,7 @@ namespace NitStore.Controllers
                     {
                         Product product = dbContext.products.Where(x => x.Id== item.ProductId).First();
                         product.Quantity = product.Quantity - item.Quantity;
-                        totalPrice = totalPrice + product.Price;
+                        totalPrice = totalPrice + (product.Price * item.Quantity);
                         dbContext.SaveChanges();
                     }
                     // put cart into order
@@ -242,7 +242,7 @@ namespace NitStore.Controllers
                     order.UpdatedDate= DateTime.Now;
                     order.Total = totalPrice;
                     dbContext.SaveChanges();
-                    return RedirectToAction("LandingPage","Home", new { area = "" });
+                    return RedirectToAction("ListProduct","Products", new { area = "" });
                 }
             }
             

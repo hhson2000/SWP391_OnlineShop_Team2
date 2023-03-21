@@ -57,8 +57,9 @@ namespace NitStore.Controllers
             }
             
             List<ProductShowDTO> productShowList = new List<ProductShowDTO>();
-            List<Category> categoryList = dbContext.categories.ToList();
-            
+
+            //Category
+            List<Category> categoryList = dbContext.categories.ToList(); 
             ViewBag.CategoryList = categoryList;
 
             foreach (Product item in productList)

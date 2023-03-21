@@ -53,12 +53,12 @@
         </nav>
         <div class="w-100 m-3 justify-content-center text-center">
             <a style="text-decoration: none; color: black; font-weight: bold"
-               href="@Url.Action("LandingPage","Home")">Home </a>/
-            <a style="text-decoration: none; color: black; font-weight: bold"
+               href="@Url.Action("ListProduct","Products")">Home </a>/
+            @*<a style="text-decoration: none; color: black; font-weight: bold"
                href="@Url.Action("ListProduct","Products")">Shop </a>/
             <a style="text-decoration: none; color: black; font-weight: bold"
-               href="#">Contact</a>
-            /
+               href="#">Contact</a>*@
+            
             <a style="text-decoration: none; color: black; font-weight: bold"
                href="@Url.Action("Cart","Home")">Cart</a>
         </div>
@@ -112,7 +112,7 @@
 
                                     </div>
                                     <div class="col-md-3 col-lg-2 col-xl-2 offset-lg-1">
-                                        <h5 class="mb-0">$@item.ProductPrice</h5>
+                                        <h5 class="mb-0">@item.ProductPrice ₫</h5>
                                     </div>
                                     <div class="col-md-1 col-lg-1 col-xl-1 text-end">
                                         <a href="@Url.Action("DeleteCartItem","Home", new { productId = @item.ProductId})" class="text-danger">
