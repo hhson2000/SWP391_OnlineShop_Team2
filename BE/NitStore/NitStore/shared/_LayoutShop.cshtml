@@ -2,6 +2,7 @@
 @inject IHttpContextAccessor HttpContextAccessor
 @{
     int isLogin = (HttpContextAccessor.HttpContext.Session.GetInt32("isLogin") ?? 0);
+    string userId = (HttpContextAccessor.HttpContext.Session.GetString("UserId") ?? "0");
     string userName = (HttpContextAccessor.HttpContext.Session.GetString("Username") ?? "Customer");
 }
 <!DOCTYPE html>
@@ -113,7 +114,7 @@
                     @if (isLogin == 1)
                     {
                         <div style="z-index:0" id="myDropdown" class="dropdown-content">
-                            <a href="@Url.Action("UserProfile","Users")">Profile</a>
+                            <a href="@Url.Action("EditUserDetail","Users",new{id = userId})">Profile</a>
                             <a href="@Url.Action("OrderHistory","Orders")">Order History</a>
                             <a href="@Url.Action("Logout","Authen")">Logout</a>
                         </div>
@@ -137,9 +138,9 @@
             <a style="text-decoration: none; color: black; font-weight: bold"
                href="@Url.Action("ListProduct","Products")">Home </a>
             @*<a style="text-decoration: none; color: black; font-weight: bold"
-               href="@Url.Action("ListProduct","Products")">Shop </a>/*@
+            href="@Url.Action("ListProduct","Products")">Shop </a>/*@
             @*<a style="text-decoration: none; color: black; font-weight: bold"
-               href="#">Contact</a>*@
+            href="#">Contact</a>*@
             /
             <a style="text-decoration: none; color: black; font-weight: bold"
                href="@Url.Action("Cart","Home")">Cart</a>
@@ -153,27 +154,27 @@
                 @if (ViewBag.ListSliders != null)
                 {
                     @foreach (var item in ViewBag.ListSliders)
-                {
-                    <div class="carousel-item active">
-                        <img src="data:image;base64,@System.Convert.ToBase64String(item.ImageData)"
+                    {
+                        <div class="carousel-item active">
+                            <img src="data:image;base64,@System.Convert.ToBase64String(item.ImageData)"
                          class="d-block w-100"
                          alt="..."
                          width="100%"
                          height="100%"
                          style="background-size: cover" />
-                        <div class="text-light border border-3"
+                            <div class="text-light border border-3"
                          style="
                 position: absolute;
                 top: 50%;
                 left: 50%;
                 transform: translate(-50%, -50%);
               ">
-                            <h2 class="p-3">@item.CampaignName</h2>
+                                <h2 class="p-3">@item.CampaignName</h2>
+                            </div>
                         </div>
-                    </div>
+                    }
                 }
-                }
-                
+
             </div>
             <button class="carousel-control-prev"
                     type="button"
@@ -190,11 +191,13 @@
                 <span class="visually-hidden">Next</span>
             </button>
         </div>
-        <div class="container-fluid w-100 m-3 justify-content-center text-center">
-            <div class="container mt-3">
-                <div class="row justify-content-center">
-                    <div class="col-md-6">
-                        <label for="category"
+        @if (ViewBag.CategoryList != null)
+        {
+            <div class="container-fluid w-100 m-3 justify-content-center text-center">
+                <div class="container mt-3">
+                    <div class="row justify-content-center">
+                        <div class="col-md-6">
+                            <label for="category"
                                class="form-label"
                                style="
                               text-decoration: none;
@@ -202,44 +205,47 @@
                               color: black;
                               font-weight: bold;
                             ">Category</label>
-                        <select class="form-select" id="category" aria-label="Category" onchange="location = this.value;">
-                            <option value="/Products/ListProduct"></option>
-                            <option value="/Products/ListProduct">All</option>
-                            @if (ViewBag.CategoryList != null)
-                            {
-                                @foreach (var item in ViewBag.CategoryList)
+                            <select class="form-select" id="category" aria-label="Category" onchange="location = this.value;">
+                                <option value="/Products/ListProduct"></option>
+                                <option value="/Products/ListProduct">All</option>
+                                @if (ViewBag.CategoryList != null)
                                 {
-                                    <option value="/Products/ListProduct?id=@item.Id">@item.Name</option>
+                                    @foreach (var item in ViewBag.CategoryList)
+                                    {
+                                        <option value="/Products/ListProduct?id=@item.Id">@item.Name</option>
+                                    }
                                 }
-                            }
-                            <option value="/Products/ListProduct"></option>
-                        </select>
+                                <option value="/Products/ListProduct"></option>
+                            </select>
+                        </div>
                     </div>
                 </div>
             </div>
+        }
+        
     </header>
     @RenderBody()
 
     @*<footer style="bottom: 0; width: 100%"
-            class="align-items-end bg-dark text-center text-white">
-        <div class="container p-4">
-            <section class="">
-                <form action="">
-                    <div class="row d-flex justify-content-center"></div>
-                </form>
-            </section>
-            <section class="mb-4">
-                <p>
-                    NIT Laptop đơn vị cung câp thiết bị laptop văn phòng hàng đầu khu
-                    vực Đông Nam Á
-                </p>
-            </section>
-        </div>
+    class="align-items-end bg-dark text-center text-white">
+    <div class="container p-4">
+    <section class="">
+    <form action="">
+    <div class="row d-flex justify-content-center"></div>
+    </form>
+    </section>
+    <section class="mb-4">
+    <p>
+    NIT Laptop đơn vị cung câp thiết bị laptop văn phòng hàng đầu khu
+    vực Đông Nam Á
+    </p>
+    </section>
+    </div>
 
-        <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2)">
-            © 2020 Copyright:
-            <a class="text-white" href="https://mdbootstrap.com/">MDBootstrap.com</a>
-        </div>
+    <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2)">
+    © 2020 Copyright:
+    <a class="text-white" href="https://mdbootstrap.com/">MDBootstrap.com</a>
+    </div>
     </footer>*@
 </body>
 </html>

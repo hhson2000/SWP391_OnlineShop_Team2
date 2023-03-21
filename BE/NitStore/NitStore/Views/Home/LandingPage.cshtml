@@ -1,4 +1,11 @@
-﻿@{
+﻿@using Microsoft.AspNetCore.Http
+@inject IHttpContextAccessor HttpContextAccessor
+@{
+    int isLogin = (HttpContextAccessor.HttpContext.Session.GetInt32("isLogin") ?? 0);
+    string userId = (HttpContextAccessor.HttpContext.Session.GetString("UserId") ?? "0");
+    string userName = (HttpContextAccessor.HttpContext.Session.GetString("Username") ?? "Customer");
+}
+@{
     Layout = null;
 }
 @addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
@@ -109,7 +116,7 @@
                              class="dropbtn" />
                     </span>
                     <div id="myDropdown" class="dropdown-content">
-                        <a href="@Url.Action("UserProfile","Users")">Profile</a>
+                        <a href="@Url.Action("EditUserDetail","Users",new{id = userId})">Profile</a>
                         <a href="@Url.Action("OrderHistory","Orders")">Order History</a>
                         <a href="@Url.Action("HomeMaketer","Home")">Marketer Dashboard</a>
                         <a href="@Url.Action("HomeSale","Home")">Sale Dashboard</a>

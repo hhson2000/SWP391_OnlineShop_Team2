@@ -2,6 +2,7 @@
 @inject IHttpContextAccessor HttpContextAccessor
 @{
     int isLogin = (HttpContextAccessor.HttpContext.Session.GetInt32("isLogin") ?? 0);
+    string userId = (HttpContextAccessor.HttpContext.Session.GetString("UserId") ?? "0");
     string userName = (HttpContextAccessor.HttpContext.Session.GetString("Username") ?? "Customer");
 }
 <!DOCTYPE html>
@@ -118,7 +119,7 @@
                     @if (isLogin == 1)
                     {
                         <div style="z-index:0" id="myDropdown" class="dropdown-content">
-                            <a href="@Url.Action("UserProfile","Users")">Profile</a>
+                            <a href="@Url.Action("EditUserDetail","Users",new{id = userId})">Profile</a>
                             <a href="@Url.Action("OrderHistory","Orders")">Order History</a>
                             <a href="@Url.Action("Logout","Authen")">Logout</a>
                         </div>
