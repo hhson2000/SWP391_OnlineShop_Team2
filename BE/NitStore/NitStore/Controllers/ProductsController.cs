@@ -218,8 +218,22 @@ namespace NitStore.Controllers
                 Image image = dbContext.images.Where(x => x.Id == item.ImageId).First();
                 imageList.Add(image);
             }
+            List<Feedback> feedbackList = dbContext.feedbacks.Where(x => x.ProductId == id).OrderByDescending(x => x.UpdatedDate).ToList();
+            List<FeedbackOrderDTO> feedsOrderDTO = new List<FeedbackOrderDTO>();
+            foreach(Feedback feedbackss in feedbackList)
+            {
+                UserDetail userDetail = dbContext.userDetail.Where(x => x.Id == feedbackss.CustomerId).FirstOrDefault();
+                FeedbackOrderDTO dto = new FeedbackOrderDTO()
+                {
+                    CustomerName = userDetail.Name,
+                    feedback = feedbackss.Description,
+                    DateFeedback = feedbackss.UpdatedDate.ToString("dd/MM/yyyy")
+                };
+                feedsOrderDTO.Add(dto);
+            }
             ViewBag.Product = product;
             ViewBag.Images = imageList;
+            ViewBag.Feedbacks = feedsOrderDTO;
             return View();
         }
 

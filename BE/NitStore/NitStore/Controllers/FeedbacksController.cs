@@ -63,18 +63,46 @@ namespace NitStore.Controllers
             if (order != null)
             {
                 orderDetail = dbContext.ordersDetail.Where(x => x.OrderId == orderId).ToList();
-               
-                //foreach (OrderDetail item in orderDetail)
-                //{
-                //    ProductImage productImage = dbContext.productsImage.Where(x => x.ProductId == item.ProductId).First();
-                //    Image image = dbContext.images.Where(x => x.Id == item.ProductId).First();
-                //    FeedbackOrderDTO dto = new FeedbackOrderDTO();
-                //    dto.imageBit = 
-                //}
-            }
-            return View();
-        }
 
+                foreach (OrderDetail item in orderDetail)
+                {
+                    ProductImage productImage = dbContext.productsImage.Where(x => x.ProductId == item.ProductId).First();
+                    Product p = dbContext.products.Where(x => x.Id == item.ProductId).FirstOrDefault();
+                    Image image = dbContext.images.Where(x => x.Id == productImage.ImageId).First();
+                    FeedbackOrderDTO dto = new FeedbackOrderDTO()
+                    {
+                        imageBit = image.ImageData,
+                        ProductId = item.ProductId,
+                        ProductName = p.Name,
+                        CustomerId = userId,
+                        feedback = "",
+                        OrderID = order.Id
+                    };
+                    feedbacks.Add(dto);
+                }
+            }
+            ViewBag.Feedbacks = feedbacks;
+            return View(feedbacks);
+        }
+        [HttpPost]
+        public IActionResult FeedbackOrder(List<FeedbackOrderDTO> feedbacks)
+        {
+            foreach(FeedbackOrderDTO dto in feedbacks)
+            {
+                Feedback f = new Feedback()
+                {
+                    ProductId = dto.ProductId,
+                    CustomerId = dto.CustomerId,
+                    Description = dto.feedback,
+                    UpdatedDate = DateTime.Now,
+                    OrderId = dto.OrderID
+                };
+                dbContext.feedbacks.Add(f);
+                dbContext.SaveChanges();
+            }
+            TempData["shortMessage"] = "Change Order Status Success";
+            return RedirectToAction("OrderHistory", "Orders");
+        }
         // POST: Feedbacks/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.

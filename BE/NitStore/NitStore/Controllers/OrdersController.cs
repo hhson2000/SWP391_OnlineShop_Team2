@@ -251,6 +251,10 @@ namespace NitStore.Controllers
 
         public async Task<IActionResult> OrderHistory()
         {
+            if (!(TempData["shortMessage"] ?? "").ToString().IsNullOrEmpty())
+            {
+                ViewBag.Message = TempData["shortMessage"].ToString();
+            }
             int userId = -1;
             if (!string.IsNullOrEmpty(HttpContext.Session.GetString("UserId")))
             {
