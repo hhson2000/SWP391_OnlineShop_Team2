@@ -25,7 +25,7 @@ namespace NitStore.Controllers
             this.dbContext = dbContext;
         }
 
-        public async Task<IActionResult> ListProduct()
+        public async Task<IActionResult> ListProduct(int? id)
         {
             //Slider
             var sliders = dbContext.slider.Where(s => s.Status == true).ToList();
@@ -46,7 +46,16 @@ namespace NitStore.Controllers
             }
             ViewBag.ListSliders = lsSliderShow;
             //End of Slider
-            List<Product> productList = dbContext.products.ToList();
+            List<Product> productList = new List<Product>();
+            if (id != null)
+            {
+                productList = dbContext.products.Where(x => x.Category == id).ToList();
+            }
+            else
+            {
+                productList = dbContext.products.ToList();
+            }
+            
             List<ProductShowDTO> productShowList = new List<ProductShowDTO>();
             List<Category> categoryList = dbContext.categories.ToList();
             

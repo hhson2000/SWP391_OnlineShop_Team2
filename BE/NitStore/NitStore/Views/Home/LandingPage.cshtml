@@ -1,6 +1,7 @@
 ﻿@{
     Layout = null;
 }
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -34,13 +35,11 @@
     </script>
     <style>
         .dropbtn {
-            
             border: none;
             cursor: pointer;
         }
 
             .dropbtn:hover, .dropbtn:focus {
-                
             }
 
         .dropdown {
@@ -152,16 +151,17 @@
                               color: black;
                               font-weight: bold;
                             ">Category</label>
-                        <select class="form-select" id="category" aria-label="Category">
-                            <option selected>All</option>
+                        <select class="form-select" id="category" aria-label="Category" onchange="location = this.value;">
+                            <option value="/Products/ListProduct" selected>All</option>
                             @if (ViewBag.CategoryList != null)
                             {
                                 @foreach (var item in ViewBag.CategoryList)
                                 {
-                                    <option value="@item.Id">@item.Name</option>
+                                    <option value="/Products/ListProduct?id=@item.Id">@item.Name</option>
                                 }
                             }
                         </select>
+
                     </div>
                 </div>
             </div>
@@ -241,40 +241,40 @@
             </div>
             <!-- Background image -->
             <!--Category List-->
-            <div class="container-fluid w-100 m-3 justify-content-center text-center">
-                <ul class="d-flex justify-content-center" style="list-style-type: none">
-                    <li class="px-3">
-                        <a style="text-decoration: none; color: black; font-weight: bold"
-                           href="#">
-                            Macbook
-                        </a>
-                    </li>
-                    <li class="px-3">
-                        <a style="text-decoration: none; color: black; font-weight: bold"
-                           href="#">
-                            Gaming
-                        </a>
-                    </li>
-                    <li class="px-3">
-                        <a style="text-decoration: none; color: black; font-weight: bold"
-                           href="#">
-                            Workstation
-                        </a>
-                    </li>
-                    <li class="px-3">
-                        <a style="text-decoration: none; color: black; font-weight: bold"
-                           href="#">
-                            Graphic Design
-                        </a>
-                    </li>
-                    <li class="px-3">
-                        <a style="text-decoration: none; color: black; font-weight: bold"
-                           href="#">
-                            Secound-hand
-                        </a>
-                    </li>
-                </ul>
-            </div>
+            @*<div class="container-fluid w-100 m-3 justify-content-center text-center">
+            <ul class="d-flex justify-content-center" style="list-style-type: none">
+            <li class="px-3">
+            <a style="text-decoration: none; color: black; font-weight: bold"
+            href="#">
+            Macbook
+            </a>
+            </li>
+            <li class="px-3">
+            <a style="text-decoration: none; color: black; font-weight: bold"
+            href="#">
+            Gaming
+            </a>
+            </li>
+            <li class="px-3">
+            <a style="text-decoration: none; color: black; font-weight: bold"
+            href="#">
+            Workstation
+            </a>
+            </li>
+            <li class="px-3">
+            <a style="text-decoration: none; color: black; font-weight: bold"
+            href="#">
+            Graphic Design
+            </a>
+            </li>
+            <li class="px-3">
+            <a style="text-decoration: none; color: black; font-weight: bold"
+            href="#">
+            Secound-hand
+            </a>
+            </li>
+            </ul>
+            </div>*@
     </header>
     <!--Feature-->
     <div class="container">

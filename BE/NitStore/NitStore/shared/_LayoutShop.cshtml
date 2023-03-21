@@ -224,13 +224,13 @@
                               color: black;
                               font-weight: bold;
                             ">Category</label>
-                        <select class="form-select" id="category" aria-label="Category">
-                            <option selected>All</option>
+                        <select class="form-select" id="category" aria-label="Category" onchange="location = this.value;">
+                            <option value="/Products/ListProduct" selected>All</option>
                             @if (ViewBag.CategoryList != null)
                             {
                                 @foreach (var item in ViewBag.CategoryList)
                                 {
-                                    <option value="@item.Id">@item.Name</option>
+                                    <option value="/Products/ListProduct?id=@item.Id">@item.Name</option>
                                 }
                             }
                         </select>
