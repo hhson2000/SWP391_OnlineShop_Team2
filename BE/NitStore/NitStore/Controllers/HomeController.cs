@@ -157,7 +157,7 @@ namespace NitStore.Controllers
                                 ProductId = product.Id,
                                 Quantity = 1
                             };
-
+                            order.Total+= product.Price;
                             dbContext.ordersDetail.Add(orderDetail);
 
                         }
@@ -172,7 +172,7 @@ namespace NitStore.Controllers
                             ProductId = product.Id,
                             Quantity = 1
                         };
-
+                        order.Total += product.Price;
                         dbContext.ordersDetail.Add(orderDetail);
                         dbContext.SaveChanges();
                     }
@@ -253,6 +253,7 @@ namespace NitStore.Controllers
                         else
                         {
                             dbContext.ordersDetail.Remove(orderDetail);
+                            order.Total = order.Total - product.Price;
                             dbContext.SaveChanges();
                             List<OrderDetail> otherOrder = dbContext.ordersDetail.Where(x => x.OrderId == order.Id).ToList();
                             if(otherOrder.Count <= 0)
@@ -307,6 +308,12 @@ namespace NitStore.Controllers
             OrderDetail orderDetail = dbContext.ordersDetail.Where(x => x.OrderId == order.Id && x.ProductId == productId).FirstOrDefault();
             dbContext.ordersDetail.Remove(orderDetail);
             dbContext.SaveChanges();
+            List<OrderDetail> ordersDetail = dbContext.ordersDetail.Where(x => x.OrderId == orderDetail.OrderId).ToList();
+            if(ordersDetail.Count <= 0)
+            {
+                dbContext.orders.Remove(order);
+                dbContext.SaveChanges();
+            }
             TempData["shortMessage"] = "Delete Cart Item Success";
             return RedirectToAction("Cart");
         }

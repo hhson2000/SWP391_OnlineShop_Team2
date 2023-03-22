@@ -282,7 +282,7 @@ namespace NitStore.Controllers
                 foreach(OrderDetail itemDetails in orderDetails)
                 {
                     Product p = dbContext.products.Where(x => x.Id == itemDetails.ProductId).FirstOrDefault();
-                    totalMoney = totalMoney + p.Price;
+                    totalMoney = totalMoney + (p.Price * itemDetails.Quantity);
                 }
                 string orderStatus = "";
                 if(item.Status == 1)
